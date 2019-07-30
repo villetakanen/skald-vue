@@ -1,28 +1,43 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+    >
+    </v-navigation-drawer>
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title class="headline text-uppercase">
+        <span>Skald</span>
+        <span> - </span>
+        <span class="font-weight-light">A wiki for RPG materials</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn
+        text
+        href="http://github.com/vitku/adaptivestoryengine"
+        target="_blank"
+      >
+        <span class="mr-2">Latest Release</span>
+      </v-btn>
+    </v-app-bar>
+
+    <v-content>
+      <HelloWorld/>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld'
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+  },
+  data: () => ({
+     drawer: true,
+  }),
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
