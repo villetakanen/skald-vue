@@ -10,7 +10,7 @@
       <v-toolbar-title class="headline text-uppercase">
         <span>Skald</span>
         <span> - </span>
-        <span class="font-weight-light">A wiki for RPG materials</span>
+        <span class="font-weight-light">{{$t("wikititle")}}</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
@@ -18,7 +18,7 @@
         href="http://github.com/vitku/adaptivestoryengine"
         target="_blank"
       >
-        <span class="mr-2">Latest Release</span>
+        <span class="mr-2">{{$t("releaseInfo")}}</span>
       </v-btn>
     </v-app-bar>
 
