@@ -8,7 +8,8 @@ export default {
     markdown () {
       var mdt = this.content
       if (Object.prototype.hasOwnProperty.call(mdt, 'markdown')) {
-        var md = window.markdownit()
+        const MarkdownIt = require('markdown-it')
+        var md = new MarkdownIt()
         const r = md.render(mdt.markdown)
 
         // console.log(r)
