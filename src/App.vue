@@ -23,21 +23,29 @@
     </v-app-bar>
 
     <v-content>
-      <HelloWorld/>
+      <v-container
+        fluid
+        fill-height
+      >
+        <v-layout
+        >
+          <Markdown/>
+        </v-layout>
+      </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import Markdown from './components/Markdown'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    Markdown
   },
   data: () => ({
-     drawer: true,
-  }),
+    drawer: true
+  })
 }
 </script>
