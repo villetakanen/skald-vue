@@ -3,9 +3,10 @@
 </template>
 <script>
 export default {
+  props: ['content'],
   computed: {
     markdown () {
-      var mdt = { markdown: '# Markdown! \n\n and some text!\n' }
+      var mdt = this.content
       if (Object.prototype.hasOwnProperty.call(mdt, 'markdown')) {
         var md = window.markdownit()
         const r = md.render(mdt.markdown)

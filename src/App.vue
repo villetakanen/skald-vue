@@ -23,26 +23,18 @@
     </v-app-bar>
 
     <v-content>
-      <v-container
-        fluid
-        fill-height
-      >
-        <v-layout
-        >
-          <Markdown/>
-        </v-layout>
-      </v-container>
+      <Reader/>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Markdown from './components/Markdown'
+import Reader from './views/Reader.vue'
 
 export default {
   name: 'App',
   components: {
-    Markdown
+    Reader
   },
   data: () => ({
     drawer: true
