@@ -6,7 +6,7 @@ describe('Page content rending component', () => {
   it('creates html from markdown', () => {
     const wrapper = shallowMount(Markdown, {
       propsData: {
-        content: { markdown: '# A heading!' }
+        content: { Content: '# A heading!' }
       }
     })
     expect(wrapper.vm.markdown).to.equal('<h1>A heading!</h1>\n')

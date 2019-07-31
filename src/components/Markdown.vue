@@ -7,10 +7,10 @@ export default {
   computed: {
     markdown () {
       var mdt = this.content
-      if (Object.prototype.hasOwnProperty.call(mdt, 'markdown')) {
+      if (mdt != null && Object.prototype.hasOwnProperty.call(mdt, 'Content')) {
         const MarkdownIt = require('markdown-it')
         var md = new MarkdownIt()
-        const r = md.render(mdt.markdown)
+        const r = md.render(mdt.Content)
 
         // console.log(r)
         return r
