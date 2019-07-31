@@ -4,7 +4,7 @@
       v-model="drawer"
       app
     >
-       <v-list dense>
+       <v-list>
         <v-list-item to="/">
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
@@ -22,7 +22,23 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
+        <v-spacer></v-spacer>
+
+        <v-divider></v-divider>
+
+        <v-subheader>Meta</v-subheader>
+
+        <v-list-item href="https://github.com/vitku/skald-vue">
+          <v-list-item-action>
+            <v-icon>mdi-language-javascript</v-icon>
+          </v-list-item-action>
+          <v-list-item-title>
+            {{$t("releaseInfo")}}
+          </v-list-item-title>
+        </v-list-item>
        </v-list>
+
     </v-navigation-drawer>
     <v-app-bar app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -31,14 +47,6 @@
         <span> - </span>
         <span class="font-weight-light">{{$t("wikititle")}}</span>
       </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        text
-        href="http://github.com/vitku/adaptivestoryengine"
-        target="_blank"
-      >
-        <span class="mr-2">{{$t("releaseInfo")}}</span>
-      </v-btn>
     </v-app-bar>
 
     <v-content>
@@ -57,16 +65,16 @@ export default {
   },
   computed: {
     spacename () {
-      // return this.$store.state.space
-      return 'Skald'
+      return this.$store.state.space
+      // return 'Skald'
     },
     spacelink () {
-      // return '/page/' + this.$store.state.space + '.' + this.$store.state.space
-      return '/page/skald.welcome'
+      return '/page/' + this.$store.state.space + '.' + this.$store.state.space
+      // return '/page/skald.welcome'
     }
   },
   data: () => ({
-    drawer: true
+    drawer: false
   })
 }
 </script>

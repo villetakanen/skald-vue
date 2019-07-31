@@ -7,7 +7,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    { path: '/', component: Reader },
+    { path: '/', component: Reader, props: { name: 'skald.welcome' } },
     { path: '/page/:name', component: Reader, props: true },
     { path: '/edit/:name', component: Editor, props: true }
   ]
