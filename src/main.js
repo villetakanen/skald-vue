@@ -3,6 +3,7 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import firestore from './firestore.js'
+import store from './store'
 
 Vue.config.productionTip = false
 
@@ -10,6 +11,7 @@ new Vue({
   vuetify,
   i18n,
   firestore,
+
   created: function () {
     // Firebase APP init
     var config = {
@@ -23,5 +25,7 @@ new Vue({
     }
     firestore.init(config)
   },
+
+  store,
   render: h => h(App)
 }).$mount('#app')
