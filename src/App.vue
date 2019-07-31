@@ -3,6 +3,7 @@
     <v-navigation-drawer
       v-model="drawer"
       app
+      :clipped="$vuetify.breakpoint.lgAndUp"
     >
        <v-list>
         <v-list-item to="/">
@@ -40,13 +41,20 @@
        </v-list>
 
     </v-navigation-drawer>
-    <v-app-bar app>
+    <v-app-bar
+      app
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+      >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="headline text-uppercase">
         <span>Skald</span>
         <span> - </span>
         <span class="font-weight-light">{{$t("wikititle")}}</span>
       </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>mdi-login</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-content>
