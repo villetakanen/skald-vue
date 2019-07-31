@@ -7,6 +7,17 @@
         >
           <Markdown v-bind:content="page"/>
         </v-layout>
+        <v-btn
+      bottom
+      color="blue"
+      dark
+      fab
+      fixed
+      right
+      v-bind:to="'../edit/'+name"
+    >
+      <v-icon>mdi-code-array</v-icon>
+    </v-btn>
       </v-container>
 </template>
 <script>
@@ -23,7 +34,7 @@ export default {
   methods: {
     updatePage (name) {
       name = name || 'index'
-      console.log('using: ' + this.name)
+      // console.log('using: ' + this.name)
       this.$store.dispatch('getPage', name)
     }
   },
