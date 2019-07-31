@@ -62,7 +62,7 @@ export default {
     },
     spacelink () {
       // return '/page/' + this.$store.state.space + '.' + this.$store.state.space
-      return '/page/skald.skald'
+      return '/page/skald.welcome'
     }
   },
   data: () => ({

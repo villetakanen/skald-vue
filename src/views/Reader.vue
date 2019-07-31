@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     updatePage (name) {
-      name = name || 'index'
+      name = name || 'skald.welcome'
       // console.log('using: ' + this.name)
       this.$store.dispatch('getPage', name)
     }
