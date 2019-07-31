@@ -5,7 +5,7 @@
       >
         <v-layout
         >
-          <Markdown v-bind:content="firestore_content"/>
+          <Markdown v-bind:content="page"/>
         </v-layout>
       </v-container>
 </template>
@@ -16,14 +16,14 @@ import Markdown from '../components/Markdown'
 
 export default {
   data: () => ({
-    content: { markdown: '# A heading!\n\nAnd text!\n' },
+    content: { Content: '# A heading! \n\n And text!\n' },
     firestore_content: { Content: '- waiting for firestore to respond -' },
     name: 'index'
   }),
-  /* created () {
-    this.firestore_update()
+  created () {
+    this.$store.dispatch('getPage', 'index')
   },
-  methods: {
+  /* methods: {
     firestore_update () {
       console.log('before: ', this.firestore_content)
 
@@ -51,6 +51,11 @@ export default {
       console.log('inbetween: ', d)
     }
 }, */
+  computed: {
+    page () {
+      return this.$store.state.page || '- page not initiated -'
+    }
+  },
   components: {
     Markdown
   }

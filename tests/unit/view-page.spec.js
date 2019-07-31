@@ -18,6 +18,6 @@ describe('Page content rending component', () => {
         content: { something: 'else' }
       }
     })
-    expect(wrapper.vm.markdown).to.equal('<p>- empty -</p>')
+    expect(wrapper.vm.markdown).to.equal('<p>- empty -</p>\n')
   })
 })

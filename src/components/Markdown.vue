@@ -6,16 +6,16 @@ export default {
   props: ['content'],
   computed: {
     markdown () {
-      var mdt = this.content
-      if (mdt != null && Object.prototype.hasOwnProperty.call(mdt, 'Content')) {
-        const MarkdownIt = require('markdown-it')
-        var md = new MarkdownIt()
-        const r = md.render(mdt.Content)
+      var mdt = this.content.Content || '\\- empty -'
 
-        // console.log(r)
-        return r
-      }
-      return '<p>- empty -</p>'
+      mdt = mdt.split('\\n').join('\n')
+
+      const MarkdownIt = require('markdown-it')
+      var md = new MarkdownIt()
+      console.log('index:' + mdt.indexOf('\\'))
+      const r = md.render(mdt)
+
+      return r
     }
   }
 }
