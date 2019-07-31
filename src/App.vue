@@ -13,6 +13,15 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item :to="spacelink">
+          <v-list-item-action>
+            <v-icon>mdi-newspaper</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>{{spacename}}
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
        </v-list>
     </v-navigation-drawer>
     <v-app-bar app>
@@ -45,6 +54,16 @@ export default {
   name: 'App',
   components: {
     // Reader
+  },
+  computed: {
+    spacename () {
+      // return this.$store.state.space
+      return 'Skald'
+    },
+    spacelink () {
+      // return '/page/' + this.$store.state.space + '.' + this.$store.state.space
+      return '/page/skald.skald'
+    }
   },
   data: () => ({
     drawer: true

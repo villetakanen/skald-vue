@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    page: { Content: 'aaa' }
+    page: { Content: 'aaa' },
+    space: null
   },
   mutations: {
     updatePage (state, n) {
@@ -16,11 +17,18 @@ export default new Vuex.Store({
     },
     setContent (state, n) {
       Vue.set(state.page, 'Content', n)
+    },
+    setSpace (state, s) {
+      state.space = s
     }
   },
   actions: {
     getPage (context, name) {
       name = name || 'index'
+
+      if (name.includes('.')) {
+        context.commit('setSpace', name.substring(0, name.indexOf('.')))
+      }
       // console.log('getPage (' + name + ')')
       var db = firebase.firestore()
       // var user = firebase.auth().currentUser
