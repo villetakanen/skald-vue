@@ -16,7 +16,7 @@ export default {
           if (line.startsWith('wiki:')) {
             const link = line.substring(5)
             const linktext = link.split('.').join('/')
-            return '[' + linktext + '](./pages/' + link + ')'
+            return '[' + linktext + '](/#/page/' + link + ')'
           }
           return line
         }

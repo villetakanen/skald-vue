@@ -4,6 +4,16 @@
       v-model="drawer"
       app
     >
+       <v-list dense>
+        <v-list-item to="/">
+          <v-list-item-action>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+       </v-list>
     </v-navigation-drawer>
     <v-app-bar app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -23,18 +33,18 @@
     </v-app-bar>
 
     <v-content>
-      <Reader/>
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Reader from './views/Reader.vue'
+// import Reader from './views/Reader.vue'
 
 export default {
   name: 'App',
   components: {
-    Reader
+    // Reader
   },
   data: () => ({
     drawer: true

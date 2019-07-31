@@ -4,6 +4,7 @@ import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import firestore from './firestore.js'
 import store from './store'
+import router from './router'
 
 Vue.config.productionTip = false
 
@@ -27,5 +28,6 @@ new Vue({
   },
 
   store,
+  router,
   render: h => h(App)
 }).$mount('#app')

@@ -12,9 +12,6 @@ export default new Vuex.Store({
     updatePage (state, n) {
       if (n && n.Content) {
         Vue.set(state, 'page', n)
-        // const test = JSON.stringify(state.books)
-        // console.log(test)
-        console.log('content is:' + n.Content)
       }
     }
 
@@ -22,11 +19,16 @@ export default new Vuex.Store({
   actions: {
     getPage (context, name) {
       name = name || 'index'
+      console.log('getPage (' + name + ')')
       var db = firebase.firestore()
       // var user = firebase.auth().currentUser
       db.collection('pages').doc(name).get().then((doc) => {
-        console.log(doc.data())
-        context.commit('updatePage', doc.data())
+        if (doc.exists) {
+          console.log('doc data:' + doc.data())
+          context.commit('updatePage', doc.data())
+        } else {
+          context.commit('updatePage', { Content: 'No wikipage with this name!' })
+        }
       })
     }
   }
