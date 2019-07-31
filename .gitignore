@@ -23,3 +23,10 @@ yarn-error.log*
 *.sln
 *.sw?
 *.code-workspace
+
+# Firebase setup for production
+firebase.json
+firestore.indexes.json
+firestore.rules
+.firebaserc
+hosting.*
