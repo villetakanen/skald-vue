@@ -52,32 +52,10 @@
         <span class="font-weight-light">{{$t("wikititle")}}</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="dialog = !dialog">
-        <v-icon>mdi-login</v-icon>
-      </v-btn>
-    </v-app-bar>
 
-     <v-dialog
-      v-model="dialog"
-      max-width="800"
-     >
-     <v-card color="pink darken-1" dark>
-      <v-card-title class="pink darken-3">Login</v-card-title>
-      <v-card-text>
-      <v-card-actions>
-              <v-btn>
-                  <v-icon>mdi-google</v-icon>
-              </v-btn>
-              <v-btn>
-                  <v-icon>mdi-facebook</v-icon>
-              </v-btn>
-              <v-btn>
-                  <v-icon>mdi-github-circle</v-icon>
-              </v-btn>
-      </v-card-actions>
-      </v-card-text>
-     </v-card>
-     </v-dialog>
+      <LoginButton/>
+
+    </v-app-bar>
 
     <v-content>
       <router-view></router-view>
@@ -87,12 +65,12 @@
 </template>
 
 <script>
-// import Reader from './views/Reader.vue'
+import LoginButton from './components/LoginButton.vue'
 
 export default {
   name: 'App',
   components: {
-    // Reader
+    LoginButton
   },
   computed: {
     spacename () {

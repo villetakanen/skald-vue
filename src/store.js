@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     page: { Content: 'aaa' },
-    space: null
+    space: null,
+    user: null
   },
   mutations: {
     updatePage (state, n) {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     setSpace (state, s) {
       state.space = s
+    },
+    setActiveUser (state, u) {
+      Vue.set(state, 'user', u)
     }
   },
   actions: {

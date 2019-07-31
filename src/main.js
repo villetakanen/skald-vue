@@ -3,6 +3,7 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import firestore from './firestore.js'
+import firebase from 'firebase'
 import store from './store'
 import router from './router'
 
@@ -25,6 +26,15 @@ new Vue({
       appId: process.env.VUE_APP_FIREBASE_APP_ID
     }
     firestore.init(config)
+
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        store.commit('setActiveUser', user)
+      } else {
+        // No user is signed in.
+        store.commit('setActiveUser', null)
+      }
+    })
   },
 
   store,
