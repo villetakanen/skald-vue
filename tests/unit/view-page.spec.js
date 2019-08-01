@@ -20,4 +20,13 @@ describe('Page content rending component', () => {
     })
     expect(wrapper.vm.markdown).to.equal('<p>- empty -</p>\n')
   })
+
+  it('creates wikilinks out of [wiki:link]', () => {
+    const wrapper = shallowMount(Markdown, {
+      propsData: {
+        content: { Content: '[wiki:link]' }
+      }
+    })
+    expect(wrapper.vm.markdown).to.equal('<p><a href="/#/page/link">link</a></p>\n')
+  })
 })
