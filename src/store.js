@@ -13,6 +13,7 @@ export default new Vuex.Store({
   },
   mutations: {
     updatePage (state, n) {
+      console.log('update page', n)
       if (n && n.Content) {
         Vue.set(state, 'page', n)
       }
@@ -62,11 +63,24 @@ export default new Vuex.Store({
       })
     },
     savePage (context, name) {
-      // console.log('store.savePage(' + name + ', ' + context.state.page.Content + ')')
+      console.log('store.savePage(' + name + ', ' + context.state.page.Content + ')')
+      console.log('creator is' + context.state.user.uid + '/' + context.state.profile.nick)
 
       var db = firebase.firestore()
 
       var pagesRef = db.collection('pages')
+
+      if (context.state.page.creators == null) {
+        console.log('adding empty table to creators')
+        context.state.page.creators = []
+      }
+      if (context.state.page.creators.length === 0 ||
+        context.state.page.creators[context.state.page.creators.length - 1].uid !== context.state.user.uid) {
+        console.log('adding ' + context.state.profile.nick + ' to editor ' + context.state.page.creators)
+        context.state.page.creators.push({
+          nick: context.state.profile.nick,
+          uid: context.state.user.uid })
+      }
       pagesRef.doc(name).set(context.state.page)
     },
     getProfile (context, id) {

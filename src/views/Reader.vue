@@ -1,11 +1,17 @@
 <template>
     <v-container
-        fluid
-        fill-height
+        fluid grid-list-xs
       >
         <v-layout
         >
+          <v-flex xs12>
           <Markdown v-bind:content="page" class='md-rended'/>
+          </v-flex>
+        </v-layout>
+        <v-layout>
+          <v-flex xs12 class="pink lighten-5">
+          Last edit by: {{lasteditor}}, created by {{creator}}
+          </v-flex>
         </v-layout>
         <v-btn
       bottom
@@ -46,6 +52,16 @@ export default {
   computed: {
     page () {
       return this.$store.state.page || '- page not initiated -'
+    },
+    lasteditor () {
+      const t = this.$store.state.page.creators
+      if (t == null || t.length === 0) return 'none'
+      return t[t.length - 1].nick
+    },
+    creator () {
+      const t = this.$store.state.page.creators
+      if (t == null || t.length === 0) return 'none'
+      return t[0].nick
     }
   },
   components: {
