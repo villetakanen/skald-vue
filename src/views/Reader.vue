@@ -14,6 +14,7 @@
           </v-flex>
         </v-layout>
         <v-btn
+        v-if="displayname"
       bottom
       color="blue"
       dark
@@ -62,6 +63,12 @@ export default {
       const t = this.$store.state.page.creators
       if (t == null || t.length === 0) return 'none'
       return t[0].nick
+    },
+    displayname () {
+      if (typeof this.$store.state.user === 'undefined' || this.$store.state.user === null) {
+        return null
+      }
+      return this.$store.state.user.displayName
     }
   },
   components: {
