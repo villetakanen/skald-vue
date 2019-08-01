@@ -11,7 +11,7 @@
     <v-btn
       v-if="displayname"
       text
-      :to="'/settings/'+displayname" >
+      to="/settings/profile">
         {{displayname}}
       </v-btn>
       <v-dialog
@@ -44,7 +44,7 @@ export default {
   computed: {
     displayname () {
       // console.log(this.$store.state.user.name)
-      console.log('d:', this.$store.state.user)
+      // console.log('d:', this.$store.state.user)
       if (typeof this.$store.state.user === 'undefined' || this.$store.state.user === null) {
         console.log('is null')
         return null
@@ -62,6 +62,7 @@ export default {
       firebase.auth().signInWithPopup(provider).then((result) => {
         console.log('user is' + result.user.displayName)
         this.$store.commit('setActiveUser', result.user)
+        this.$store.dispatch('getProfile', result.user.uid)
         // this.$router.push('/')
       }).catch(function (error) {
         console.log(error.message)

@@ -30,6 +30,7 @@ new Vue({
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         store.commit('setActiveUser', user)
+        store.dispatch('getProfile', user.uid)
       } else {
         // No user is signed in.
         store.commit('setActiveUser', null)

@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     page: { Content: 'aaa' },
     space: null,
-    user: null
+    user: {},
+    profile: {}
   },
   mutations: {
     updatePage (state, n) {
@@ -19,11 +20,26 @@ export default new Vuex.Store({
     setContent (state, n) {
       Vue.set(state.page, 'Content', n)
     },
+    setNick (state, n) {
+      Vue.set(state.profile, 'nick', n)
+    },
     setSpace (state, s) {
       state.space = s
     },
+    setUserNick (state, u) {
+      Vue.set(state.profile, 'nick', u)
+      console.log('nickname set to ' + state.profile.nick)
+    },
     setActiveUser (state, u) {
+      console.log('setting active user to', u)
       Vue.set(state, 'user', u)
+      if (state.profile == null) {
+        Vue.set(state, 'profile', {})
+      }
+      if (state.profile.nick == null) {
+        Vue.set(state.profile, 'nick', u.displayName)
+        console.log('nickname defaulted to ' + state.profile.nick)
+      }
     }
   },
   actions: {
@@ -52,6 +68,29 @@ export default new Vuex.Store({
 
       var pagesRef = db.collection('pages')
       pagesRef.doc(name).set(context.state.page)
+    },
+    getProfile (context, id) {
+      if (id == null) return {}
+
+      console.log('store.getProfile (' + id + ')')
+      var db = firebase.firestore()
+      // var user = firebase.auth().currentUser
+      db.collection('profiles').doc(id).get().then((doc) => {
+        if (doc.exists) {
+          console.log('profile doc data:' + doc.data())
+          context.commit('setUserNick', doc.data().nick)
+        } else {
+          context.commit('setUserNick', null)
+        }
+      })
+    },
+    saveProfile (context, id) {
+      console.log('store.saveProfile(' + id + ', ' + context.state.profile.nick + ')')
+
+      var db = firebase.firestore()
+
+      var pagesRef = db.collection('profiles')
+      pagesRef.doc(id).set(context.state.profile)
     }
   }
 })
