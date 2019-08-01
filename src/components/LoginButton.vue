@@ -2,8 +2,9 @@
     <div>
       <v-btn
         v-if="!displayname"
-        color="secondary"
-        @click="dialog=!dialog">
+        text
+        @click="dialog=!dialog"
+        style="color:#1976d2;">
         <v-icon>mdi-login</v-icon>
         &nbsp;{{$t("login-button")}} {{displayname}}
       </v-btn>
