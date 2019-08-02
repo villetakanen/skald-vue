@@ -2,10 +2,9 @@
 <v-form  @submit.prevent="savePage">
     <v-container
         fluid
-        fill-height
       >
         <v-layout wrap justify-end>
-            <v-flex xs12 align-self-start>
+            <v-flex xs12 md6>
                 <v-textarea
                     solo
                     name="content-editor"
@@ -14,6 +13,15 @@
                     @input="updateContent"
                     ></v-textarea>
              </v-flex>
+             <v-flex xs12 md6>
+               <v-card>
+                 <v-card-text>
+               <Markdown :content="preview"/>
+                 </v-card-text>
+               </v-card>
+             </v-flex>
+        </v-layout>
+        <v-layout>
              <v-flex xs1 align-self-end>
                  <v-btn right color="primary" @click="savePage(name)">Save</v-btn>
              </v-flex>
@@ -23,6 +31,8 @@
 </template>
 
 <script>
+import Markdown from '../components/Markdown'
+
 export default {
   props: ['name'],
   created () {
@@ -58,7 +68,13 @@ export default {
       set (value) {
         this.$store.commit('updatePage', value, this.name)
       }
+    },
+    preview () {
+      return this.$store.state.page
     }
+  },
+  components: {
+    Markdown
   }
 }
 </script>
