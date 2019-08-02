@@ -32,11 +32,12 @@ export default {
     getPage (name) {
       name = name || 'index'
       // console.log('using: ' + this.name)
-      this.$store.dispatch('getPage', name)
+      this.$store.dispatch('page/getPage', name)
     },
     savePage (name) {
       // console.log('savePage(' + name + ')')
-      this.$store.dispatch('savePage', this.name)
+      this.$store.dispatch('page/savePage', { name: this.name,
+        creator: { uid: this.$store.state.user.uid, nick: this.$store.state.profile.nick } })
       this.$router.push('/page/' + this.name)
     },
     updateContent (e) {

@@ -12,9 +12,14 @@
       </v-flex>
     </v-layout>
     <template v-if="page.Content">
+      <v-layout>
+        <Breadcrumbs/>
+      </v-layout>
       <v-layout class="reader">
-        <v-flex xs12 xl12 v-bind:class="{ reader_fonts_fantasy: theme == 'fantasy' }">
-          <Markdown  v-bind:content="page" class='md-rended'/>
+        <v-flex xs12 xl12 v-bind:class="{ reader_fonts_fantasy: theme == 'fantasy' }"
+          @click="handleClicks">
+          <Markdown  v-bind:content="page"
+            class='md-rended'/>
         </v-flex>
       </v-layout>
       <v-layout>
@@ -45,6 +50,7 @@
   </v-container>
 </template>
 <script>
+import Breadcrumbs from '../components/Breadcrumbs'
 import Markdown from '../components/Markdown'
 
 export default {
@@ -59,7 +65,48 @@ export default {
     updatePage (name) {
       name = name || 'skald.welcome'
       // console.log('using: ' + this.name)
-      this.$store.dispatch('getPage', name)
+      this.$store.dispatch('page/getPage', name)
+    },
+    handleClicks ($event) {
+      /* const { target } = $event
+      console.log('event: ' + target)
+
+      // const url = new URL(target.href)
+      const to = target + '' // url.pathname
+
+      console.log('to: ' + to.substring('/#/'))
+
+      if (to.includes('/#/') &&
+        !window.location.pathname === to) {
+        $event.preventDefault()
+        this.$router.push(to.substring('/#/'))
+      }
+      /* // ensure we use the link, in case the click has been received by a subelement
+      while (target && target.tagName !== 'A') target = target.parentNode
+      // handle only links that occur inside the component and do not reference external resources
+      if (target && target.matches(".dynamic-content a:not([href*='://'])") && target.href) {
+        // some sanity checks taken from vue-router:
+        // https://github.com/vuejs/vue-router/blob/dev/src/components/link.js#L106
+        const { altKey, ctrlKey, metaKey, shiftKey, button, defaultPrevented } = $event
+        // don't handle with control keys
+        if (metaKey || altKey || ctrlKey || shiftKey) return
+        // don't handle when preventDefault called
+        if (defaultPrevented) return
+        // don't handle right clicks
+        if (button !== undefined && button !== 0) return
+        // don't handle if `target="_blank"`
+        /* if (target && target.getAttribute) {
+          const linkTarget = target.getAttribute('target')
+          if ('/\b_blank\b/i.test(linkTarget)) return
+        } * /
+        // don't handle same page links/anchors
+        const url = new URL(target.href)
+        const to = url.pathname
+        if (window.location.pathname !== to && $event.preventDefault) {
+          $event.preventDefault()
+          this.$router.push(to)
+        }
+      } */
     }
   },
   watch: {
@@ -69,10 +116,11 @@ export default {
   },
   computed: {
     theme () {
+      // if (typeof this.$store.state.sites === 'undefined') return null
       return this.$store.state.sites.theme
     },
     page () {
-      console.log('p: ', this.$store.state.page)
+      // console.log('p: ', this.$store.state.page)
       // return { Content: null }
       return this.$store.state.page
     },
@@ -94,7 +142,8 @@ export default {
     }
   },
   components: {
-    Markdown
+    Markdown,
+    Breadcrumbs
   }
 }
 </script>

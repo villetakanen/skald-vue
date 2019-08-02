@@ -33,7 +33,7 @@ new Vue({
         store.dispatch('getProfile', user.uid)
         if (store.state.profile.locale !== null &&
           typeof store.state.profile.locale !== 'undefined') {
-          console.log('i18n.locale =' + store.state.profile.locale)
+          // console.log('i18n.locale =' + store.state.profile.locale)
           i18n.locale = store.state.profile.locale
         }
       } else {

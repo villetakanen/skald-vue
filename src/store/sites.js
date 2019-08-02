@@ -14,7 +14,8 @@ const mutations = {
    * @param {*} id Id for the site swapped to. If this does not exist in state.list, the Site is not changed.
    */
   setCurrentSite (state, id) {
-    if (state.list[id] === null) return
+    if (state.list[id] === null ||
+      typeof state.list[id] === 'undefined') return
     Vue.set(state, 'current', id)
     if (state.list[id].theme === null) {
       Vue.set(state, 'theme', 'default')
