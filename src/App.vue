@@ -46,6 +46,14 @@
             {{$t("releaseInfo")}}
           </v-list-item-title>
         </v-list-item>
+        <v-list-item>
+          <v-list-item-action>
+            <v-icon>mdi-cup-water</v-icon>
+          </v-list-item-action>
+          <v-list-item-title>
+            3.0.0
+          </v-list-item-title>
+        </v-list-item>
        </v-list>
 
     </v-navigation-drawer>
