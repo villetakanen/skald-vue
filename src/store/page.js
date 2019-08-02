@@ -17,6 +17,9 @@ const mutations = {
     state.Id = key
     state.Site = key.substring(0, key.indexOf('.'))
     console.log('page set')
+  },
+  setSite (state, key) {
+    Vue.set(state, 'Site', key)
   }
 }
 const actions = {
@@ -26,21 +29,23 @@ const actions = {
    * @param {*} name page name. The action does nothing, if the name is emtpy.
    */
   getPage (context, name) {
+    console.log('getting page for', name)
     // sanity check
-    if (name === null) return
+    if (name === null) return // name = 'Skald.Welcome'
     // check if this is a root level page, or a sub-page of a site
     // If a root page, encode the site name to it.
-    if (!name.includes('.')) {
-      name = name + '.' + name
-    }
+
+    var sname = restoreSite(name, context)
+
     const db = firebase.firestore()
-    db.collection('pages').doc(name).get().then((doc) => {
+    db.collection('pages').doc(sname).get().then((doc) => {
       if (doc.exists) {
-        context.commit('setPage', { key: name, page: doc.data() })
-        context.commit('sites/setCurrentSite', name.substring(0, name.indexOf('.')), { root: true })
+        console.log('got doc', doc.data())
+        context.commit('setPage', { key: sname, page: doc.data() })
+        context.commit('sites/setCurrentSite', sname.substring(0, sname.indexOf('.')), { root: true })
       } else {
         // return a new page
-        context.commit('setPage', { key: name, page: { Content: ' ', Id: name, Site: name.substring(0, name.indexOf('.')) } })
+        context.commit('setPage', { key: name, page: { Content: ' ', Id: sname, Site: sname.substring(0, sname.indexOf('.')) } })
         context.commit('sites/setCurrentSite', name.substring(0, name.indexOf('.')), { root: true })
       }
     })
@@ -48,12 +53,12 @@ const actions = {
   savePage (context, { name, creator }) {
     // This is the payload we save
     var page = {
+      Site: context.state.Site,
       Content: context.state.Content,
       Creators: context.state.Creators
     }
-    if (!name.includes('.')) {
-      name = name + '.' + name
-    }
+
+    var sname = restoreSite(name, context)
 
     console.log('savePage', context, page, creator)
 
@@ -72,15 +77,40 @@ const actions = {
       page.Creators = []
     }
     if (page.Creators.length < 1 ||
-      page.Creators[page.Creators.length - 1].uid !== n) {
-      page.Creators.push({ uid: c, nick: n })
+      page.Creators[page.Creators.length - 1].uid !== c) {
+      page.Creators.push({ uid: c, Nick: n, Content: page.Content })
     }
 
     // Migrate theme
-
     var pagesRef = db.collection('pages')
-    pagesRef.doc(name).set(page)
+    pagesRef.doc(sname).set(page)
   }
+}
+/**
+ * Restores the Site data to n and p respectively
+ * @param {*} n name
+ * @param {*} p a Page JSON, updated as object
+ */
+function restoreSite (n, context) {
+  console.log('restoring site for', n, context)
+
+  if (n.includes('.')) {
+    if (context.state.Site !== name.substring(0, n.indexOf('.'))) {
+      context.commit('setSite', n.substring(0, n.indexOf('.')))
+      console.log('page.Site restored to: ', context.state.Site)
+    }
+    return n
+  }
+
+  if (context.Site !== null &&
+    typeof p !== 'undefined') {
+    n = context.Site + '.' + n
+  } else {
+    n = n + '.' + n
+  }
+
+  console.log('restored to', n, context.Site)
+  return n
 }
 
 export default {

@@ -37,14 +37,14 @@
         <v-btn
         v-if="displayname"
       bottom
-      color="blue"
+      color="pink"
       dark
       fab
       fixed
       right
       v-bind:to="'../edit/'+name"
     >
-      <v-icon>mdi-code-array</v-icon>
+      <v-icon>mdi-pencil</v-icon>
     </v-btn>
     </template>
   </v-container>
@@ -125,14 +125,14 @@ export default {
       return this.$store.state.page
     },
     lasteditor () {
-      const t = this.$store.state.page.creators
+      const t = this.$store.state.page.Creators
       if (t == null || t.length === 0) return 'none'
-      return t[t.length - 1].nick
+      return t[t.length - 1].Nick
     },
     creator () {
-      const t = this.$store.state.page.creators
+      const t = this.$store.state.page.Creators
       if (t == null || t.length === 0) return 'none'
-      return t[0].nick
+      return t[0].Nick
     },
     displayname () {
       if (typeof this.$store.state.user === 'undefined' || this.$store.state.user === null) {

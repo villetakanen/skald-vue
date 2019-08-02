@@ -61,6 +61,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
+      <CreatePageButton/>
       <LoginButton/>
 
     </v-app-bar>
@@ -74,11 +75,13 @@
 
 <script>
 import LoginButton from './components/LoginButton.vue'
+import CreatePageButton from './components/CreatePageButton'
 
 export default {
   name: 'App',
   components: {
-    LoginButton
+    LoginButton,
+    CreatePageButton
   },
   computed: {
     spacename () {

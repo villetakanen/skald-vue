@@ -20,7 +20,6 @@
      >
      <v-card color="pink darken-1" dark>
       <v-card-title class="pink darken-3">Login</v-card-title>
-      <v-card-text>
       <v-card-actions>
               <v-btn>
                   <v-icon @click="socialGoogleLogin">mdi-google</v-icon>
@@ -32,7 +31,6 @@
                   <v-icon>mdi-github-circle</v-icon>
               </v-btn>
       </v-card-actions>
-      </v-card-text>
      </v-card>
      </v-dialog>
     </div>
