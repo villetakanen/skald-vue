@@ -4,7 +4,8 @@
 <script>
 
 export default {
-  props: ['content'],
+  props: [
+    'content'],
   computed: {
     markdown () {
       var mdt = this.content.Content || '\\- empty -'
@@ -22,10 +23,14 @@ export default {
           return line
         }
       ).join(' ') */
+      const siteName = this.content.Site
+
       var re = new RegExp('([\\[(]wiki:)(.+?)([\\])])', 'g')
       var mdt2 = mdt.replace(re, function (match, p1, p2, p3, offset, string) {
         // console.log(p2)
-        return '[' + p2.trim() + '](/#/page/' + p2.trim() + ')'
+        var pageName = p2.trim()
+        if (!pageName.includes('.')) pageName = siteName + '.' + pageName
+        return '[' + p2.trim() + '](/#/page/' + pageName + ')'
       })
 
       const MarkdownIt = require('markdown-it')
