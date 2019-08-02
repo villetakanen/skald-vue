@@ -1,18 +1,34 @@
 <template>
-    <v-container
-        fluid grid-list-xs
+  <v-container
+    fluid
+    >
+    <v-layout
+      v-if="!page.Content"
+      column
+      align-center justify-center row fill-height
       >
-        <v-layout
-        >
-          <v-flex xs12>
-          <Markdown v-bind:content="page" class='md-rended'/>
-          </v-flex>
-        </v-layout>
-        <v-layout>
-          <v-flex xs12 class="pink lighten-5">
-          Last edit by: {{lasteditor}}, created by {{creator}}
-          </v-flex>
-        </v-layout>
+      <v-flex>
+        <img class="loader_image" src="../assets/loading.svg"/>
+      </v-flex>
+    </v-layout>
+    <template v-if="page.Content">
+      <v-layout >
+        <v-flex xs12 xl12>
+          <Markdown  v-bind:content="page" class='md-rended'/>
+        </v-flex>
+      </v-layout>
+      <v-layout>
+        <v-flex xs12 md6 lg6 xl6>
+          <v-card
+            outlined
+            >
+            <v-card-title>Page info</v-card-title>
+            <v-card-text>Last edit by: {{lasteditor}}<br/>
+              Created by {{creator}}
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
         <v-btn
         v-if="displayname"
       bottom
@@ -25,7 +41,8 @@
     >
       <v-icon>mdi-code-array</v-icon>
     </v-btn>
-      </v-container>
+    </template>
+  </v-container>
 </template>
 <script>
 import Markdown from '../components/Markdown'
@@ -52,7 +69,9 @@ export default {
   },
   computed: {
     page () {
-      return this.$store.state.page || '- page not initiated -'
+      console.log('p: ', this.$store.state.page)
+      // return { Content: null }
+      return this.$store.state.page
     },
     lasteditor () {
       const t = this.$store.state.page.creators
@@ -84,5 +103,17 @@ export default {
 .md-rended table th{
   background-color: RGBA(50, 100, 200, 0.3);
   padding: 0.5em;
+}
+.loader_image{
+  opacity: 0.23;
+  -webkit-animation: rotation 7s infinite linear; /**/
+}
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
 }
 </style>

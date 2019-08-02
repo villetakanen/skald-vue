@@ -10,7 +10,7 @@ export default new Vuex.Store({
     sites
   },
   state: {
-    page: { Content: 'aaa' },
+    page: { Content: null },
     space: null,
     user: {},
     profile: { locale: 'en' }
