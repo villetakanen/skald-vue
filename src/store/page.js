@@ -94,23 +94,28 @@ const actions = {
 function restoreSite (n, context) {
   console.log('restoring site for', n, context)
 
-  if (n.includes('.')) {
-    if (context.state.Site !== name.substring(0, n.indexOf('.'))) {
-      context.commit('setSite', n.substring(0, n.indexOf('.')))
-      console.log('page.Site restored to: ', context.state.Site)
+  // Case 1, there is a Site def, and it needs to be encoded to the name
+  if (context.Site !== null &&
+    typeof context.Site !== 'undefined') {
+    console.log('Case 1, there is a Site def, and it needs to be encoded to the name')
+    if (n.includes('.')) {
+      return context.Site + '.' + n.substring(n.indexOf('.'))
+    } else {
+      return context.Site + '.' + n
     }
+  }
+
+  // Case 2, the Site def is missing, and we need to restore it from the name
+  if (n.includes('.')) {
+    console.log('Case 2, the Site def is missing, and we need to restore it from the name')
+    context.commit('setSite', n.substring(0, n.indexOf('.')))
+    context.commit('sites/setCurrentSite', n.substring(0, n.indexOf('.')), { root: true })
     return n
   }
 
-  if (context.Site !== null &&
-    typeof p !== 'undefined') {
-    n = context.Site + '.' + n
-  } else {
-    n = n + '.' + n
-  }
-
-  console.log('restored to', n, context.Site)
-  return n
+  // Case 3, there is no Site def, nor is the Site encoded to the name - we forcibly return Skald.404'
+  console.log('Case 3, there is no Site def, nor is the Site encoded to the name - we forcibly return Skald.404')
+  return 'skald.404'
 }
 
 export default {

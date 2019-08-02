@@ -15,12 +15,14 @@ const mutations = {
    */
   setCurrentSite (state, id) {
     if (state.list[id] === null ||
-      typeof state.list[id] === 'undefined') return
+      typeof state.list[id] === 'undefined') {
+      id = 'skald'
+    }
     Vue.set(state, 'current', id)
-    if (state.list[id].theme === null) {
+    /* if (state.list[id].theme === null) {
       Vue.set(state, 'theme', 'default')
     }
-    Vue.set(state, 'theme', state.list[id].theme)
+    Vue.set(state, 'theme', state.list[id].theme) */
   },
   /**
    * Adds a Site to site listing, with doc.key as it's JSON key value with
