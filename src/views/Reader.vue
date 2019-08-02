@@ -12,8 +12,8 @@
       </v-flex>
     </v-layout>
     <template v-if="page.Content">
-      <v-layout >
-        <v-flex xs12 xl12>
+      <v-layout class="reader">
+        <v-flex xs12 xl12 v-bind:class="{ reader_fonts_fantasy: theme == 'fantasy' }">
           <Markdown  v-bind:content="page" class='md-rended'/>
         </v-flex>
       </v-layout>
@@ -68,6 +68,9 @@ export default {
     }
   },
   computed: {
+    theme () {
+      return this.$store.state.sites.theme
+    },
     page () {
       console.log('p: ', this.$store.state.page)
       // return { Content: null }
@@ -115,5 +118,18 @@ export default {
   to {
     -webkit-transform: rotate(359deg);
   }
+}
+.reader_fonts_fantasy h1,
+.reader_fonts_fantasy h2,
+.reader_fonts_fantasy h3
+{
+  font-family: 'Crimson Pro', serif;
+  font-weight: normal;
+  color:dimgray;
+}
+.reader h1,
+.reader h2,
+.reader h3{
+  font-weight: 400;
 }
 </style>

@@ -3,10 +3,24 @@ import Vue from 'vue'
 
 const state = {
   current: null,
+  theme: null,
   list: {}
 }
 
 const mutations = {
+  /**
+   * State change of current site, Current Site metadata is collected and persisted at the root level
+   * @param {*} state Vuex state
+   * @param {*} id Id for the site swapped to. If this does not exist in state.list, the Site is not changed.
+   */
+  setCurrentSite (state, id) {
+    if (state.list[id] === null) return
+    Vue.set(state, 'current', id)
+    if (state.list[id].theme === null) {
+      Vue.set(state, 'theme', 'default')
+    }
+    Vue.set(state, 'theme', state.list[id].theme)
+  },
   /**
    * Adds a Site to site listing, with doc.key as it's JSON key value with
    * Vue.set() to force the refresh of the object
