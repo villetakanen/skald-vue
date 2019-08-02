@@ -18,6 +18,13 @@
                             v-bind:value="nickname"
                             @input="updateNick"
                         ></v-text-field>
+                        <v-flex xs12 sm6 d-flex>
+                          <v-select
+                            :items="langs"
+                            label="Language"
+                            @input="setLang"
+                          ></v-select>
+                        </v-flex>
                 </v-card-text>
                 <v-card-actions>
                     <v-card-actions>
@@ -71,6 +78,9 @@ export default {
       }
     }
   },
+  data: () => ({
+    langs: ['fi', 'en']
+  }),
   methods: {
     saveProfile (name) {
       console.log('saveProfile(' + name + ')')
@@ -86,6 +96,10 @@ export default {
       }).catch(function (error) {
         console.log('logout failed ' + error)
       })
+    },
+    setLang (l) {
+      this.$i18n.locale = l
+      this.$store.commit('setLocale', l)
     }
   }
 }

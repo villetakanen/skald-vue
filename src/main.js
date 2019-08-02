@@ -31,6 +31,11 @@ new Vue({
       if (user) {
         store.commit('setActiveUser', user)
         store.dispatch('getProfile', user.uid)
+        if (store.state.profile.locale !== null &&
+          typeof store.state.profile.locale !== 'undefined') {
+          console.log('i18n.locale =' + store.state.profile.locale)
+          i18n.locale = store.state.profile.locale
+        }
       } else {
         // No user is signed in.
         store.commit('setActiveUser', null)

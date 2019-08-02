@@ -9,7 +9,7 @@ export default new Vuex.Store({
     page: { Content: 'aaa' },
     space: null,
     user: {},
-    profile: {}
+    profile: { locale: 'en' }
   },
   mutations: {
     updatePage (state, n) {
@@ -23,13 +23,16 @@ export default new Vuex.Store({
     },
     setNick (state, n) {
       Vue.set(state.profile, 'nick', n)
+      console.log('nickname set to ' + state.profile.nick)
     },
     setSpace (state, s) {
       state.space = s
     },
-    setUserNick (state, u) {
-      Vue.set(state.profile, 'nick', u)
-      console.log('nickname set to ' + state.profile.nick)
+    setLocale (state, u) {
+      if (u === null || typeof u === 'undefined') return
+      Vue.set(state.profile, 'locale', u)
+      // this.$i18n.locale = u
+      console.log('locale set to ' + state.profile.locale)
     },
     setActiveUser (state, u) {
       console.log('setting active user to', u)
@@ -63,8 +66,8 @@ export default new Vuex.Store({
       })
     },
     savePage (context, name) {
-      console.log('store.savePage(' + name + ', ' + context.state.page.Content + ')')
-      console.log('creator is' + context.state.user.uid + '/' + context.state.profile.nick)
+      // console.log('store.savePage(' + name + ', ' + context.state.page.Content + ')')
+      // console.log('creator is' + context.state.user.uid + '/' + context.state.profile.nick)
 
       var db = firebase.firestore()
 
@@ -92,9 +95,10 @@ export default new Vuex.Store({
       db.collection('profiles').doc(id).get().then((doc) => {
         if (doc.exists) {
           console.log('profile doc data:' + doc.data())
-          context.commit('setUserNick', doc.data().nick)
+          context.commit('setNick', doc.data().nick)
+          context.commit('setLocale', doc.data().locale)
         } else {
-          context.commit('setUserNick', null)
+          context.commit('setNick', null)
         }
       })
     },
