@@ -24,7 +24,7 @@ export default {
       ).join(' ') */
       var re = new RegExp('([\\[(]wiki:)(.+?)([\\])])', 'g')
       var mdt2 = mdt.replace(re, function (match, p1, p2, p3, offset, string) {
-        console.log(p2)
+        // console.log(p2)
         return '[' + p2.trim() + '](/#/page/' + p2.trim() + ')'
       })
 

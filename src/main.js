@@ -41,6 +41,8 @@ new Vue({
         store.commit('setActiveUser', null)
       }
     })
+
+    store.dispatch('sites/getSites')
   },
 
   store,

@@ -1,10 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import firebase from 'firebase'
+import sites from './store/sites'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: {
+    sites
+  },
   state: {
     page: { Content: 'aaa' },
     space: null,
@@ -36,6 +40,7 @@ export default new Vuex.Store({
     },
     setActiveUser (state, u) {
       console.log('setting active user to', u)
+      if (u === null) return
       Vue.set(state, 'user', u)
       if (state.profile == null) {
         Vue.set(state, 'profile', {})

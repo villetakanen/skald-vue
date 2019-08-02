@@ -24,7 +24,15 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-spacer></v-spacer>
+        <v-divider></v-divider>
+
+        <v-subheader>Sites</v-subheader>
+
+        <template v-for="(site, index) in sites">
+          <v-list-item v-bind:key="index" :to="'/page/' + index + '.' + index">
+            <v-list-item-title>{{site.Name}}</v-list-item-title>
+          </v-list-item>
+        </template>
 
         <v-divider></v-divider>
 
@@ -80,10 +88,13 @@ export default {
     spacelink () {
       return '/page/' + this.$store.state.space + '.' + this.$store.state.space
       // return '/page/skald.welcome'
+    },
+    sites () {
+      return this.$store.state.sites.list
     }
   },
   data: () => ({
-    drawer: false,
+    drawer: true,
     dialog: false
   })
 }
