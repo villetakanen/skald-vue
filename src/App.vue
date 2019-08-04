@@ -105,8 +105,7 @@ export default {
     }
   },
   data: () => ({
-    drawer: true,
-    dialog: false
+    drawer: null
   })
 }
 </script>
