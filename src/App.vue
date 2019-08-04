@@ -51,7 +51,7 @@
             <v-icon>mdi-cup-water</v-icon>
           </v-list-item-action>
           <v-list-item-title>
-            3.0.0
+            3.0.1
           </v-list-item-title>
         </v-list-item>
        </v-list>
