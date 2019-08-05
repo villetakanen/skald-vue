@@ -2,7 +2,12 @@
     "wikititle": "A wiki for RPG materials",
     "releaseInfo": "Latest Release",
     "login-button": "Login",
+    "create" : "Create",
+    "cancel": "Cancel",
+    "cpb-title": "Create",
+    "cpb-tab-site": "Site",
     "cpb-info": "The new site you create will be owned by you. You can add more owners, members, etc. to the site after the site creation",
     "cpb-site-name-label": "Name of the Site",
+    "cpb-site-name-placeholder": "A new wikisite",
     "cpb-site-url-label": "Custom address (leave empty if you want us to auto generate the url)"
 }
