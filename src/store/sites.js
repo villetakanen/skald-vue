@@ -16,7 +16,7 @@ const mutations = {
    */
   setCurrentSite (state, id) {
     Vue.set(state, 'current', id)
-    console.log('current site set to', id)
+    console.log('current site set to', id, state.list[id])
   },
   /**
    * Adds a Site to site listing, with doc.key as it's JSON key value with
@@ -29,8 +29,10 @@ const mutations = {
       typeof data.link === 'undefined') {
       data.link = key + '.' + key
     }
-    // console.log('Got site', key, data)
+    // console.log('patching site', key, data)
+    // console.log(state.list)
     Vue.set(state.list, key, data)
+    // console.log(state.list[key])
   }
 }
 

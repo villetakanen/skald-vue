@@ -3,7 +3,7 @@
     fluid
     >
     <v-layout
-      v-if="!page.Content"
+      v-if="loading"
       column
       align-center justify-center row fill-height
       >
@@ -11,27 +11,14 @@
         <img class="loader_image" src="../assets/loading.svg"/>
       </v-flex>
     </v-layout>
-    <template v-if="page.Content">
+    <template v-if="!loading">
       <v-layout>
         <Breadcrumbs/>
       </v-layout>
       <v-layout class="reader">
-        <v-flex xs12 xl12 v-bind:class="{ reader_fonts_fantasy: theme == 'fantasy' }"
-          @click="handleClicks">
-          <Markdown  v-bind:content="page"
+        <v-flex xs12 xl12 v-bind:class="{ reader_fonts_fantasy: theme == 'fantasy' }">
+          <Markdown  v-bind:page="page"
             class='md-rended'/>
-        </v-flex>
-      </v-layout>
-      <v-layout>
-        <v-flex xs12 md6 lg6 xl6>
-          <v-card
-            outlined
-            >
-            <v-card-title>Page info</v-card-title>
-            <v-card-text>Last edit by: {{lasteditor}}<br/>
-              Created by {{creator}}
-            </v-card-text>
-          </v-card>
         </v-flex>
       </v-layout>
         <v-btn
@@ -63,50 +50,9 @@ export default {
   },
   methods: {
     updatePage (pageid) {
-      var name = pageid || 'skald.welcome'
-      // console.log('using: ' + this.name)
-      this.$store.dispatch('page/getPage', name)
-    },
-    handleClicks ($event) {
-      /* const { target } = $event
-      console.log('event: ' + target)
-
-      // const url = new URL(target.href)
-      const to = target + '' // url.pathname
-
-      console.log('to: ' + to.substring('/#/'))
-
-      if (to.includes('/#/') &&
-        !window.location.pathname === to) {
-        $event.preventDefault()
-        this.$router.push(to.substring('/#/'))
-      }
-      /* // ensure we use the link, in case the click has been received by a subelement
-      while (target && target.tagName !== 'A') target = target.parentNode
-      // handle only links that occur inside the component and do not reference external resources
-      if (target && target.matches(".dynamic-content a:not([href*='://'])") && target.href) {
-        // some sanity checks taken from vue-router:
-        // https://github.com/vuejs/vue-router/blob/dev/src/components/link.js#L106
-        const { altKey, ctrlKey, metaKey, shiftKey, button, defaultPrevented } = $event
-        // don't handle with control keys
-        if (metaKey || altKey || ctrlKey || shiftKey) return
-        // don't handle when preventDefault called
-        if (defaultPrevented) return
-        // don't handle right clicks
-        if (button !== undefined && button !== 0) return
-        // don't handle if `target="_blank"`
-        /* if (target && target.getAttribute) {
-          const linkTarget = target.getAttribute('target')
-          if ('/\b_blank\b/i.test(linkTarget)) return
-        } * /
-        // don't handle same page links/anchors
-        const url = new URL(target.href)
-        const to = url.pathname
-        if (window.location.pathname !== to && $event.preventDefault) {
-          $event.preventDefault()
-          this.$router.push(to)
-        }
-      } */
+      var id = pageid || 'skald.welcome'
+      // console.log('using: ', id)
+      this.$store.dispatch('page/getPage', id)
     }
   },
   watch: {
@@ -120,11 +66,14 @@ export default {
       return this.$store.state.sites.theme
     },
     page () {
-      // console.log('p: ', this.$store.state.page)
+      console.log('p: ', this.$store.state.page)
       // return { Content: null }
       return this.$store.state.page
     },
-    lasteditor () {
+    loading () {
+      return this.$store.state.page.content === ''
+    },
+    /* lasteditor () {
       const t = this.$store.state.page.Creators
       if (t == null || t.length === 0) return 'none'
       return t[t.length - 1].Nick
@@ -133,7 +82,7 @@ export default {
       const t = this.$store.state.page.Creators
       if (t == null || t.length === 0) return 'none'
       return t[0].Nick
-    },
+    }, */
     displayname () {
       if (typeof this.$store.state.user === 'undefined' || this.$store.state.user === null) {
         return null

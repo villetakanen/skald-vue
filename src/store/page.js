@@ -1,25 +1,35 @@
 import firebase from 'firebase'
 import Vue from 'vue'
 
+/**
+ * The page default values are
+ *
+ * content: '',
+ * site: 'skald',
+ * name: '',
+ * id: 'skald.404'
+ * history: {}
+ * lastCreator: '...'
+ */
 const state = {
-  Content: null,
-  Site: null,
-  Name: null,
-  Creators: [],
-  Id: null
+  content: '',
+  site: 'skald',
+  name: '',
+  id: 'skald.404',
+  lastCreator: '...',
+  history: {}
 }
 const mutations = {
   setPage (state, { key, page }) {
     console.log('setting page to ', key, page)
-    Vue.set(state, 'Content', page.Content)
-    Vue.set(state, 'Creators', page.Creators)
-    state.Name = key
-    state.Id = key
-    state.Site = key.substring(0, key.indexOf('.'))
+    Vue.set(state, 'content', page.content)
+    state.name = page.name
+    state.id = key
+    state.site = key.substring(0, key.indexOf('.'))
     console.log('page set')
   },
   setSite (state, key) {
-    Vue.set(state, 'Site', key)
+    Vue.set(state, 'site', key)
   }
 }
 const actions = {
@@ -29,23 +39,23 @@ const actions = {
    * @param {*} name page name. The action does nothing, if the name is emtpy.
    */
   getPage (context, name) {
-    console.log('getting page for', name)
+    console.log('Vuex page getting firestore page', name)
     // sanity check
     if (name === null) return // name = 'Skald.Welcome'
     // check if this is a root level page, or a sub-page of a site
     // If a root page, encode the site name to it.
 
-    var sname = restoreSite(name, context)
+    // var sname = restoreSite(name, context)
 
     const db = firebase.firestore()
-    db.collection('pages').doc(sname).get().then((doc) => {
+    db.collection('pages').doc(name).get().then((doc) => {
       if (doc.exists) {
-        console.log('got doc', doc.data())
-        context.commit('setPage', { key: sname, page: doc.data() })
-        context.commit('sites/setCurrentSite', sname.substring(0, sname.indexOf('.')), { root: true })
+        console.log('Got doc from firebase', doc.data())
+        context.commit('setPage', { key: name, page: doc.data() })
+        // context.commit('sites/setCurrentSite', sname.substring(0, sname.indexOf('.')), { root: true })
       } else {
         // return a new page
-        context.commit('setPage', { key: name, page: { Content: ' ', Id: sname, Site: sname.substring(0, sname.indexOf('.')) } })
+        context.commit('setPage', { key: name, page: { content: ' ', id: name, site: name.substring(0, name.indexOf('.')) } })
         context.commit('sites/setCurrentSite', name.substring(0, name.indexOf('.')), { root: true })
       }
     })
@@ -92,9 +102,11 @@ const actions = {
  * @param {*} p a Page JSON, updated as object
  */
 function restoreSite (n, context) {
-  // console.log('restoring site for', n, context)
+  console.log('Checking site for', n, context.site)
 
   if (context.site === n.substring(0, n.indexOf('.'))) return
+
+  console.log('aand restoring the site def')
 
   // Case 1, there is a Site def, and it needs to be encoded to the name
   if (context.site !== null &&

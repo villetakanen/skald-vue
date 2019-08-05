@@ -23,7 +23,7 @@
         </v-layout>
         <v-layout>
              <v-flex xs1 align-self-end>
-                 <v-btn right color="primary" @click="savePage(name)">Save</v-btn>
+                 <v-btn right color="primary" @click="savePage(pageid)">Save</v-btn>
              </v-flex>
         </v-layout>
     </v-container>
@@ -34,21 +34,21 @@
 import Markdown from '../components/Markdown'
 
 export default {
-  props: ['name'],
+  props: ['pageid'],
   created () {
-    this.getPage(this.name)
+    this.getPage(this.pageid)
   },
   methods: {
-    getPage (name) {
-      name = name || 'index'
-      // console.log('using: ' + this.name)
+    getPage (pageid) {
+      var name = pageid || 'index'
+      console.log('using: ' + this.name)
       this.$store.dispatch('page/getPage', name)
     },
-    savePage (name) {
-      // console.log('savePage(' + name + ')')
-      this.$store.dispatch('page/savePage', { name: this.name,
+    savePage (pageid) {
+      console.log('savePage(' + pageid + ')')
+      this.$store.dispatch('page/savePage', { name: this.pageid,
         creator: { uid: this.$store.state.user.uid, nick: this.$store.state.profile.nick } })
-      this.$router.push('/page/' + this.name)
+      this.$router.push('/page/' + this.pageid)
     },
     updateContent (e) {
       // console.log(e)
@@ -57,7 +57,7 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      this.updatePage(this.name)
+      this.updatePage(this.pageid)
     }
   },
   computed: {

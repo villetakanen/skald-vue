@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div>Skald / <router-link :to="sitelink">{{site}}</router-link> /
+    <div>
+      <router-link :to="sitelink">{{site}}</router-link> /
       <router-link :to="pagelink">{{page}}</router-link></div>
     <v-divider></v-divider>
   </div>
@@ -9,13 +10,13 @@
 export default {
   computed: {
     page () {
-      return this.$store.state.page.Name
+      return this.$store.state.page.name
     },
     pagelink () {
-      return '/page/' + this.$store.state.page.Id
+      return '/page/' + this.$store.state.page.id
     },
     site () {
-      return this.$store.state.sites.list[this.$store.state.sites.current].Name
+      return this.$store.state.sites.list[this.$store.state.siteid].name
     },
     sitelink () {
       return '/page/' + this.$store.state.sites.current + '.' + this.$store.state.sites.current

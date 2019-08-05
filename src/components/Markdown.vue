@@ -5,10 +5,10 @@
 
 export default {
   props: [
-    'content'],
+    'page'],
   computed: {
     markdown () {
-      var mdt = this.content.Content || '\\- empty -'
+      var mdt = this.page.content || '\\- empty -'
 
       mdt = mdt.split('\\n').join('\n')
 
@@ -23,7 +23,7 @@ export default {
           return line
         }
       ).join(' ') */
-      const siteName = this.content.Site
+      const siteName = this.page.site
 
       var re = new RegExp('([\\[(]wiki:)(.+?)([\\])])', 'g')
       var mdt2 = mdt.replace(re, function (match, p1, p2, p3, offset, string) {

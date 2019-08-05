@@ -44,33 +44,15 @@ export default {
     SkaldNavigationDrawer
   },
   computed: {
-    spacename () {
-      return this.$store.state.space
-      // return 'Skald'
-    },
-    spacelink () {
-      return '/page/' + this.$store.state.space + '.' + this.$store.state.space
-      // return '/page/skald.welcome'
-    },
     sites () {
       return this.$store.state.sites.list
     },
     site () {
-      // console.log('site returning: ',
-      //  this.$store.state.sites.list[this.$store.state.sites.current],
-      //  this.$store.state.sites.current)
-      return this.$store.state.sites.list[this.$store.state.sites.current]
+      return this.$store.state.sites.list[this.$store.state.siteid]
     }
   },
   data: () => ({
     drawer: null
-  }),
-  created: function () {
-  }
+  })
 }
 </script>
-<style>
-.opaque{
-  background: white;
-}
-</style>
