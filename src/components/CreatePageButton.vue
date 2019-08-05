@@ -51,7 +51,7 @@
       </v-container>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="primary" @click="create()">{{$t('create')}}</v-btn>
+          <v-btn color="primary" @click="createSite()">{{$t('create')}}</v-btn>
           <v-btn text color="secondary" @click="cancel()">{{$t('cancel')}}</v-btn>
         </v-card-actions>
       </v-card>
@@ -80,6 +80,14 @@ export default {
     }
   }, */
   methods: {
+    createSite (e) {
+      this.$store.dispatch('sites/create', {
+        Name: this.siteName,
+        Url: this.Url,
+        Owner: this.$store.state.profile.uid,
+        OwnerNick: this.$store.state.profile.nick
+      })
+    },
     updateName (e) {
       this.siteName = e
       if (!this.customURLtoggle) {
