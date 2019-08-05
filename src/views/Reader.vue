@@ -16,23 +16,23 @@
         <Breadcrumbs/>
       </v-layout>
       <v-layout class="reader">
-        <v-flex xs12 xl12 v-bind:class="{ reader_fonts_fantasy: theme == 'fantasy' }">
+        <v-flex xs12 xl12 >
           <Markdown  v-bind:page="page"
             class='md-rended'/>
         </v-flex>
       </v-layout>
-        <v-btn
-        v-if="displayname"
-      bottom
-      color="pink"
-      dark
-      fab
-      fixed
-      right
-      v-bind:to="'../edit/'+pageid"
-    >
-      <v-icon>mdi-pencil</v-icon>
-    </v-btn>
+      <v-btn
+        v-if="logged"
+        bottom
+        color="pink"
+        dark
+        fab
+        fixed
+        right
+        v-bind:to="'../edit/'+pageid"
+        >
+        <v-icon>mdi-pencil</v-icon>
+      </v-btn>
     </template>
   </v-container>
 </template>
@@ -42,17 +42,16 @@ import Markdown from '../components/Markdown'
 
 export default {
   props: ['pageid'],
-  data: () => ({
-    content: { Content: '# A heading! \n\n And text!\n' }
-  }),
   created () {
     this.updatePage(this.pageid)
   },
   methods: {
     updatePage (pageid) {
-      var id = pageid || 'skald.welcome'
-      // console.log('using: ', id)
+      var id = 'skald.welcome'
+      if (pageid !== null &&
+        typeof pageid !== 'undefined') id = pageid
       this.$store.dispatch('page/getPage', id)
+      this.$store.commit('setSite', id.substring(0, id.indexOf('.')))
     }
   },
   watch: {
@@ -61,29 +60,13 @@ export default {
     }
   },
   computed: {
-    theme () {
-      // if (typeof this.$store.state.sites === 'undefined') return null
-      return this.$store.state.sites.theme
-    },
     page () {
-      console.log('p: ', this.$store.state.page)
-      // return { Content: null }
       return this.$store.state.page
     },
     loading () {
       return this.$store.state.page.content === ''
     },
-    /* lasteditor () {
-      const t = this.$store.state.page.Creators
-      if (t == null || t.length === 0) return 'none'
-      return t[t.length - 1].Nick
-    },
-    creator () {
-      const t = this.$store.state.page.Creators
-      if (t == null || t.length === 0) return 'none'
-      return t[0].Nick
-    }, */
-    displayname () {
+    logged () {
       if (typeof this.$store.state.user === 'undefined' || this.$store.state.user === null) {
         return null
       }

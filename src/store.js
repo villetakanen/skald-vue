@@ -31,7 +31,8 @@ export default new Vuex.Store({
       // console.log('nickname set to ' + state.profile.nick)
     },
     setSite (state, s) {
-      state.siteid = s
+      console.log('setting site to', s)
+      Vue.set(state, 'siteid', s)
     },
     setLocale (state, u) {
       if (u === null || typeof u === 'undefined') return

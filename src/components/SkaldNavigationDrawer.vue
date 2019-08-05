@@ -5,9 +5,15 @@
       <v-list-item-action><v-icon>mdi-dice-d20</v-icon></v-list-item-action>
       <v-list-item-title>{{$t("indexpage")}}</v-list-item-title>
     </v-list-item>
-    <v-list-item :to="'/settings/site/' + siteId">
+    <v-list-item :to="'/c/site/' + siteId">
       <v-list-item-action><v-icon>mdi-dice-d12</v-icon></v-list-item-action>
       <v-list-item-title>{{$t("sitesettings")}}</v-list-item-title>
+    </v-list-item>
+    <v-divider></v-divider>
+    <v-subheader>{{$t("library")}}</v-subheader>
+    <v-list-item :to="'/l/sites/'">
+      <v-list-item-action><v-icon>mdi-dice-d8</v-icon></v-list-item-action>
+      <v-list-item-title>{{$t("listsites")}}</v-list-item-title>
     </v-list-item>
     <v-divider></v-divider>
     <v-subheader>Meta</v-subheader>
@@ -17,7 +23,7 @@
     </v-list-item>
     <v-list-item>
       <v-list-item-action><v-icon>mdi-cup-water</v-icon></v-list-item-action>
-      <v-list-item-title>3.1.1</v-list-item-title>
+      <v-list-item-title>4.0.0</v-list-item-title>
     </v-list-item>
   </v-list>
 </template>

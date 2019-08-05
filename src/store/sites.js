@@ -50,6 +50,16 @@ const actions = {
       })
     })
   },
+  getOwners (context, id) {
+    context.state.owners = {}
+    const db = firebase.firestore()
+    db.collection('sites').doc(id).collection('owners').get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log('owner', doc.key(), doc.data())
+        // context.state.owners[doc.key()] = doc.data()
+      })
+    })
+  },
   /* getOwners (context, id) {
     context.state.owners = {}
     const db = firebase.firestore()

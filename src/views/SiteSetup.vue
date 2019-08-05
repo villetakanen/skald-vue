@@ -14,15 +14,15 @@
 </template>
 <script>
 export default {
-  props: ['id'],
+  props: ['siteid'],
   computed: {
     site () {
-      return this.$store.state.sites.list[this.id]
+      return this.$store.state.sites.list[this.siteid]
     }
   },
   created: function () {
     if (typeof this.$store.state.sites.current === 'undefined') this.$store.commit('sites/setCurrentSite', this.id)
-    return this.$store.dispatch('sites/getOwners', this.id)
+    return this.$store.dispatch('sites/getOwners', this.siteid)
   }
 }
 </script>
