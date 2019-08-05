@@ -31,9 +31,11 @@ const mutations = {
    * @param {*} param1 firebase Sites json { doc.key(), doc.data() }
    */
   patchSite (state, { key, data }) {
-    if (data.Link === null) {
+    if (data.Link === null ||
+      typeof data.Link === 'undefined') {
       data.Link = key + '.' + key
     }
+    console.log('Got site', key, data)
     Vue.set(state.list, key, data)
   }
 }

@@ -4,58 +4,8 @@
       v-model="drawer"
       app
       :clipped="$vuetify.breakpoint.lgAndUp"
-    >
-       <v-list>
-        <v-list-item to="/">
-          <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item :to="spacelink">
-          <v-list-item-action>
-            <v-icon>mdi-newspaper</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>{{spacename}}
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-divider></v-divider>
-
-        <v-subheader>Sites</v-subheader>
-
-        <template v-for="(site, index) in sites">
-          <v-list-item v-bind:key="index" :to="'/page/' + index + '.' + index">
-            <v-list-item-title>{{site.Name}}</v-list-item-title>
-          </v-list-item>
-        </template>
-
-        <v-divider></v-divider>
-
-        <v-subheader>Meta</v-subheader>
-
-        <v-list-item href="https://github.com/vitku/skald-vue">
-          <v-list-item-action>
-            <v-icon>mdi-language-javascript</v-icon>
-          </v-list-item-action>
-          <v-list-item-title>
-            {{$t("releaseInfo")}}
-          </v-list-item-title>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-action>
-            <v-icon>mdi-cup-water</v-icon>
-          </v-list-item-action>
-          <v-list-item-title>
-            3.1.0
-          </v-list-item-title>
-        </v-list-item>
-       </v-list>
-
+      >
+      <SkaldNavigationDrawer :site="site"/>
     </v-navigation-drawer>
     <v-app-bar
       app
@@ -84,12 +34,14 @@
 <script>
 import LoginButton from './components/LoginButton.vue'
 import CreatePageButton from './components/CreatePageButton'
+import SkaldNavigationDrawer from './components/SkaldNavigationDrawer'
 
 export default {
   name: 'App',
   components: {
     LoginButton,
-    CreatePageButton
+    CreatePageButton,
+    SkaldNavigationDrawer
   },
   computed: {
     spacename () {
@@ -102,6 +54,12 @@ export default {
     },
     sites () {
       return this.$store.state.sites.list
+    },
+    site () {
+      console.log('site returning: ',
+        this.$store.state.sites.list[this.$store.state.sites.current],
+        this.$store.state.sites.current)
+      return this.$store.state.sites.list[this.$store.state.sites.current]
     }
   },
   data: () => ({

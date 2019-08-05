@@ -13,7 +13,9 @@ new Vue({
   vuetify,
   i18n,
   firestore,
+  beforeCreate: function () {
 
+  },
   created: function () {
     // Firebase APP init
     var config = {
@@ -26,6 +28,8 @@ new Vue({
       appId: process.env.VUE_APP_FIREBASE_APP_ID
     }
     firestore.init(config)
+
+    store.dispatch('sites/getSites')
 
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -41,8 +45,6 @@ new Vue({
         store.commit('setActiveUser', null)
       }
     })
-
-    store.dispatch('sites/getSites')
   },
 
   store,

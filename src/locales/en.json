@@ -4,6 +4,8 @@
     "login-button": "Login",
     "create" : "Create",
     "cancel": "Cancel",
+    "indexpage": "Home",
+    "sitesettings": "Site settings",
     "cpb-title": "Create",
     "cpb-tab-site": "Site",
     "cpb-info": "The new site you create will be owned by you. You can add more owners, members, etc. to the site after the site creation",
