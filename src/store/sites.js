@@ -51,6 +51,27 @@ const actions = {
         context.commit('patchSite', { key: doc.id, data: doc.data() })
       })
     })
+  },
+  /**
+   * Create a new site to firebase
+   * @param {*} contex the Vuex context
+   * @param {*} param1 is { Name, URL, Owner, OwnerNick, Theme }
+   */
+  createSite (contex, { Name, URL, Owner, OwnerNick, Theme }) {
+    var t = Theme || 'skald'
+    var Site = {
+      Name: Name,
+      Owners: [{ uid: Owner, Nick: OwnerNick }],
+      Theme: t
+    }
+
+    const sURI = encodeURIComponent(URL)
+
+    console.log('Creating a Site', sURI, Site)
+
+    const db = firebase.firestore()
+    const siteRef = db.collection('sites')
+    siteRef.doc(sURI).set(Site)
   }
 }
 

@@ -52,7 +52,7 @@
         </v-card-text>
         <v-card-actions>
           <v-btn color="primary" @click="createSite()">{{$t('create')}}</v-btn>
-          <v-btn text color="secondary" @click="cancel()">{{$t('cancel')}}</v-btn>
+          <v-btn text color="secondary" @click="dialog=!dialog">{{$t('cancel')}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -81,12 +81,16 @@ export default {
   }, */
   methods: {
     createSite (e) {
-      this.$store.dispatch('sites/create', {
+      this.$store.dispatch('sites/createSite', {
         Name: this.siteName,
-        Url: this.Url,
+        URL: this.siteURLproposal,
         Owner: this.$store.state.profile.uid,
-        OwnerNick: this.$store.state.profile.nick
+        OwnerNick: this.$store.state.profile.nick,
+        Theme: 'skald'
       })
+      this.siteName = ''
+      this.siteURLproposal = ''
+      this.dialog = false
     },
     updateName (e) {
       this.siteName = e
