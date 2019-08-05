@@ -52,7 +52,7 @@
         </v-card-text>
         <v-card-actions>
           <v-btn color="primary" @click="create()">{{$t('create')}}</v-btn>
-          <v-btn text color="secondary" @click="cancel()">{{$t('cancel')}}</v-btn>  
+          <v-btn text color="secondary" @click="cancel()">{{$t('cancel')}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
