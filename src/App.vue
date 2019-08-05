@@ -56,15 +56,17 @@ export default {
       return this.$store.state.sites.list
     },
     site () {
-      console.log('site returning: ',
-        this.$store.state.sites.list[this.$store.state.sites.current],
-        this.$store.state.sites.current)
+      // console.log('site returning: ',
+      //  this.$store.state.sites.list[this.$store.state.sites.current],
+      //  this.$store.state.sites.current)
       return this.$store.state.sites.list[this.$store.state.sites.current]
     }
   },
   data: () => ({
     drawer: null
-  })
+  }),
+  created: function () {
+  }
 }
 </script>
 <style>

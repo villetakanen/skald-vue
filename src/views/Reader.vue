@@ -42,7 +42,7 @@
       fab
       fixed
       right
-      v-bind:to="'../edit/'+name"
+      v-bind:to="'../edit/'+pageid"
     >
       <v-icon>mdi-pencil</v-icon>
     </v-btn>
@@ -54,16 +54,16 @@ import Breadcrumbs from '../components/Breadcrumbs'
 import Markdown from '../components/Markdown'
 
 export default {
-  props: ['name'],
+  props: ['pageid'],
   data: () => ({
     content: { Content: '# A heading! \n\n And text!\n' }
   }),
   created () {
-    this.updatePage(this.name)
+    this.updatePage(this.pageid)
   },
   methods: {
-    updatePage (name) {
-      name = name || 'skald.welcome'
+    updatePage (pageid) {
+      var name = pageid || 'skald.welcome'
       // console.log('using: ' + this.name)
       this.$store.dispatch('page/getPage', name)
     },
@@ -111,7 +111,7 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      this.updatePage(this.name)
+      this.updatePage(this.pageid)
     }
   },
   computed: {

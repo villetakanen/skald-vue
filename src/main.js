@@ -13,9 +13,6 @@ new Vue({
   vuetify,
   i18n,
   firestore,
-  beforeCreate: function () {
-
-  },
   created: function () {
     // Firebase APP init
     var config = {
@@ -29,8 +26,23 @@ new Vue({
     }
     firestore.init(config)
 
+    // get current site catalog to Vuex store
     store.dispatch('sites/getSites')
 
+    // parse site name from router to vuex, for any components outside router views
+    // or the case we enter with a direct url to route with site or page id
+    if (this.$router.currentRoute.params.siteid !== null &&
+      typeof this.$router.currentRoute.params.siteid !== 'undefined') {
+      const s = this.$router.currentRoute.params.siteid
+      store.commit('setSite', s)
+    } else if (this.$router.currentRoute.params.pageid !== null &&
+      typeof this.$router.currentRoute.params.pageid !== 'undefined') {
+      const s = this.$router.currentRoute.params.pageid
+      store.commit('setSite', s.substring(0, s.indexOf('.')))
+    }
+    console.log('Vuex state.site is ', store.state.siteid)
+
+    // get signed in profile, and update Vuex state accordingly
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         store.commit('setActiveUser', user)

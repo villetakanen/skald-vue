@@ -12,10 +12,9 @@ export default new Vuex.Store({
     page
   },
   state: {
-    // page: { Content: null },
-    space: null,
     user: {},
-    profile: { locale: 'en' }
+    profile: { locale: 'en' },
+    siteid: 'skald'
   },
   mutations: {
     updatePage (state, n) {
@@ -31,8 +30,8 @@ export default new Vuex.Store({
       Vue.set(state.profile, 'nick', n)
       // console.log('nickname set to ' + state.profile.nick)
     },
-    setSpace (state, s) {
-      state.space = s
+    setSite (state, s) {
+      state.siteid = s
     },
     setLocale (state, u) {
       if (u === null || typeof u === 'undefined') return

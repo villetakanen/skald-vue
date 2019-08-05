@@ -92,16 +92,18 @@ const actions = {
  * @param {*} p a Page JSON, updated as object
  */
 function restoreSite (n, context) {
-  console.log('restoring site for', n, context)
+  // console.log('restoring site for', n, context)
+
+  if (context.site === n.substring(0, n.indexOf('.'))) return
 
   // Case 1, there is a Site def, and it needs to be encoded to the name
-  if (context.Site !== null &&
-    typeof context.Site !== 'undefined') {
+  if (context.site !== null &&
+    typeof context.site !== 'undefined') {
     console.log('Case 1, there is a Site def, and it needs to be encoded to the name')
     if (n.includes('.')) {
-      return context.Site + '.' + n.substring(n.indexOf('.'))
+      return context.site + '.' + n.substring(n.indexOf('.'))
     } else {
-      return context.Site + '.' + n
+      return context.site + '.' + n
     }
   }
 

@@ -4,25 +4,19 @@ import Vue from 'vue'
 const state = {
   current: null,
   theme: null,
-  list: {}
+  list: {},
+  owners: {}
 }
 
 const mutations = {
   /**
-   * State change of current site, Current Site metadata is collected and persisted at the root level
+   * State change of current site
    * @param {*} state Vuex state
    * @param {*} id Id for the site swapped to. If this does not exist in state.list, the Site is not changed.
    */
   setCurrentSite (state, id) {
-    if (state.list[id] === null ||
-      typeof state.list[id] === 'undefined') {
-      id = 'skald'
-    }
     Vue.set(state, 'current', id)
-    /* if (state.list[id].theme === null) {
-      Vue.set(state, 'theme', 'default')
-    }
-    Vue.set(state, 'theme', state.list[id].theme) */
+    console.log('current site set to', id)
   },
   /**
    * Adds a Site to site listing, with doc.key as it's JSON key value with
@@ -31,11 +25,11 @@ const mutations = {
    * @param {*} param1 firebase Sites json { doc.key(), doc.data() }
    */
   patchSite (state, { key, data }) {
-    if (data.Link === null ||
-      typeof data.Link === 'undefined') {
-      data.Link = key + '.' + key
+    if (data.link === null ||
+      typeof data.link === 'undefined') {
+      data.link = key + '.' + key
     }
-    console.log('Got site', key, data)
+    // console.log('Got site', key, data)
     Vue.set(state.list, key, data)
   }
 }
@@ -54,6 +48,15 @@ const actions = {
       })
     })
   },
+  /* getOwners (context, id) {
+    context.state.owners = {}
+    const db = firebase.firestore()
+    db.collection('sites').doc(id).collection('owners').get.then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        context.state.owners[doc.key()] = doc.data()
+      })
+    })
+  }, */
   /**
    * Create a new site to firebase
    * @param {*} contex the Vuex context
@@ -62,18 +65,22 @@ const actions = {
   createSite (contex, { Name, URL, Owner, OwnerNick, Theme }) {
     var t = Theme || 'skald'
     var Site = {
-      Name: Name,
-      Owners: [{ uid: Owner, Nick: OwnerNick }],
-      Theme: t
+      name: Name,
+      theme: t,
+      owners: { [Owner]: { nickName: OwnerNick } }
     }
+
+    console.log('Createsite', Name, URL, Owner, OwnerNick, Theme)
 
     const sURI = encodeURIComponent(URL)
 
-    console.log('Creating a Site', sURI, Site)
-
     const db = firebase.firestore()
+    // Add the Site to the db
     const siteRef = db.collection('sites')
     siteRef.doc(sURI).set(Site)
+    // Init the Owners collection
+    // const ownersRef = db.collection('sites').doc(sURI).collection('owners')
+    // ownersRef.doc(Owner).set({ Nickname: OwnerNick })
   }
 }
 
