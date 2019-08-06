@@ -5,6 +5,18 @@
 </template>
 <script>
 
+function wikilinks (c, siteid) {
+  const re = new RegExp('([\\[(]wiki:)(.+?)([\\])])', 'g')
+  c = c.replace(re, function (match, p1, p2, p3, offset, string) {
+    p2 = p2.trim()
+    if (p2.includes('/')) {
+      return '[' + p2 + '](/#/v/' + p2 + ')'
+    }
+    return '[' + siteid + '/' + p2 + '](/#/v/' + siteid + '/' + p2 + ')'
+  })
+  return c
+}
+
 export default {
   props: [
     'page',
@@ -15,9 +27,12 @@ export default {
       return 'skald'
     },
     markdown () {
+      console.log(this.page)
       var mdt = this.page.content || '\\- empty -'
 
       mdt = mdt.split('\\n').join('\n')
+
+      mdt = wikilinks(mdt, this.page.site)
 
       /* / add wikilinks
       mdt = mdt.split(' ').map(

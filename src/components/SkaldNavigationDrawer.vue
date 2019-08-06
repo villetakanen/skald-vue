@@ -1,7 +1,7 @@
 <template>
   <v-list>
     <v-subheader>{{name}}</v-subheader>
-    <v-list-item :to="'/page/' + link">
+    <v-list-item :to="'/v/' + siteId">
       <v-list-item-action><v-icon>mdi-dice-d20</v-icon></v-list-item-action>
       <v-list-item-title>{{$t("indexpage")}}</v-list-item-title>
     </v-list-item>
@@ -23,7 +23,7 @@
     </v-list-item>
     <v-list-item>
       <v-list-item-action><v-icon>mdi-cup-water</v-icon></v-list-item-action>
-      <v-list-item-title>4.0.0</v-list-item-title>
+      <v-list-item-title>4.1.0</v-list-item-title>
     </v-list-item>
   </v-list>
 </template>

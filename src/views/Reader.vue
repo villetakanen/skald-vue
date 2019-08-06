@@ -44,22 +44,28 @@ import Markdown from '../components/Markdown'
 export default {
   props: ['pageid', 'siteid'],
   created () {
-    this.updatePage(this.pageid)
+    this.updatePage(this.siteid, this.pageid)
   },
   methods: {
-    updatePage (pageid, siteid) {
-      var id = 'skald.welcome'
+    updatePage (siteid, pageid) {
+      console.log('Reader switching to', siteid, pageid)
+      if (typeof pageid === 'undefined') {
+        pageid = siteid
+        console.log('Pageid defaulted to', pageid)
+      }
+      this.$store.dispatch('page/getPage', { siteid: siteid, pageid: pageid })
+      // --
+      /* var id = 'skald.welcome'
       if (pageid !== null &&
         typeof pageid !== 'undefined') id = pageid
-      this.$store.dispatch('page/getPage', id)
       var theme = 'Skald'
       if (typeof this.$store.state.sites.list[this.siteid] !== 'undefined') theme = this.$store.state.sites.list[this.siteid].theme
-      this.$store.commit('setSite', { s: this.siteid, t: theme })
+      this.$store.commit('setSite', { s: this.siteid, t: theme }) */
     }
   },
   watch: {
     '$route' (to, from) {
-      this.updatePage(this.pageid)
+      this.updatePage(this.siteid, this.pageid)
     }
   },
   computed: {
@@ -77,7 +83,7 @@ export default {
     },
     selectedTheme () {
       var theme = this.$store.state.theme
-      console.log('reader got theme', this.$store.state.theme)
+      // console.log('reader got theme', this.$store.state.theme)
       if (typeof theme === 'undefined') return 'Skald'
       return theme
     }

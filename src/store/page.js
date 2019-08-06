@@ -25,7 +25,7 @@ const mutations = {
     Vue.set(state, 'content', page.content)
     state.name = page.name
     state.id = key
-    state.site = key.substring(0, key.indexOf('.'))
+    state.site = page.site
     console.log('page set')
   },
   setSite (state, key) {
@@ -38,25 +38,20 @@ const actions = {
    * @param {*} context vuex context
    * @param {*} name page name. The action does nothing, if the name is emtpy.
    */
-  getPage (context, name) {
-    console.log('Vuex page getting firestore page', name)
-    // sanity check
-    if (name === null) return // name = 'Skald.Welcome'
-    // check if this is a root level page, or a sub-page of a site
-    // If a root page, encode the site name to it.
-
-    // var sname = restoreSite(name, context)
+  getPage (context, { siteid, pageid }) {
+    console.log('Vuex page getting firestore page', siteid, pageid)
 
     const db = firebase.firestore()
-    db.collection('pages').doc(name).get().then((doc) => {
+    db.collection('sites').doc(siteid).collection('pages').doc(pageid).get().then((doc) => {
       if (doc.exists) {
         console.log('Got doc from firebase', doc.data())
-        context.commit('setPage', { key: name, page: doc.data() })
+        context.commit('setPage', { key: pageid, page: doc.data() })
         // context.commit('sites/setCurrentSite', sname.substring(0, sname.indexOf('.')), { root: true })
       } else {
-        // return a new page
-        context.commit('setPage', { key: name, page: { content: ' ', id: name, site: name.substring(0, name.indexOf('.')) } })
-        context.commit('sites/setCurrentSite', name.substring(0, name.indexOf('.')), { root: true })
+        db.collection('pages').doc('404').get().then((doc) => {
+          console.log('Got 404 from firebase', doc.data())
+          context.commit('setPage', { key: '404', page: doc.data() })
+        })
       }
     })
   },
