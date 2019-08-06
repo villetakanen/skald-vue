@@ -4,9 +4,9 @@
         v-if="!displayname"
         text
         @click="dialog=!dialog"
-        style="color:#1976d2;">
+        >
         <v-icon>mdi-login</v-icon>
-        &nbsp;{{$t("login-button")}} {{displayname}}
+        &nbsp;{{$t("login-button")}}
       </v-btn>
     <v-btn
       v-if="displayname"
@@ -18,7 +18,7 @@
       v-model="dialog"
       max-width="800"
      >
-     <v-card color="pink darken-1" dark>
+     <v-card dark>
       <v-card-title class="pink darken-3">Login</v-card-title>
       <v-card-actions>
               <v-btn>

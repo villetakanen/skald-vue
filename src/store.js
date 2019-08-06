@@ -3,13 +3,15 @@ import Vuex from 'vuex'
 import firebase from 'firebase'
 import sites from './store/sites'
 import page from './store/page'
+import binder from './store/binder'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
     sites,
-    page
+    page,
+    binder
   },
   state: {
     user: {},

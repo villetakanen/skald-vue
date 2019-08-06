@@ -10,13 +10,17 @@
 export default {
   computed: {
     page () {
-      return this.$store.state.page.name
+      if (this.$store.state.binder.page === null) return ''
+      return this.$store.state.binder.page.name
     },
     pagelink () {
-      return '/page/' + this.$store.state.page.id
+      if (this.$store.state.binder.page === null ||
+        this.$store.state.binder.site === null) return '/'
+      return '/v/' + this.$store.state.binder.page.id + '/' + this.$store.state.binder.page.id
     },
     site () {
-      return this.$store.state.sites.list[this.$store.state.siteid].name
+      if (this.$store.state.binder.site === null) return ''
+      return this.$store.state.binder.site.name
     },
     sitelink () {
       return '/page/' + this.$store.state.sites.current + '.' + this.$store.state.sites.current

@@ -45,6 +45,7 @@ export default {
   props: ['pageid', 'siteid'],
   created () {
     this.updatePage(this.siteid, this.pageid)
+    this.$store.dispatch('binder/openPage', { siteid: this.siteid, pageid: this.pageid })
   },
   methods: {
     updatePage (siteid, pageid) {
@@ -70,6 +71,7 @@ export default {
   watch: {
     '$route' (to, from) {
       this.updatePage(this.siteid, this.pageid)
+      this.$store.dispatch('binder/openPage', { siteid: this.siteid, pageid: this.pageid })
     }
   },
   computed: {

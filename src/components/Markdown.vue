@@ -93,11 +93,11 @@ export default {
       var md = new MarkdownIt()
       var r = md.render(mdt2)
 
-      console.log('before', r)
+      // console.log('before', r)
 
       r = stats(r)
 
-      console.log('after', r)
+      // console.log('after', r)
 
       return r
     }

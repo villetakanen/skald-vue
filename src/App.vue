@@ -29,6 +29,14 @@
       <router-view></router-view>
     </v-content>
 
+    <v-dialog
+      v-model="error"
+      max-width="800"
+      >
+      <v-card dark>
+        <v-card-text>{{error}}</v-card-text>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -50,6 +58,9 @@ export default {
     },
     site () {
       return this.$store.state.sites.list[this.$store.state.siteid]
+    },
+    error () {
+      return this.$store.state.error
     }
   },
   data: () => ({

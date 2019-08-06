@@ -23,7 +23,7 @@
     </v-list-item>
     <v-list-item>
       <v-list-item-action><v-icon>mdi-cup-water</v-icon></v-list-item-action>
-      <v-list-item-title>4.1.0</v-list-item-title>
+      <v-list-item-title>4.1.2</v-list-item-title>
     </v-list-item>
   </v-list>
 </template>
