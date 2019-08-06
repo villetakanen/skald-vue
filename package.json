@@ -16,8 +16,6 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue-libs": "^4.0.0",
-    "firebase": "^6.3.3",
-    "markdown-it": "^9.0.1",
     "vue": "^2.6.10",
     "vue-i18n": "^8.0.0",
     "vue-router": "^3.0.3",
@@ -25,6 +23,8 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "firebase": "^6.3.3",
+    "markdown-it": "^9.0.1",
     "@kazupon/vue-i18n-loader": "^0.3.0",
     "@vue/cli-plugin-babel": "^3.9.0",
     "@vue/cli-plugin-eslint": "^3.9.2",
