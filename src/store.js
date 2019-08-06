@@ -24,15 +24,15 @@ export default new Vuex.Store({
         Vue.set(state, 'theme', data.theme)
       }
     },
-    updatePage (state, n) {
+    /* updatePage (state, n) {
       console.log('update page', n)
-      if (n && n.Content) {
+      if (n && n.content) {
         Vue.set(state, 'page', n)
       }
-    },
+    }, * /
     setContent (state, n) {
       Vue.set(state.page, 'Content', n)
-    },
+    }, */
     setNick (state, n) {
       Vue.set(state.profile, 'nick', n)
       // console.log('nickname set to ' + state.profile.nick)

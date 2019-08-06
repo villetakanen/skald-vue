@@ -1,9 +1,9 @@
 <template>
-  <ul id="example-2">
-    <li v-for="(item, index) in sites" v-bind:key="index">
-      {{ index }} - {{ item.name }}
-    </li>
-</ul>
+  <v-container>
+    <v-layout v-for="(item, index) in sites" v-bind:key="index">
+      <router-link :to="'/v/'+index">{{ item.name }}</router-link>
+    </v-layout>
+  </v-container>
 </template>
 <script>
 export default {

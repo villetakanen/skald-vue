@@ -16,6 +16,17 @@ function wikilinks (c, siteid) {
   })
   return c
 }
+function metalinks (c, siteid) {
+  const re = new RegExp('([\\[(]meta:)(.+?)([\\])])', 'g')
+  c = c.replace(re, function (match, p1, p2, p3, offset, string) {
+    p2 = p2.trim()
+    if (p2 === 'site') {
+      return '[' + siteid + '](/#/v/' + siteid + ')'
+    }
+    return p2
+  })
+  return c
+}
 
 export default {
   props: [
@@ -33,6 +44,7 @@ export default {
       mdt = mdt.split('\\n').join('\n')
 
       mdt = wikilinks(mdt, this.page.site)
+      mdt = metalinks(mdt, this.page.site)
 
       /* / add wikilinks
       mdt = mdt.split(' ').map(
@@ -65,6 +77,15 @@ export default {
 }
 </script>
 <style>
+.skald h1,
+.skald h2{
+  font-weight: 400;
+  color: #232323;
+}
+.skald p,
+.skald td{
+  color: #424242;
+}
 .ddfive h1,
 .ddfive h2{
   font-family: 'Lacquer', sans-serif;

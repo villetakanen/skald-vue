@@ -30,7 +30,7 @@
         fab
         fixed
         right
-        v-bind:to="'../edit/'+pageid"
+        v-bind:to="editlink"
         >
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
@@ -48,6 +48,10 @@ export default {
   },
   methods: {
     updatePage (siteid, pageid) {
+      if (typeof this.pageid === 'undefined') {
+        this.pageid = this.siteid
+        console.log('Pageid defaulted to', this.pageid)
+      }
       console.log('Reader switching to', siteid, pageid)
       if (typeof pageid === 'undefined') {
         pageid = siteid
@@ -69,6 +73,14 @@ export default {
     }
   },
   computed: {
+    editlink () {
+      var page = this.pageid
+      if (typeof page === 'undefined') {
+        page = this.siteid
+        console.log('Pageid defaulted to', page)
+      }
+      return '/e/' + this.siteid + '/' + page
+    },
     page () {
       return this.$store.state.page
     },

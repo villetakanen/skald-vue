@@ -16,7 +16,9 @@
              <v-flex xs12 md6>
                <v-card>
                  <v-card-text>
-               <Markdown :content="preview"/>
+                  <Markdown
+                    :page="preview"
+                    :theme="selectedTheme"/>
                  </v-card-text>
                </v-card>
              </v-flex>
@@ -34,43 +36,50 @@
 import Markdown from '../components/Markdown'
 
 export default {
-  props: ['pageid'],
+  props: ['siteid', 'pageid'],
   created () {
-    this.getPage(this.pageid)
+    this.getPage(this.siteid, this.pageid)
   },
   methods: {
-    getPage (pageid) {
-      var name = pageid || 'index'
-      console.log('using: ' + this.name)
-      this.$store.dispatch('page/getPage', name)
+    getPage (siteid, pageid) {
+      // var name = pageid || 'index'
+      console.log('editing: ', siteid, pageid)
+      this.$store.dispatch('page/getPage', { siteid: siteid, pageid: pageid })
     },
     savePage (pageid) {
       console.log('savePage(' + pageid + ')')
-      this.$store.dispatch('page/savePage', { name: this.pageid,
-        creator: { uid: this.$store.state.user.uid, nick: this.$store.state.profile.nick } })
-      this.$router.push('/page/' + this.pageid)
+      this.$store.dispatch('page/savePage', { siteid: this.siteid, pageid: this.pageid })
+      this.$router.push('/v/' + this.siteid + '/' + this.pageid)
     },
     updateContent (e) {
       // console.log(e)
-      this.$store.commit('setContent', e)
+      this.$store.commit('page/setContent', e)
+      // console.log(this.$store.state.page.content)
     }
   },
   watch: {
     '$route' (to, from) {
-      this.updatePage(this.pageid)
+      this.updatePage(this.siteid, this.pageid)
     }
   },
   computed: {
     page: {
       get () {
-        return this.$store.state.page.Content || ''
+        return this.$store.state.page.content || ''
       },
       set (value) {
-        this.$store.commit('updatePage', value, this.name)
+        this.$store.commit('page/updateContent', value)
       }
     },
     preview () {
+      if (typeof this.$store.state.page === 'undefined') return { content: '' }
       return this.$store.state.page
+    },
+    selectedTheme () {
+      var theme = this.$store.state.theme
+      // console.log('reader got theme', this.$store.state.theme)
+      if (typeof theme === 'undefined') return 'Skald'
+      return theme
     }
   },
   components: {

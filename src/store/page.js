@@ -30,6 +30,10 @@ const mutations = {
   },
   setSite (state, key) {
     Vue.set(state, 'site', key)
+  },
+  setContent (state, c) {
+    // console.log('wait!', c)
+    Vue.set(state, 'content', c)
   }
 }
 const actions = {
@@ -55,22 +59,22 @@ const actions = {
       }
     })
   },
-  savePage (context, { name, creator }) {
+  savePage (context, { siteid, pageid, creator }) {
     // This is the payload we save
     var page = {
-      Site: context.state.Site,
-      Content: context.state.Content,
-      Creators: context.state.Creators
+      site: siteid,
+      content: context.state.content// ,
+      // creators: context.state.creators
     }
 
-    var sname = restoreSite(name, context)
+    // var sname = restoreSite(name, context)
 
-    console.log('savePage', context, page, creator)
+    console.log('savePage', siteid, pageid, context, creator)
 
     // var profile = context.state.profile
     var db = firebase.firestore()
 
-    // Check creators, if the last creator is not current user - add current users id
+    /* / Check creators, if the last creator is not current user - add current users id
     // and nickname to the creators list as the last creator
     var c = creator.uid
     var n = creator.nick
@@ -84,18 +88,18 @@ const actions = {
     if (page.Creators.length < 1 ||
       page.Creators[page.Creators.length - 1].uid !== c) {
       page.Creators.push({ uid: c, Nick: n, Content: page.Content })
-    }
+    } */
 
     // Migrate theme
-    var pagesRef = db.collection('pages')
-    pagesRef.doc(sname).set(page)
+    var pagesRef = db.collection('sites').doc(siteid).collection('pages')
+    pagesRef.doc(pageid).set(page)
   }
 }
 /**
  * Restores the Site data to n and p respectively
  * @param {*} n name
  * @param {*} p a Page JSON, updated as object
- */
+ * /
 function restoreSite (n, context) {
   console.log('Checking site for', n, context.site)
 
@@ -125,7 +129,7 @@ function restoreSite (n, context) {
   // Case 3, there is no Site def, nor is the Site encoded to the name - we forcibly return Skald.404'
   console.log('Case 3, there is no Site def, nor is the Site encoded to the name - we forcibly return Skald.404')
   return 'skald.404'
-}
+} */
 
 export default {
   actions,
