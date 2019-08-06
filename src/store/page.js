@@ -21,12 +21,12 @@ const state = {
 }
 const mutations = {
   setPage (state, { key, page }) {
-    console.log('setting page to ', key, page)
+    // console.log('setting page to ', key, page)
     Vue.set(state, 'content', page.content)
     state.name = page.name
     state.id = key
     state.site = page.site
-    console.log('page set')
+    // console.log('page set')
   },
   setSite (state, key) {
     Vue.set(state, 'site', key)
@@ -43,17 +43,17 @@ const actions = {
    * @param {*} name page name. The action does nothing, if the name is emtpy.
    */
   getPage (context, { siteid, pageid }) {
-    console.log('Vuex page getting firestore page', siteid, pageid)
+    // console.log('Vuex page getting firestore page', siteid, pageid)
 
     const db = firebase.firestore()
     db.collection('sites').doc(siteid).collection('pages').doc(pageid).get().then((doc) => {
       if (doc.exists) {
-        console.log('Got doc from firebase', doc.data())
+        // console.log('Got doc from firebase', doc.data())
         context.commit('setPage', { key: pageid, page: doc.data() })
         // context.commit('sites/setCurrentSite', sname.substring(0, sname.indexOf('.')), { root: true })
       } else {
         db.collection('pages').doc('404').get().then((doc) => {
-          console.log('Got 404 from firebase', doc.data())
+          // console.log('Got 404 from firebase', doc.data())
           context.commit('setPage', { key: '404', page: doc.data() })
         })
       }
