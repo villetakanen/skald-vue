@@ -44,7 +44,7 @@ export default {
       // console.log(this.$store.state.user.name)
       // console.log('d:', this.$store.state.user)
       if (typeof this.$store.state.user === 'undefined' || this.$store.state.user === null) {
-        console.log('is null')
+        // console.log('is null')
         return null
       }
       // console.log('d:' + this.$store.state.user)
@@ -58,7 +58,7 @@ export default {
     socialGoogleLogin () {
       const provider = new firebase.auth.GoogleAuthProvider()
       firebase.auth().signInWithPopup(provider).then((result) => {
-        console.log('user is' + result.user.displayName)
+        // console.log('user is' + result.user.displayName)
         this.$store.commit('setActiveUser', result.user)
         this.$store.dispatch('getProfile', result.user.uid)
         // this.$router.push('/')

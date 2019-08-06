@@ -51,12 +51,12 @@ export default {
     updatePage (siteid, pageid) {
       if (typeof this.pageid === 'undefined') {
         this.pageid = this.siteid
-        console.log('Pageid defaulted to', this.pageid)
+        // console.log('Pageid defaulted to', this.pageid)
       }
-      console.log('Reader switching to', siteid, pageid)
+      // console.log('Reader switching to', siteid, pageid)
       if (typeof pageid === 'undefined') {
         pageid = siteid
-        console.log('Pageid defaulted to', pageid)
+        // console.log('Pageid defaulted to', pageid)
       }
       this.$store.dispatch('page/getPage', { siteid: siteid, pageid: pageid })
       // --
@@ -79,7 +79,7 @@ export default {
       var page = this.pageid
       if (typeof page === 'undefined') {
         page = this.siteid
-        console.log('Pageid defaulted to', page)
+        // console.log('Pageid defaulted to', page)
       }
       return '/e/' + this.siteid + '/' + page
     },

@@ -58,7 +58,7 @@ const actions = {
     const db = firebase.firestore()
     db.collection('sites').doc(id).collection('owners').get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        console.log('owner', doc.id, doc.data())
+        // console.log('owner', doc.id, doc.data())
         context.commit('patchOwner', { key: doc.id, data: doc.data() })
         context.commit('refreshTheme', { key: doc.id, data: doc.data() }, { root: true })
         // context.state.owners[doc.key()] = doc.data()
@@ -78,7 +78,7 @@ const actions = {
       owners: { [Owner]: { nickName: OwnerNick } }
     }
 
-    console.log('Createsite', Name, URL, Owner, OwnerNick, Theme)
+    // console.log('Createsite', Name, URL, Owner, OwnerNick, Theme)
 
     const sURI = encodeURIComponent(URL)
 
@@ -91,7 +91,7 @@ const actions = {
     // ownersRef.doc(Owner).set({ Nickname: OwnerNick })
   },
   saveTheme (contex, { id, theme }) {
-    console.log('save theme for', id, theme)
+    // console.log('save theme for', id, theme)
     const db = firebase.firestore()
     const siteRef = db.collection('sites')
     siteRef.doc(id).update({ theme: theme })

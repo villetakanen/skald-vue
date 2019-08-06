@@ -65,7 +65,7 @@ export default {
       return this.$store.state.sites.list[this.siteid]
     },
     owners () {
-      console.log('owners', this.$store.state.sites.owners)
+      // console.log('owners', this.$store.state.sites.owners)
       return this.$store.state.sites.owners
     },
     currentUser () {
@@ -81,7 +81,7 @@ export default {
         return theme
       },
       set (theme) {
-        console.log('theme set to', theme)
+        // console.log('theme set to', theme)
         this.$store.state.theme = theme
       }
     }

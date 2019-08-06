@@ -60,7 +60,7 @@ export default {
       return 'skald'
     },
     markdown () {
-      console.log(this.page)
+      // console.log(this.page)
       var mdt = this.page.content || '\\- empty -'
 
       mdt = mdt.split('\\n').join('\n')

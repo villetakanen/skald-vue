@@ -40,7 +40,7 @@ new Vue({
       const s = this.$router.currentRoute.params.pageid
       store.commit('setSite', { s: s.substring(0, s.indexOf('.')) })
     }
-    console.log('Vuex state.site is ', store.state.siteid)
+    // console.log('Vuex state.site is ', store.state.siteid)
 
     // get signed in profile, and update Vuex state accordingly
     firebase.auth().onAuthStateChanged(function (user) {

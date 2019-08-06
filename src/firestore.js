@@ -24,12 +24,12 @@ function getPage (name) {
 
   var r = docRef.get().then(function (doc) {
     if (doc.exists) {
-      console.log('Document data:', doc.data())
-      console.log('Document Contetn:', doc.data().Content)
+      // console.log('Document data:', doc.data())
+      // console.log('Document Contetn:', doc.data().Content)
       return doc.data()
     } else {
       // doc.data() will be undefined in this case
-      console.log('No such document!')
+      // console.log('No such document!')
     }
   }).catch(function (error) {
     console.log('Error getting document:', error)

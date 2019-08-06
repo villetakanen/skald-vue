@@ -62,7 +62,7 @@ import firebase from 'firebase'
 export default {
   computed: {
     user () {
-      console.log(this.$store.state.user)
+      // console.log(this.$store.state.user)
       return this.$store.state.user
     },
     logged () {
@@ -83,7 +83,7 @@ export default {
   }),
   methods: {
     saveProfile (name) {
-      console.log('saveProfile(' + name + ')')
+      // console.log('saveProfile(' + name + ')')
       this.$store.dispatch('saveProfile', name)
     },
     updateNick (e) {
