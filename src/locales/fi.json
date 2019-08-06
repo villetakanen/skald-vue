@@ -1,5 +1,24 @@
 {
     "wikititle": "Roolipeliwiki",
     "releaseInfo": "Viimeisin julkaisu",
-    "login-button": "Kirjaudu"
+    "login-button": "Kirjaudu",
+    "create" : "Luo",
+    "cancel": "Peruuta",
+    "indexpage": "Etusivu",
+    "library": "Kirjasto",
+    "listsites": "Sivustot",
+    "save": "Tallenna",
+    "siteowners": "Omistajat",
+    "sitesettings": "Sivuston asetukset",
+    "cpb-title": "Luo",
+    "cpb-tab-site": "Sivusto",
+    "cpb-info": "Omistat perustettavan sivuston. Voit lisätä uusia omistajia myöhemmin.",
+    "cpb-site-name-label": "Sivuston nimi",
+    "cpb-site-name-placeholder": "Uusi wikisivusto",
+    "cpb-site-url-label": "Omakeksimä osoite (jätä tyhjäksi, niin keksimme puolestasi)",
+    "cp-intro": "Asetukset",
+    "cp-profile-title": "Omat tiedot",
+    "ss-site-preview": "Esikatselu",
+    "ss-site-style": "Ulkoasu",
+    "ss-title": "Asetukset"
 }

@@ -14,7 +14,7 @@ export default new Router({
     // removed in favour of /v/:siteid and /v/:siteid/:pageid
     // { path: '/page/:pageid', component: Reader, props: true },
     // { path: '/edit/:pageid', component: Editor, props: true },
-    { path: '/settings/profile', component: Profile, props: false },
+    { path: '/c/profile', component: Profile, props: false },
     { path: '/c/site/:siteid', component: SiteSetup, props: true },
     { path: '/e/:siteid/:pageid', component: Editor, props: true },
     { path: '/l/sites', component: SiteList, props: false },

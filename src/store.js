@@ -4,6 +4,7 @@ import firebase from 'firebase'
 import sites from './store/sites'
 import page from './store/page'
 import binder from './store/binder'
+import creator from './store/creator'
 
 Vue.use(Vuex)
 
@@ -11,7 +12,8 @@ export default new Vuex.Store({
   modules: {
     sites,
     page,
-    binder
+    binder,
+    creator
   },
   state: {
     user: {},

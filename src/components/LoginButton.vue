@@ -1,7 +1,7 @@
 <template>
     <div>
       <v-btn
-        v-if="!displayname"
+        v-if="!nick"
         text
         @click="dialog=!dialog"
         >
@@ -9,10 +9,10 @@
         &nbsp;{{$t("login-button")}}
       </v-btn>
     <v-btn
-      v-if="displayname"
+      v-if="nick"
       text
-      to="/settings/profile">
-        {{displayname}}
+      to="/c/profile">
+        {{nick}}
       </v-btn>
       <v-dialog
       v-model="dialog"
@@ -52,7 +52,8 @@ export default {
     }
   },
   data: () => ({
-    dialog: false
+    dialog: false,
+    nick: null
   }),
   methods: {
     socialGoogleLogin () {
@@ -67,6 +68,21 @@ export default {
       })
       this.dialog = !this.dialog
     }
+  },
+  mounted () {
+    this.$store.subscribe((mutation, state) => {
+      // console.log(mutation.type)
+      switch (mutation.type) {
+        case 'creator/setCreator':
+          const nick = state.creator.nick
+
+          console.log(`Updating to ${nick}`)
+
+          this.nick = nick
+
+          break
+      }
+    })
   }
 }
 </script>

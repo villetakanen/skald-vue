@@ -65,6 +65,21 @@ export default {
   },
   data: () => ({
     drawer: null
-  })
+  }),
+  mounted () {
+    this.$store.subscribe((mutation, state) => {
+      // console.log(mutation.type)
+      switch (mutation.type) {
+        case 'creator/setCreator':
+          const locale = state.creator.locale
+          if (locale === null) break
+
+          console.log(`Updating to locale ${locale}`)
+          this.$i18n.locale = locale
+
+          break
+      }
+    })
+  }
 }
 </script>

@@ -47,6 +47,7 @@ new Vue({
       if (user) {
         store.commit('setActiveUser', user)
         store.dispatch('getProfile', user.uid)
+        store.dispatch('creator/signIn', user)
         if (store.state.profile.locale !== null &&
           typeof store.state.profile.locale !== 'undefined') {
           // console.log('i18n.locale =' + store.state.profile.locale)

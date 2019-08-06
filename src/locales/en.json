@@ -16,6 +16,8 @@
     "cpb-site-name-label": "Name of the Site",
     "cpb-site-name-placeholder": "A new wikisite",
     "cpb-site-url-label": "Custom address (leave empty if you want us to auto generate the url)",
+    "cp-intro": "Settings",
+    "cp-profile-title": "Personal",
     "ss-site-preview": "Preview site style",
     "ss-site-style": "Style",
     "ss-title": "Setup"

@@ -1,23 +1,23 @@
 <template>
-    <v-container grid-list-xs>
-        <v-layout>
-          <v-flex xs12>
-            <h1> Hey, its you! </h1>
-          </v-flex>
-        </v-layout>
-        <v-layout>
-          <v-flex xs6>
-              <v-form @submit.prevent="savePage">
-              <v-card>
-                <v-card-title>Local info</v-card-title>
-                <v-card-text>
-                        <v-text-field
-                            label="Nickname"
-                            filled
-                            v-bind:placeholder="user.displayName"
-                            v-bind:value="nickname"
-                            @input="updateNick"
-                        ></v-text-field>
+  <v-container fluid>
+    <v-layout>
+      <v-flex xs12 md12>
+        <h1>{{$t("cp-intro")}}</h1>
+      </v-flex>
+    </v-layout>
+    <v-layout>
+    <v-flex xs6 md6>
+      <v-form @submit.prevent="savePage">
+        <v-card>
+          <v-card-title>{{$t("cp-profile-title")}}</v-card-title>
+            <v-card-text>
+              <v-text-field
+                label="Nickname"
+                filled
+                v-bind:placeholder="user.displayName"
+                v-bind:value="nickname"
+                @input="updateNick"
+                ></v-text-field>
                         <v-flex xs12 sm6 d-flex>
                           <v-select
                             :items="langs"
@@ -61,6 +61,9 @@
 import firebase from 'firebase'
 export default {
   computed: {
+    displayname () {
+      return this.$store.state.creator.displayname
+    },
     user () {
       // console.log(this.$store.state.user)
       return this.$store.state.user
