@@ -52,7 +52,8 @@ export default {
       if (pageid !== null &&
         typeof pageid !== 'undefined') id = pageid
       this.$store.dispatch('page/getPage', id)
-      var theme = this.$store.state.sites.list[this.siteid].theme
+      var theme = 'Skald'
+      if (typeof this.$store.state.sites.list[this.siteid] !== 'undefined') theme = this.$store.state.sites.list[this.siteid].theme
       this.$store.commit('setSite', { s: this.siteid, t: theme })
     }
   },
