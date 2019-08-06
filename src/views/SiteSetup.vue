@@ -91,7 +91,7 @@ export default {
     return this.$store.dispatch('sites/getOwners', this.siteid)
   },
   data: () => ({
-    examplePage: { content: '# H1 header \n\n Some text, [wiki:skald/welcome] wikilink, and a \n\n## H2 header' }
+    examplePage: { content: '# H1 header \n\n Some text, [wiki:skald/welcome] wikilink, and a \n\n## H2 Stats under H2 \n\n[stats: Strenght(10/0) Dexterity(12/+1) Stamina(14/+2) Wisdom(6/-3) Intelligence(21/+5) Charisma(12/+1)]' }
   }),
   methods: {
     saveTheme (id, theme) {

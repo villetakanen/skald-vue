@@ -25,7 +25,7 @@
       <v-btn
         v-if="logged"
         bottom
-        color="pink"
+        color="secondary"
         dark
         fab
         fixed

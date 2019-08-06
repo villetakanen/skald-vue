@@ -9,8 +9,8 @@
       v-model="dialog"
       max-width="800"
       >
-      <v-card>
-        <v-card-title>
+      <v-card dark>
+        <v-card-title  dark>
           <span class="headline">{{$t('cpb-title')}}</span>
         </v-card-title>
         <v-card-text>
@@ -51,8 +51,8 @@
       </v-container>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="primary" @click="createSite()">{{$t('create')}}</v-btn>
-          <v-btn text color="secondary" @click="dialog=!dialog">{{$t('cancel')}}</v-btn>
+          <v-btn outlined color="primary" @click="createSite()">{{$t('create')}}</v-btn>
+          <v-btn text color="primary" @click="dialog=!dialog">{{$t('cancel')}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

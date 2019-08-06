@@ -4,7 +4,6 @@
   </div>
 </template>
 <script>
-
 function wikilinks (c, siteid) {
   const re = new RegExp('([\\[(]wiki:)(.+?)([\\])])', 'g')
   c = c.replace(re, function (match, p1, p2, p3, offset, string) {
@@ -25,6 +24,29 @@ function metalinks (c, siteid) {
     }
     return p2
   })
+  return c
+}
+function stats (c) {
+  const re = new RegExp('([\\[]stats:)(.+?)([\\]])', 'g')
+  c = c.replace(re, function (match, p1, p2, p3, offset, string) {
+    var stats = '<table class="statblock">'
+    var statT = p2.trim().split(' ')
+    statT.forEach((a) => {
+      if (a.includes('(') && a.includes(')')) {
+        stats += '<tr><th class="stat">' + a.substring(0, a.indexOf('(')) + '</th>'
+        if (a.includes('/')) {
+          stats += '<td class="stat">' + a.substring(a.indexOf('(') + 1, a.indexOf('/')) + '</td>'
+          stats += '<td class="bonus">' + a.substring(a.indexOf('/') + 1, a.indexOf(')')) + '</td></tr>'
+        } else {
+          stats += '<td colspan="2" class="stat">' + a.substring(a.indexOf('(') + 1, a.indexOf(')')) + '</td></tr>'
+        }
+      } else {
+        stats += '<tr><th class="stat" colspan="3">' + a + '</th></tr>'
+      }
+    })
+    return stats + '</table>'
+  })
+  // const stats = '<table>' + c + '</table>'
   return c
 }
 
@@ -69,7 +91,13 @@ export default {
 
       const MarkdownIt = require('markdown-it')
       var md = new MarkdownIt()
-      const r = md.render(mdt2)
+      var r = md.render(mdt2)
+
+      console.log('before', r)
+
+      r = stats(r)
+
+      console.log('after', r)
 
       return r
     }
@@ -77,6 +105,29 @@ export default {
 }
 </script>
 <style>
+.statblock td {
+  /* border: 3px solid; */
+  background-color: white;
+  font-weight: 700;
+  text-align: center;
+}
+table.statblock th.stat {
+  background-color: #ffe54c;
+  background-color: #546e7a;
+  background-color:#819ca9;
+}
+.statblock td.stat {
+  background-color: #ffb300;
+  background-color: #29434e;
+  color: white;
+  border: none;
+}
+.statblock td.bonus {
+  border: #29434e solid 2pt;
+  background-color:#eceff1;
+  color: #29434e;
+  /* color: #c68400; */
+}
 .skald h1,
 .skald h2{
   font-weight: 400;
