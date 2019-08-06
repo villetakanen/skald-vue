@@ -17,8 +17,9 @@
       </v-layout>
       <v-layout class="reader">
         <v-flex xs12 xl12 >
-          <Markdown  v-bind:page="page"
-            class='md-rended'/>
+          <Markdown
+            v-bind:page="page"
+            :theme="selectedTheme"/>
         </v-flex>
       </v-layout>
       <v-btn
@@ -71,6 +72,12 @@ export default {
         return null
       }
       return this.$store.state.user.displayName
+    },
+    selectedTheme () {
+      var theme = this.$store.state.theme
+      console.log('reader got theme', this.$store.state.theme)
+      if (typeof theme === 'undefined') return 'Skald'
+      return theme
     }
   },
   components: {

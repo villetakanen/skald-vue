@@ -1,12 +1,19 @@
 <template>
+  <div :class="selectedTheme">
     <div v-html="markdown"></div>
+  </div>
 </template>
 <script>
 
 export default {
   props: [
-    'page'],
+    'page',
+    'theme'],
   computed: {
+    selectedTheme () {
+      if (this.theme === 'DD5') return 'ddfive'
+      return 'skald'
+    },
     markdown () {
       var mdt = this.page.content || '\\- empty -'
 
@@ -42,3 +49,19 @@ export default {
   }
 }
 </script>
+<style>
+.ddfive h1,
+.ddfive h2{
+  font-family: 'Lacquer', sans-serif;
+  line-height: 2em;
+  color: crimson;
+}
+.ddfive p {
+  font-family: 'Libre Caslon Text', serif;
+  color: darkblue;
+}
+.ddfive div {
+  background-color: blanchedalmond;
+  padding: 0.5em;
+}
+</style>

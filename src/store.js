@@ -14,9 +14,16 @@ export default new Vuex.Store({
   state: {
     user: {},
     profile: { locale: 'en' },
-    siteid: 'skald'
+    siteid: 'skald',
+    theme: 'Skald'
   },
   mutations: {
+    refreshTheme (state, { key, data }) {
+      if (state.siteid === key) {
+        console.log('setting site data from refresh:', key, data.theme)
+        Vue.set(state, 'theme', data.theme)
+      }
+    },
     updatePage (state, n) {
       console.log('update page', n)
       if (n && n.Content) {

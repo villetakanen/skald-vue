@@ -33,6 +33,9 @@ const mutations = {
     // console.log(state.list)
     Vue.set(state.list, key, data)
     // console.log(state.list[key])
+  },
+  patchOwner (state, { key, data }) {
+    Vue.set(state.owners, key, data)
   }
 }
 
@@ -55,20 +58,13 @@ const actions = {
     const db = firebase.firestore()
     db.collection('sites').doc(id).collection('owners').get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        console.log('owner', doc.key(), doc.data())
+        console.log('owner', doc.id, doc.data())
+        context.commit('patchOwner', { key: doc.id, data: doc.data() })
+        context.commit('refreshTheme', { key: doc.id, data: doc.data() }, { root: true })
         // context.state.owners[doc.key()] = doc.data()
       })
     })
   },
-  /* getOwners (context, id) {
-    context.state.owners = {}
-    const db = firebase.firestore()
-    db.collection('sites').doc(id).collection('owners').get.then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        context.state.owners[doc.key()] = doc.data()
-      })
-    })
-  }, */
   /**
    * Create a new site to firebase
    * @param {*} contex the Vuex context
@@ -93,6 +89,12 @@ const actions = {
     // Init the Owners collection
     // const ownersRef = db.collection('sites').doc(sURI).collection('owners')
     // ownersRef.doc(Owner).set({ Nickname: OwnerNick })
+  },
+  saveTheme (contex, { id, theme }) {
+    console.log('save theme for', id, theme)
+    const db = firebase.firestore()
+    const siteRef = db.collection('sites')
+    siteRef.doc(id).update({ theme: theme })
   }
 }
 
