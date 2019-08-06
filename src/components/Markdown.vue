@@ -1,6 +1,6 @@
 <template>
   <div :class="selectedTheme">
-    <div v-html="markdown"></div>
+    <div v-html="markdown" class="md-rended"></div>
   </div>
 </template>
 <script>
@@ -62,6 +62,14 @@ export default {
 }
 .ddfive div {
   background-color: blanchedalmond;
+  padding: 0.5em;
+}
+.md-rended table td{
+  background-color: RGBA(50, 100, 200, 0.1);
+  padding: 0.5em;
+}
+.md-rended table th{
+  background-color: RGBA(50, 100, 200, 0.3);
   padding: 0.5em;
 }
 </style>

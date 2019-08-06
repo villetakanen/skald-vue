@@ -42,17 +42,18 @@ import Breadcrumbs from '../components/Breadcrumbs'
 import Markdown from '../components/Markdown'
 
 export default {
-  props: ['pageid'],
+  props: ['pageid', 'siteid'],
   created () {
     this.updatePage(this.pageid)
   },
   methods: {
-    updatePage (pageid) {
+    updatePage (pageid, siteid) {
       var id = 'skald.welcome'
       if (pageid !== null &&
         typeof pageid !== 'undefined') id = pageid
       this.$store.dispatch('page/getPage', id)
-      this.$store.commit('setSite', id.substring(0, id.indexOf('.')))
+      var theme = this.$store.state.sites.list[this.siteid].theme
+      this.$store.commit('setSite', { s: this.siteid, t: theme })
     }
   },
   watch: {
@@ -87,14 +88,6 @@ export default {
 }
 </script>
 <style>
-.md-rended table td{
-  background-color: RGBA(50, 100, 200, 0.1);
-  padding: 0.5em;
-}
-.md-rended table th{
-  background-color: RGBA(50, 100, 200, 0.3);
-  padding: 0.5em;
-}
 .loader_image{
   opacity: 0.23;
   -webkit-animation: rotation 7s infinite linear; /**/
@@ -106,18 +99,5 @@ export default {
   to {
     -webkit-transform: rotate(359deg);
   }
-}
-.reader_fonts_fantasy h1,
-.reader_fonts_fantasy h2,
-.reader_fonts_fantasy h3
-{
-  font-family: 'Crimson Pro', serif;
-  font-weight: normal;
-  color:dimgray;
-}
-.reader h1,
-.reader h2,
-.reader h3{
-  font-weight: 400;
 }
 </style>

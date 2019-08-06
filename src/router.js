@@ -10,7 +10,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    { path: '/', component: Reader, props: { name: 'skald.welcome' } },
+    { path: '/', component: Reader, props: { pageid: 'skald.welcome', siteid: 'skald' } },
     { path: '/page/:pageid', component: Reader, props: true },
     { path: '/edit/:pageid', component: Editor, props: true },
     { path: '/settings/profile', component: Profile, props: false },
