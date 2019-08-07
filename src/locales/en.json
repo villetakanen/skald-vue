@@ -2,6 +2,7 @@
     "wikititle": "A wiki for RPG materials",
     "releaseInfo": "Latest Release",
     "login-button": "Login",
+    "contentLoading": "Loading...",
     "create" : "Create",
     "cancel": "Cancel",
     "indexpage": "Home",

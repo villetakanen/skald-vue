@@ -8,7 +8,7 @@
       align-center justify-center row fill-height
       >
       <v-flex>
-        <img class="loader_image" src="../assets/loading.svg"/>
+        <Spinner :text="$t('contentLoading')"/>
       </v-flex>
     </v-layout>
     <template v-if="!loading">
@@ -40,6 +40,7 @@
 <script>
 import Breadcrumbs from '../components/Breadcrumbs'
 import Markdown from '../components/Markdown'
+import Spinner from '../components/Spinner'
 
 export default {
   props: ['pageid', 'siteid'],
@@ -104,7 +105,8 @@ export default {
   },
   components: {
     Markdown,
-    Breadcrumbs
+    Breadcrumbs,
+    Spinner
   }
 }
 </script>
