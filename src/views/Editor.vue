@@ -1,4 +1,18 @@
 <template>
+<div>
+  <v-container fluid grid-list-md>
+    <v-layout>
+        <v-flex xs12 md6>
+          <v-card>
+            <v-toolbar dark>
+              <v-toolbar-title>{{$t('ep-editor-title')}}</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" @click="updatePage">{{$t("save")}}</v-btn>
+            </v-toolbar>
+          </v-card>
+        </v-flex>
+    </v-layout>
+  </v-container>
 <v-form  @submit.prevent="savePage">
     <v-container
         fluid
@@ -30,6 +44,7 @@
         </v-layout>
     </v-container>
     </v-form>
+    </div>
 </template>
 
 <script>
