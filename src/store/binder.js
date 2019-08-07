@@ -19,6 +19,7 @@ const mutations = {
       return
     }
     Vue.set(state, 'site', state.sites[id])
+    Vue.set(state.site, 'link', id)
   },
   setPage (state, { pageid, data }) {
     data.id = pageid
