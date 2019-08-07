@@ -21,6 +21,7 @@
     "cpb-site-url-label": "Custom address (leave empty if you want us to auto generate the url)",
     "cp-account-title": "SSO Account info",
     "cp-intro": "Settings",
+    "ep-editor-title": "Edit page",
     "cp-profile-title": "Personal",
     "loginMessage": "When you login we get your email adress, name, and photo url from the login provider. You can review and manage the user data we save on your profile page.",
     "loginTitle": "Login to Skald",
