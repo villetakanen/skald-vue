@@ -1,61 +1,47 @@
 <template>
-  <v-container fluid>
+  <v-container fluid grid-list-md>
     <v-layout>
-      <v-flex xs12 md12>
-        <h1>{{$t("cp-intro")}}</h1>
-      </v-flex>
-    </v-layout>
-    <v-layout>
-    <v-flex xs6 md6>
-      <v-form @submit.prevent="savePage">
-        <v-card>
-          <v-card-title>{{$t("cp-profile-title")}}</v-card-title>
+      <v-flex xs12 md6>
+          <v-card>
+            <v-toolbar dark>
+              <v-toolbar-title>{{$t('cp-profile-title')}}</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" @click="updateProfile">{{$t("save")}}</v-btn>
+            </v-toolbar>
             <v-card-text>
+              <v-form @submit.prevent="savePage">
               <v-text-field
                 label="Nickname"
                 filled
-                v-bind:placeholder="user.displayName"
-                v-bind:value="nickname"
-                @input="updateNick"
+                v-bind:placeholder="displayname"
+                v-model="nick"
                 ></v-text-field>
-                        <v-flex xs12 sm6 d-flex>
-                          <v-select
-                            :items="langs"
-                            label="Language"
-                            @input="setLang"
-                          ></v-select>
-                        </v-flex>
-                </v-card-text>
-                <v-card-actions>
-                    <v-card-actions>
-                      <v-btn @click="saveProfile(user.uid)">Save</v-btn>
-                  </v-card-actions>
-                </v-card-actions>
-            </v-card>
-            </v-form>
+              <v-select
+                :items="langs"
+                v-model="locale"
+                prepend-icon="mdi-flag"
+                :label="$t('setLocale')"></v-select>
+              </v-form>
+            </v-card-text>
+          </v-card>
           </v-flex>
-          <v-flex xs6>
-              <v-card>
-                  <v-card-title>
-                      Data provided by SSO
-                  </v-card-title>
-                  <v-card-text>
-                      <div style="padding:0.5em; border: solid 1px grey; float: right">
-                        <img v-bind:src="user.photoURL" style="height:64px;width:64px"/>
-                      </div>
-                      <div>
-                        displayName: {{user.displayName}} <br/>
-                        email: {{user.email}} <br/>
-                        uid: {{user.uid}} <br/>
-                      </div>
-                  </v-card-text>
-                  <v-card-actions>
-                      <v-btn @click="logout">logout</v-btn>
-                  </v-card-actions>
-              </v-card>
-          </v-flex>
-        </v-layout>
-    </v-container>
+          <v-flex xs12 md6>
+            <v-card>
+              <v-toolbar dark>
+              <v-toolbar-title>{{$t('cp-account-title')}}</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" @click="logout">{{$t("logout")}}</v-btn>
+            </v-toolbar>
+            <v-card-text>
+              <img v-bind:src="user.photoURL" style="height:64px;width:64px"/><br/>
+              displayName: {{user.displayName}} <br/>
+              email: {{user.email}} <br/>
+              uid: {{user.uid}} <br/>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
+  </v-container>
 </template>
 <script>
 import firebase from 'firebase'
@@ -81,8 +67,17 @@ export default {
       }
     }
   },
+  created () {
+    this.nick = this.$store.state.creator.nick
+    this.locale = this.$store.state.creator.locale
+    // console.log(this.nick)
+    /* this.updatePage(this.siteid, this.pageid)
+    this.$store.dispatch('binder/openPage', { siteid: this.siteid, pageid: this.pageid }) */
+  },
   data: () => ({
-    langs: ['fi', 'en']
+    langs: ['fi', 'en'],
+    nick: '',
+    locale: 'en'
   }),
   methods: {
     saveProfile (name) {
@@ -103,7 +98,22 @@ export default {
     setLang (l) {
       this.$i18n.locale = l
       this.$store.commit('setLocale', l)
+    },
+    updateProfile () {
+      console.log('updateProfile', this.nick, this.locale, this.$store.state.creator.uid)
+      this.$store.dispatch('creator/update', { uid: this.$store.state.creator.uid, nick: this.nick, locale: this.locale })
     }
+  },
+  mounted () {
+    this.$store.subscribe((mutation, state) => {
+      // console.log(mutation.type)
+      switch (mutation.type) {
+        case 'creator/setCreator':
+          this.nick = state.creator.nick
+          this.locale = state.creator.locale
+          break
+      }
+    })
   }
 }
 </script>
