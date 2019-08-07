@@ -46,6 +46,11 @@ const actions = {
     userRef.update(u)
 
     context.commit('setCreator', u)
+  },
+  logout (context) {
+    Vue.set(context, 'nick', null)
+    Vue.set(context, 'locale', null)
+    Vue.set(context, 'uid', null)
   }
 }
 function exists (a) {

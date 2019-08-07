@@ -30,7 +30,7 @@
     </v-content>
 
     <v-dialog
-      v-model="error"
+      v-model="edialog"
       max-width="800"
       >
       <v-card dark>
@@ -64,7 +64,8 @@ export default {
     }
   },
   data: () => ({
-    drawer: null
+    drawer: null,
+    edialog: false
   }),
   mounted () {
     this.$store.subscribe((mutation, state) => {
@@ -76,6 +77,10 @@ export default {
 
           console.log(`Updating to locale ${locale}`)
           this.$i18n.locale = locale
+
+          break
+        case 'error':
+          this.edialog = true
 
           break
       }

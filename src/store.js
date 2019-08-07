@@ -19,9 +19,13 @@ export default new Vuex.Store({
     user: {},
     profile: { locale: 'en' },
     siteid: 'skald',
-    theme: 'Skald'
+    theme: 'Skald',
+    error: null
   },
   mutations: {
+    error (state, error) {
+      Vue.set(state, 'error', error)
+    },
     refreshTheme (state, { key, data }) {
       if (state.siteid === key) {
         console.log('setting site data from refresh:', key, data.theme)

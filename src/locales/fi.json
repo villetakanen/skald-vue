@@ -20,5 +20,15 @@
     "cp-profile-title": "Omat tiedot",
     "ss-site-preview": "Esikatselu",
     "ss-site-style": "Ulkoasu",
-    "ss-title": "Asetukset"
+    "ss-title": "Asetukset",
+    "contentLoading": "Ladataan...",
+    "listpages": "Sivut",
+    "setLocale": "Kieli",
+    "cp-account-title": "SSO Tilin tiedot",
+    "loginMessage": "Tallennamme käyttämäsi kirjautumispalvelun toimittaman sähköpostiosoitteen, kuvan ja nimen.",
+    "loginTitle": "Login to Skald",
+    "loginPs": "Luomme sinulle profiilin automaattisesti ensimmäisellä kirjautumisella. Huomaathan että alustan rajoituksista johtuen, voit kirjautua vain yhtä palvelua käyttäen.",
+    "loginSignWithGoogle": "Google- kirjautuminen",
+    "loginSignWithFacebook": "Facebook- kirjautuminen",
+    "logout": "Logout" 
 }
