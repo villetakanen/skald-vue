@@ -20,7 +20,7 @@
           <v-card-text>
             <v-container fluid>
               <v-layout>
-                <v-flex>
+                <v-flex xs12 v-bind:md6="preview">
                   <v-form  @submit.prevent="savePage">
                     <v-text-field
                       v-model="pageName"
@@ -32,14 +32,14 @@
                   </v-form>
                 </v-flex>
                 <v-flex v-if="preview" xs12 md6>
-                  <v-card>
-                    <v-card-title>{{pageName}}</v-card-title>
-                    <v-card-text>
-                  <Markdown
-                    :page="{ content: pageContent }"
-                    :theme="Skald"/>
-                    </v-card-text>
-                  </v-card>
+                    <v-card v-show="preview">
+                      <v-card-title>{{pageName}}</v-card-title>
+                      <v-card-text>
+                    <Markdown
+                      :page="{ content: pageContent }"
+                      theme="Skald"/>
+                      </v-card-text>
+                    </v-card>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -76,47 +76,23 @@ export default {
   }),
   mounted () {
   },
-  // up
   methods: {
-    getPage (siteid, pageid) {
-      // var name = pageid || 'index'
-      console.log('editing: ', siteid, pageid)
-      this.$store.dispatch('page/getPage', { siteid: siteid, pageid: pageid })
-    },
-    savePage (pageid) {
-      console.log('savePage(' + pageid + ')')
-      this.$store.dispatch('page/savePage', { siteid: this.siteid, pageid: this.pageid })
-      this.$router.push('/v/' + this.siteid + '/' + this.pageid)
-    },
-    updateContent (e) {
-      // console.log(e)
-      this.$store.commit('page/setContent', e)
-      // console.log(this.$store.state.page.content)
+    updatePage () {
+      this.$store.dispatch('binder/updatePage',
+        {
+          pageid: this.pageid,
+          name: this.pageName,
+          content: this.pageContent,
+          siteid: this.siteid,
+          creator: this.$store.state.creator.uid,
+          creatorNick: this.$store.state.creator.nick
+        })
     }
   },
+  // up
   watch: {
     '$route' (to, from) {
       this.updatePage(this.siteid, this.pageid)
-    }
-  },
-  computed: {
-    page: {
-      get () {
-        return this.$store.state.page.content || ''
-      },
-      set (value) {
-        this.$store.commit('page/updateContent', value)
-      }
-    },
-    preview () {
-      if (typeof this.$store.state.page === 'undefined') return { content: '' }
-      return this.$store.state.page
-    },
-    selectedTheme () {
-      var theme = this.$store.state.theme
-      // console.log('reader got theme', this.$store.state.theme)
-      if (typeof theme === 'undefined') return 'Skald'
-      return theme
     }
   },
   components: {
