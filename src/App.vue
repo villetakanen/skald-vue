@@ -42,6 +42,7 @@
 
 <script>
 import LoginButton from './components/LoginButton.vue'
+// import CreatePageButton from './components/CreatePageButton'
 import CreatePageButton from './components/CreatePageButton'
 import SkaldNavigationDrawer from './components/SkaldNavigationDrawer'
 

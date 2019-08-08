@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-md>
+  <v-container fluid grid-list-md class="scroll-y">
     <v-layout>
       <v-flex xs12>
         <v-card>
@@ -49,6 +49,18 @@
         </v-card>
       </v-flex>
     </v-layout>
+     <v-btn
+            v-scroll="onScroll"
+            v-show="fab"
+            fab
+            dark
+            fixed
+            bottom
+            right
+            color="primary"
+            @click="toTop"
+          ><v-icon>mdi-arrow-up</v-icon>
+          </v-btn>
   </v-container>
 </template>
 
@@ -85,11 +97,20 @@ export default {
   data: () => ({
     // preview: true,
     pageContent: null,
-    pageName: null
+    pageName: null,
+    fab: false
   }),
   mounted () {
   },
   methods: {
+    onScroll (e) {
+      if (typeof window === 'undefined') return
+      const top = window.pageYOffset || e.target.scrollTop || 0
+      this.fab = top > 20
+    },
+    toTop () {
+      this.$vuetify.goTo(0)
+    },
     updatePage () {
       this.$store.dispatch('binder/updatePage',
         {
