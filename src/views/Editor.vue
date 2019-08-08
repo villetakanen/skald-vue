@@ -14,7 +14,9 @@
             <v-btn icon
               @click="preview=!preview"
                v-if="!preview"><v-icon>mdi-eye-off</v-icon></v-btn>
-
+            &nbsp;
+            <v-btn text :to="'/v/' + this.siteid + '/' + this.pageid">{{$t("cancel")}}</v-btn>
+            &nbsp;
             <v-btn color="primary" @click="updatePage">{{$t("save")}}</v-btn>
           </v-toolbar>
           <v-card-text>
