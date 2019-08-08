@@ -30,7 +30,7 @@
     </v-list-item>
     <v-list-item>
       <v-list-item-action><v-icon>mdi-cup-water</v-icon></v-list-item-action>
-      <v-list-item-title>5.1.0</v-list-item-title>
+      <v-list-item-title>5.2.0</v-list-item-title>
     </v-list-item>
   </v-list>
 </template>

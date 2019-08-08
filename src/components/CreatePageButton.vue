@@ -20,14 +20,37 @@
             <v-layout
               wrap
               >
-              <v-tabs xs12 md12>
+              <v-tabs xs12 md12 v-model="tabs">
+                <v-tab>{{$t('cpb-tab-page')}}</v-tab>
                 <v-tab>{{$t('cpb-tab-site')}}</v-tab>
-                <v-tab>Page</v-tab>
               </v-tabs>
-              <v-form v-if="site" @submit.prevent="savePage">
-                <v-flex xs12 md12>
+
+              <v-form v-if="tabs == 0" @submit.prevent="create">
+                <v-container fluid grid-list-xs>
+                  <v-layout wrap>
+                    <v-flex xs12 md12>{{$t('cpb-page-create-info')}}</v-flex>
+                    <v-flex xs6 md6>
+                      <v-text-field
+                        :label="$t('cpb-page-name-label')"
+                        :placeholder="$t('cpb-place-name-placeholder')"
+                        v-model="pageName"
+                        ></v-text-field>
+                    </v-flex>
+                    <v-flex xs6 md6>
+                      <v-text-field
+                        :label="$t('cpb-page-url-label')"
+                        :placeholder="$t('cpb-place-url-placeholder')"
+                        v-model="pageURL"
+                        ></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 md12>
+                      {{$t('cpb-page-create-info')}} /v/{{siteid}}/{{pageURL}}
+                    </v-flex>
+                  </v-layout>
+                </v-container>
+              </v-form>
+              <v-form v-if="tabs == 1" @submit.prevent="savePage">
                   <p>{{$t('cpb-info')}}</p>
-                </v-flex>
                 <v-flex xs12 md6>
                   <v-text-field
                     :label="$t('cpb-site-name-label')"
@@ -62,7 +85,7 @@
 export default {
   data: () => ({
     dialog: false,
-    site: true,
+    tabs: 0,
     siteURL: null,
     siteURLproposal: null,
     siteName: '',
