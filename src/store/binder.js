@@ -55,6 +55,29 @@ const actions = {
       }
     })
   },
+  createPage (context, { pageid, name, content, siteid,
+    creator, creatorNick }) {
+    console.log(pageid, name, content, siteid, creator, creatorNick)
+    // Sanity
+    if (!exists(pageid)) return
+    if (!exists(siteid)) return
+    if (!exists(creator)) return
+    if (!exists(creatorNick)) return
+
+    console.log('updating firestore for', siteid, pageid)
+
+    var u = {
+      name: name,
+      content: content,
+      lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
+    }
+
+    const db = firebase.firestore()
+    var siteRef = db.collection('sites').doc(siteid)
+    var pageRef = siteRef.collection('pages').doc(pageid)
+    siteRef.update({ lastUpdate: firebase.firestore.FieldValue.serverTimestamp() })
+    pageRef.set(u)
+  },
   updatePage (context, { pageid, name, content, siteid,
     creator, creatorNick }) {
     console.log(pageid, name, content, siteid, creator, creatorNick)
@@ -69,7 +92,7 @@ const actions = {
     var u = {
       name: name,
       content: content,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
     }
 
     const db = firebase.firestore()

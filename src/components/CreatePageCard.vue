@@ -21,7 +21,7 @@
     <v-card-actions>
       <v-btn
         color="primary"
-        @click="cancel">{{$t('create')}}</v-btn>
+        @click="create">{{$t('create')}}</v-btn>
       <v-btn
         color="primary"
         outlined
@@ -35,6 +35,20 @@ export default {
     cancel () {
       this.name = null
       this.$emit('closeDialog', true)
+    },
+    create () {
+      this.$store.dispatch('binder/createPage',
+        {
+          pageid: this.newPageid,
+          name: this.newPageName,
+          content: '# ' + this.newPageName,
+          siteid: this.siteid,
+          creator: this.$store.state.creator.uid,
+          creatorNick: this.$store.state.creator.nick
+        })
+      this.$router.push('/v/' + this.siteid + '/' + this.newPageid)
+      this.name = null
+      this.$emit('closeDialog', true)
     }
   },
   computed: {
@@ -42,18 +56,26 @@ export default {
       if (this.$store.state.binder.site === null) return null
       return this.$store.state.binder.site.link
     },
-    newPageid () {
-      if (this.name === null) return null
-      var re = new RegExp('[\\W]', 'g')
-      var s = this.name.replace(re, '-')
-      while (s.includes('--')) {
-        s = s.split('--').join('-')
+    name: {
+      get () {
+        return this.newPageName
+      },
+      set (e) {
+        this.newPageName = e
+
+        if (this.name === null) return null
+        var re = new RegExp('[\\W]', 'g')
+        var s = e.replace(re, '-')
+        while (s.includes('--')) {
+          s = s.split('--').join('-')
+        }
+        this.newPageid = s
       }
-      return s
     }
   },
   data: () => ({
-    name: null
+    newPageName: null,
+    newPageid: null
   })
 }
 </script>
