@@ -4,15 +4,20 @@ import Vue from 'vue'
 const state = {
   nick: null,
   locale: null,
-  uid: null
+  uid: null,
+  editorPreview: true
 }
 const mutations = {
   setCreator (state, data) {
     Vue.set(state, 'nick', data.nick)
     Vue.set(state, 'locale', data.locale)
+    Vue.set(state, 'editorPreview', data.editorPreview)
   },
   setUid (state, data) {
     Vue.set(state, 'uid', data)
+  },
+  setEditorPreview (state, data) {
+    Vue.set(state, 'editorPreview', data)
   }
 }
 const actions = {
@@ -46,6 +51,24 @@ const actions = {
     userRef.update(u)
 
     context.commit('setCreator', u)
+  },
+  /**
+   * Takes the uid from context, and pushes the boolean from the value param to the setting
+   * @param {*} context Vuex context
+   * @param {boolean} value preview on/off
+   */
+  updateEditorPreview (context, value) {
+    console.log('creator/setEditorPreview', context)
+    // Sanity check
+    if (exists(value) && value) value = true
+    else value = false
+    // Save value to firebase
+    const db = firebase.firestore()
+    var userRef = db.collection('profiles').doc(context.state.uid)
+    userRef.update({
+      editorPreview: value
+    })
+    context.commit('setEditorPreview', value)
   },
   logout (context) {
     Vue.set(context, 'nick', null)

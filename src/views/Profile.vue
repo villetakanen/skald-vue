@@ -40,6 +40,27 @@
             </v-card-text>
           </v-card>
         </v-flex>
+    </v-layout>
+      <v-layout>
+        <v-flex xs12 md4>
+          <v-card>
+            <v-card-title>{{$t("cp-editor-settings")}}</v-card-title>
+            <v-card-text>
+              <template v-if="editorPreview">
+                <v-btn icon
+                  @click="editorPreview=!editorPreview">
+                  <v-icon color="primary">mdi-eye</v-icon>
+                </v-btn> {{$t("cp-editor-preview-on")}}
+              </template>
+              <template v-if="!editorPreview">
+                <v-btn icon
+                    @click="editorPreview=!editorPreview">
+                <v-icon>mdi-eye-off</v-icon>
+                </v-btn> {{$t("cp-editor-preview-off")}}
+              </template>
+            </v-card-text>
+          </v-card>
+        </v-flex>
       </v-layout>
   </v-container>
 </template>
@@ -65,6 +86,15 @@ export default {
       set (value) {
         this.$store.commit('updateProfile', value, this.name)
       }
+    },
+    editorPreview: {
+      get () {
+        return this.$store.state.creator.editorPreview
+      },
+      set (value) {
+        // console.log('setting editorPreview to')
+        this.$store.dispatch('creator/updateEditorPreview', value)
+      }
     }
   },
   created () {
@@ -77,7 +107,8 @@ export default {
   data: () => ({
     langs: ['fi', 'en'],
     nick: '',
-    locale: 'en'
+    locale: 'en' // ,
+    // editorPreview: true
   }),
   methods: {
     saveProfile (name) {
