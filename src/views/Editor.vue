@@ -87,6 +87,7 @@ export default {
           creator: this.$store.state.creator.uid,
           creatorNick: this.$store.state.creator.nick
         })
+      this.$router.push('/v/' + this.siteid + '/' + this.pageid)
     }
   },
   // up
