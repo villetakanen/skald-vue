@@ -105,6 +105,10 @@ export default {
 }
 </script>
 <style>
+div.md-rended p{
+  column-count: 2;
+  column-gap: 2em;
+}
 .statblock td {
   /* border: 3px solid; */
   background-color: white;
