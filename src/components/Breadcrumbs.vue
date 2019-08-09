@@ -23,7 +23,8 @@ export default {
       return this.$store.state.binder.site.name
     },
     sitelink () {
-      return '/page/' + this.$store.state.sites.current + '.' + this.$store.state.sites.current
+      if (this.$store.state.binder.site === null) return '/v/skald'
+      return '/v/' + this.$store.state.binder.site.link
     }
   }
 }
