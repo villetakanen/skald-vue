@@ -8,10 +8,19 @@ function wikilinks (c, siteid) {
   const re = new RegExp('([\\[(]wiki:)(.+?)([\\])])', 'g')
   c = c.replace(re, function (match, p1, p2, p3, offset, string) {
     p2 = p2.trim()
-    if (p2.includes('/')) {
-      return '[' + p2 + '](/#/v/' + p2 + ')'
+    var link = p2
+    if (link.includes(' ')) {
+      var re = new RegExp('[\\W]', 'g')
+      var s = link.replace(re, '-')
+      while (s.includes('--')) {
+        s = s.split('--').join('-')
+      }
+      link = s
     }
-    return '[' + siteid + '/' + p2 + '](/#/v/' + siteid + '/' + p2 + ')'
+    if (p2.includes('/')) {
+      return '[' + p2 + '](/#/v/' + link + ')'
+    }
+    return '[' + siteid + '/' + p2 + '](/#/v/' + siteid + '/' + link + ')'
   })
   return c
 }
