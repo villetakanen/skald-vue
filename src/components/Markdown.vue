@@ -70,7 +70,7 @@ export default {
     },
     markdown () {
       // console.log(this.page)
-      var mdt = this.page.content || '\\- empty -'
+      var mdt = this.page.content || ''
 
       mdt = mdt.split('\\n').join('\n')
 
@@ -114,10 +114,10 @@ export default {
 }
 </script>
 <style>
-div.md-rended p{
-  column-count: 2;
-  column-gap: 2em;
-}
+/* div.md-rended p{
+  /* column-count: 2;
+  // column-gap: 2em;
+} */
 .statblock td {
   /* border: 3px solid; */
   background-color: white;

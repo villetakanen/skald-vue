@@ -15,10 +15,15 @@
       <v-layout>
         <Breadcrumbs/>
       </v-layout>
-      <v-layout class="reader">
-        <v-flex xs12 xl12 >
+      <v-layout wrap class="reader">
+        <v-flex xs12 md8>
           <Markdown
             v-bind:page="page"
+            :theme="selectedTheme"/>
+        </v-flex>
+        <v-flex xs12 md4>
+          <Markdown
+            v-bind:page="sidebar"
             :theme="selectedTheme"/>
         </v-flex>
       </v-layout>
@@ -53,6 +58,7 @@ export default {
   created () {
     this.updatePage(this.siteid, this.pageid)
     this.$store.dispatch('binder/openPage', { siteid: this.siteid, pageid: this.pageid })
+    this.$store.dispatch('binder/getPages', { siteid: this.siteid })
   },
   methods: {
     updatePage (siteid, pageid) {
@@ -79,6 +85,7 @@ export default {
     '$route' (to, from) {
       this.updatePage(this.siteid, this.pageid)
       this.$store.dispatch('binder/openPage', { siteid: this.siteid, pageid: this.pageid })
+      this.$store.dispatch('binder/getPages', { siteid: this.siteid })
     }
   },
   computed: {
@@ -92,6 +99,10 @@ export default {
     },
     page () {
       return this.$store.state.page
+    },
+    sidebar () {
+      if (typeof this.$store.state.binder.pages['sidebar'] === 'undefined') return { content: '' }
+      return this.$store.state.binder.pages['sidebar']
     },
     loading () {
       return this.$store.state.page.content === ''
