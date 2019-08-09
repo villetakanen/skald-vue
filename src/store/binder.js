@@ -7,11 +7,17 @@ const state = {
   // Current wikisite is here
   site: null,
   // Here is the sites vuex cache
-  sites: {}
+  sites: {},
+  pages: { a: { a: 'b' } }
 }
 const mutations = {
   patchSites (state, { id, data }) {
     Vue.set(state.sites, id, data)
+  },
+  patchPage (state, { id, data }) {
+    data.link = id
+    Vue.set(state.pages, id, data)
+    // console.log('p:', state.pages[id])
   },
   setSite (state, id) {
     if (!exists(state.sites[id])) {
@@ -53,6 +59,26 @@ const actions = {
       if (doc.exists) {
         context.commit('setPage', { pageid: pageid, data: doc.data() })
       }
+    })
+  },
+  getPages (context, { siteid }) {
+    console.log('binder/getPages', siteid)
+    // Sanity
+    if (!exists(siteid)) {
+      context.commit('error', 'Binder can not get pages for undefined site', { root: true })
+      return
+    }
+
+    // Erase page cache
+    context.state.pages = {}
+
+    const db = firebase.firestore()
+    const siteRef = db.collection('sites').doc(siteid)
+    siteRef.collection('pages').get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // console.log('patching page', doc.id, doc.data())
+        context.commit('patchPage', { id: doc.id, data: doc.data() })
+      })
     })
   },
   createPage (context, { pageid, name, content, siteid,

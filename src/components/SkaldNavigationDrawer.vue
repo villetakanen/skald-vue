@@ -13,7 +13,7 @@
 
     <v-divider></v-divider>
     <v-subheader>{{$t("library")}}</v-subheader>
-    <v-list-item :to="'/l/pages/'">
+    <v-list-item :to="'/l/pages/' + siteId">
       <v-list-item-action><v-icon>mdi-dice-d10</v-icon></v-list-item-action>
       <v-list-item-title>{{$t("listpages")}}</v-list-item-title>
     </v-list-item>
@@ -30,13 +30,13 @@
     </v-list-item>
     <v-list-item>
       <v-list-item-action><v-icon>mdi-cup-water</v-icon></v-list-item-action>
-      <v-list-item-title>6.0.0-a</v-list-item-title>
+      <v-list-item-title>6.0.1</v-list-item-title>
     </v-list-item>
   </v-list>
 </template>
 <script>
 export default {
-  props: ['site', 'siteid'],
+  props: ['site'],
   data: () => ({
     siteName: null
   }),

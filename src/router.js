@@ -19,7 +19,7 @@ export default new Router({
     { path: '/c/site/:siteid', component: SiteSetup, props: true },
     { path: '/e/:siteid/:pageid', component: Editor, props: true },
     { path: '/l/sites', component: SiteList, props: false },
-    { path: '/l/pages', component: ListPages, props: false },
+    { path: '/l/pages/:siteid', component: ListPages, props: true },
     { path: '/v/:siteid', component: Reader, props: true },
     { path: '/v/:siteid/:pageid', component: Reader, props: true }
   ]
