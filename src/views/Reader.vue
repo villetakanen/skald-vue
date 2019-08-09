@@ -22,6 +22,11 @@
             :theme="selectedTheme"/>
         </v-flex>
       </v-layout>
+      <v-layout>
+        <v-flex>
+          <CardPageInfo/>
+        </v-flex>
+      </v-layout>
       <v-btn
         v-if="logged"
         bottom
@@ -41,6 +46,7 @@
 import Breadcrumbs from '../components/Breadcrumbs'
 import Markdown from '../components/Markdown'
 import Spinner from '../components/Spinner'
+import CardPageInfo from '../components/CardPageInfo'
 
 export default {
   props: ['pageid', 'siteid'],
@@ -106,7 +112,8 @@ export default {
   components: {
     Markdown,
     Breadcrumbs,
-    Spinner
+    Spinner,
+    CardPageInfo
   }
 }
 </script>

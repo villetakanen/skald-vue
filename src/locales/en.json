@@ -38,6 +38,8 @@
     "loginPs": "We create you a profile on first login. Please note, due to the platform limitations, you can only login using the provider you used the first time.",
     "loginSignWithGoogle": "Sign in with Google",
     "loginSignWithFacebook": "Sign in with Facebook",
+    "page-info": "Page info",
+    "page-infoLastEdit": "Latest change",
     "ss-site-preview": "Preview site style",
     "ss-site-style": "Style",
     "ss-title": "Setup"
