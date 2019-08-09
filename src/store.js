@@ -20,7 +20,8 @@ export default new Vuex.Store({
     profile: { locale: 'en' },
     siteid: 'skald',
     theme: 'Skald',
-    error: null
+    error: null,
+    version: 'env key missing'
   },
   mutations: {
     error (state, error) {
@@ -71,6 +72,9 @@ export default new Vuex.Store({
         Vue.set(state.profile, 'uid', u.uid)
         console.log('uid defaulted to ' + state.profile.uid)
       }
+    },
+    version (context, v) {
+      context.version = v
     }
   },
   actions: {

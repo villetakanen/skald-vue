@@ -28,10 +28,10 @@
       <v-list-item-action><v-icon>mdi-language-javascript</v-icon></v-list-item-action>
       <v-list-item-title>{{$t("releaseInfo")}}</v-list-item-title>
     </v-list-item>
-    <v-list-item>
+    <v-list-item :to="'/v/skald/backlog'">
       <v-list-item-action><v-icon>mdi-cup-water</v-icon></v-list-item-action>
 
-      <v-list-item-title>6.0.1</v-list-item-title>
+      <v-list-item-title >{{version}}</v-list-item-title>
 
     </v-list-item>
   </v-list>
@@ -41,8 +41,16 @@ export default {
   props: ['site'],
   data: () => ({
     siteName: null
+    // version: 'Version info '
   }),
+  /* created () {
+    this.version += process.env.VUE_APP_SKALD_VERSION
+    console.log(process.env.VUE_APP_SKALD_VERSION)
+  }, */
   computed: {
+    version () {
+      return this.$store.state.version
+    },
     link () {
       if (this.$store.state.binder.site === null) return ''
       return this.$store.state.binder.site.link

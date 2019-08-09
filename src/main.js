@@ -14,6 +14,9 @@ new Vue({
   i18n,
   firestore,
   created: function () {
+    // console.log('m', process.env.VUE_APP_SKALD_VERSION)
+    store.commit('version', process.env.VUE_APP_SKALD_VERSION)
+
     // Firebase APP init
     var config = {
       apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
