@@ -8,7 +8,7 @@
       @click:close="removeMember(member.uid)">{{member.nick}}
       </v-chip>
       <v-autocomplete
-        v-model="newMembers"
+        v-model="newMember"
         :items="allNicks"></v-autocomplete>
       <v-btn color="primary" @click="addMember">{{$t("action-add")}}</v-btn>
     </v-card-text>
@@ -43,10 +43,10 @@ export default {
   }),
   methods: {
     addMember () {
-      console.log('addMember', this.newOwner)
+      console.log('addMember', this.newMember)
       this.$store.dispatch('users/addMember', { nick: this.newMember, siteid: this.$store.state.binder.site.link })
     },
-    removeOwner (uid) {
+    removeMember (uid) {
       console.log('removeMember', uid)
       this.$store.dispatch('users/revokeMember', { uid: uid, siteid: this.$store.state.binder.site.link })
     }

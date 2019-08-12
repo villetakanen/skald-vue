@@ -47,6 +47,22 @@ const actions = {
       context.dispatch('binder/getFullSite', { siteid: siteid }, { root: true })
     })
   },
+  addMember (context, { nick, siteid }) {
+    const s = context.state.all.filter(user => user.nick === nick)
+    const u = s[0]
+    if (!exists(u) || !exists(siteid)) return
+    const db = firebase.firestore()
+    db.collection('sites').doc(siteid).collection('members').doc(u.uid).set({ nick: u.nick })
+    var mem = []
+    db.collection('profiles').doc(u.uid).get().then((doc) => {
+      // console.log('user is', doc.data())
+      const o = doc.data().member
+      if (exists(o)) mem = o
+      mem.push(siteid)
+      db.collection('profiles').doc(u.uid).update({ member: mem })
+      context.dispatch('binder/getFullSite', { siteid: siteid }, { root: true })
+    })
+  },
   revokeOwner (context, { uid, siteid }) {
     console.log('users/revokeOwner', uid, siteid)
     const db = firebase.firestore()
@@ -77,6 +93,28 @@ const actions = {
         console.log('got', site)
         context.commit('patchSites', { id: siteid, data: site, current: siteid })
       }) */
+  },
+  revokeMember (context, { uid, siteid }) {
+    console.log('users/revokeMember', uid, siteid)
+    const db = firebase.firestore()
+
+    var mem = null
+    db.collection('profiles').doc(uid).get().then((doc) => {
+      console.log('user is', doc.data())
+      const s = doc.data()
+      mem = s.member
+      console.log(mem)
+      if (exists(mem)) {
+        console.log('before', mem)
+        mem = mem.filter(mem => mem !== siteid)
+        console.log('after', mem)
+        db.collection('profiles').doc(uid).update({
+          member: mem
+        })
+        db.collection('sites').doc(siteid).collection('members').doc(uid).delete()
+        context.dispatch('binder/getFullSite', { siteid: siteid }, { root: true })
+      }
+    })
   }
 }
 

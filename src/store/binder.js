@@ -122,14 +122,22 @@ const actions = {
       site = doc.data()
       site.link = siteid
       site.owners = {}
+      site.members = {}
       db.collection('sites').doc(siteid).collection('owners').get().then((querySnapshot) => {
         querySnapshot.forEach((own) => {
           var o = own.data()
           o.uid = own.id
           site.owners[own.id] = o
         })
-        console.log('got', site)
-        context.commit('patchSites', { id: siteid, data: site, current: siteid })
+        db.collection('sites').doc(siteid).collection('members').get().then((querySnapshot) => {
+          querySnapshot.forEach((mem) => {
+            var m = mem.data()
+            m.uid = mem.id
+            site.members[mem.id] = m
+          })
+          console.log('got', site)
+          context.commit('patchSites', { id: siteid, data: site, current: siteid })
+        })
       })
     })
   },

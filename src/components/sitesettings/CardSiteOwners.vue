@@ -10,7 +10,7 @@
       <v-autocomplete
         v-model="newOwner"
         :items="nonOwners"></v-autocomplete>
-      <v-btn color="primary" @click="addOwner">Add to owners</v-btn>
+      <v-btn color="primary" @click="addOwner">{{$t("action-add")}}</v-btn>
     </v-card-text>
   </v-card>
 </template>
