@@ -4,7 +4,7 @@ import Reader from './views/Reader.vue'
 import Editor from './views/Editor.vue'
 import Profile from './views/Profile.vue'
 import SiteSetup from './views/SiteSetup.vue'
-import SiteList from './views/SiteList.vue'
+import ListSites from './views/ListSites.vue'
 import ListPages from './views/ListPages'
 
 Vue.use(Router)
@@ -18,7 +18,7 @@ export default new Router({
     { path: '/c/profile', component: Profile, props: false },
     { path: '/c/site/:siteid', component: SiteSetup, props: true },
     { path: '/e/:siteid/:pageid', component: Editor, props: true },
-    { path: '/l/sites', component: SiteList, props: false },
+    { path: '/l/sites', component: ListSites, props: false },
     { path: '/l/pages/:siteid', component: ListPages, props: true },
     { path: '/v/:siteid', component: Reader, props: true },
     { path: '/v/:siteid/:pageid', component: Reader, props: true }

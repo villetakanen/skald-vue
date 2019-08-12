@@ -81,6 +81,22 @@ const actions = {
       })
     })
   },
+  /**
+   * Gets all sites from firebase to binder. Does not clear site cache, but does overwite all
+   * site objects in binder.state.sites
+   * @param {Vuex} context Vuex context
+   */
+  getSites (context) {
+    console.log('binder/getSites')
+
+    const db = firebase.firestore()
+    db.collection('sites').get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // console.log('patching page', doc.id, doc.data())
+        context.commit('patchSites', { id: doc.id, data: doc.data() })
+      })
+    })
+  },
   createPage (context, { pageid, name, content, siteid,
     creator, creatorNick }) {
     console.log(pageid, name, content, siteid, creator, creatorNick)
