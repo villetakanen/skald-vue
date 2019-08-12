@@ -4,10 +4,13 @@
     <v-card-text>
       <v-chip v-for="(owner, index) in owners" v-bind:key="index"
       :outlined="index === currentUser"
-      :close="!(index === currentUser)">{{owner.nick}}
+      :close="!(index === currentUser)"
+      @click:close="removeOwner(owner.uid)">{{owner.nick}}
       </v-chip>
-      {{allUsers}}
-      <v-autocomplete :items="nonOwners"></v-autocomplete>
+      <v-autocomplete
+        v-model="newOwner"
+        :items="nonOwners"></v-autocomplete>
+      <v-btn color="primary" @click="addOwner">Add to owners</v-btn>
     </v-card-text>
   </v-card>
 </template>
@@ -27,16 +30,25 @@ export default {
     },
     nonOwners () {
       if (this.$store.state.users === null || this.$store.state.binder.site === null) return null
-      return this.$store.getters['users/nonOwners'](this.$store.state.binder.site.link)
-      /* var u = []
-      for (const [k, i] of this.$store.state.users.all) {
-        if (typeof i.owns === 'undefined' ||
-          Object.prototype.hasOwnProperty.call(i, this.$store.state.binder.site.link)) {
-          console.log('no', k, i)
-          u.push(i.nick)
-        }
+      var r = []
+      const all = this.$store.getters['users/nonOwners'](this.$store.state.binder.site.link)
+      for (const i in all) {
+        r.push(all[i].nick)
       }
-      return u */
+      return r
+    }
+  },
+  data: () => ({
+    newOwner: null
+  }),
+  methods: {
+    addOwner () {
+      console.log('addOwner', this.newOwner)
+      this.$store.dispatch('users/addOwner', { nick: this.newOwner, siteid: this.$store.state.binder.site.link })
+    },
+    removeOwner (uid) {
+      console.log('removeOwner', uid)
+      this.$store.dispatch('users/revokeOwner', { uid: uid, siteid: this.$store.state.binder.site.link })
     }
   }
 }
