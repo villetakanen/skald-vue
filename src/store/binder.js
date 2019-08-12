@@ -11,24 +11,25 @@ const state = {
   pages: { a: { a: 'b' } }
 }
 const mutations = {
-  patchSites (state, { id, data }) {
+  patchSites (state, { id, data, current }) {
     Vue.set(state.sites, id, data)
+    if (id === current) {
+      Vue.set(state, 'site', data)
+      console.log('patchSites', id, data, current)
+    }
   },
   patchPage (state, { id, data }) {
     data.link = id
     Vue.set(state.pages, id, data)
     // console.log('p:', state.pages[id])
   },
-  patchOwner (state, { id, data }) {
+  /* patchOwner (state, { id, data }) {
     data.link = id
     Vue.set(state.site.owners, id, data)
     console.log('o:', state.site.owners[id])
-  },
+  }, */
   setSite (state, id) {
-    if (!exists(state.sites[id])) {
-      console.log('failed to set site', state, id)
-      return
-    }
+    if (!exists(state.sites[id])) return
     Vue.set(state, 'site', state.sites[id])
     Vue.set(state.site, 'link', id)
   },
@@ -115,26 +116,23 @@ const actions = {
       context.commit('error', 'Binder can not get sige data for undefined site', { root: true })
       return
     }
-
     const db = firebase.firestore()
-    const siteRef = db.collection('sites').doc(siteid)
-    siteRef.get().then((doc) => {
-      if (doc.exists) {
-        context.commit('patchSites', { id: siteid, data: doc.data() })
-      }
-    })
-
-    context.commit('setSite', siteid)
-
-    context.state.site.owners = {}
-
-    siteRef.collection('owners').get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        context.commit('patchOwner', { id: doc.id, data: doc.data() })
+    db.collection('sites').doc(siteid).get().then((doc) => {
+      var site = {}
+      site = doc.data()
+      site.link = siteid
+      site.owners = {}
+      db.collection('sites').doc(siteid).collection('owners').get().then((querySnapshot) => {
+        querySnapshot.forEach((own) => {
+          var o = own.data()
+          o.uid = own.id
+          site.owners[own.id] = o
+        })
+        console.log('got', site)
+        context.commit('patchSites', { id: siteid, data: site, current: siteid })
       })
     })
   },
-
   createPage (context, { pageid, name, content, siteid,
     creator, creatorNick }) {
     console.log(pageid, name, content, siteid, creator, creatorNick)

@@ -37,11 +37,7 @@ new Vue({
     if (this.$router.currentRoute.params.siteid !== null &&
       typeof this.$router.currentRoute.params.siteid !== 'undefined') {
       const s = this.$router.currentRoute.params.siteid
-      store.commit('setSite', { s: s })
-    } else if (this.$router.currentRoute.params.pageid !== null &&
-      typeof this.$router.currentRoute.params.pageid !== 'undefined') {
-      const s = this.$router.currentRoute.params.pageid
-      store.commit('setSite', { s: s.substring(0, s.indexOf('.')) })
+      store.commit('binder/setSite', s)
     }
     // console.log('Vuex state.site is ', store.state.siteid)
 
