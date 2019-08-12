@@ -55,10 +55,10 @@ export default {
   },
   computed: {
     sites () {
-      return this.$store.state.sites.list
+      return this.$store.state.binder.sites
     },
     site () {
-      return this.$store.state.sites.list[this.$store.state.siteid]
+      return this.$store.state.binder.site
     },
     error () {
       return this.$store.state.error

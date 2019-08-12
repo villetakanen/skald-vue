@@ -30,7 +30,7 @@ new Vue({
     firestore.init(config)
 
     // get current site catalog to Vuex store
-    store.dispatch('sites/getSites')
+    store.dispatch('binder/getSites')
 
     // parse site name from router to vuex, for any components outside router views
     // or the case we enter with a direct url to route with site or page id

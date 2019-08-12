@@ -2,10 +2,10 @@ import firebase from 'firebase'
 import Vue from 'vue'
 
 const state = {
-  current: null,
-  theme: null,
-  list: {},
-  owners: {}
+  // current: null,
+  // theme: null,
+  // list: {},
+  // owners: {}
 }
 
 const mutations = {
@@ -44,7 +44,7 @@ const actions = {
    * Updates store.Sites metadata from firebase snapshot
    * @param {*} contex Vuex context
    */
-  getSites (context) {
+  /* getSites (context) {
     const db = firebase.firestore()
     db.collection('sites').get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -64,7 +64,7 @@ const actions = {
         // context.state.owners[doc.key()] = doc.data()
       })
     })
-  },
+  }, */
   /**
    * Create a new site to firebase
    * @param {*} contex the Vuex context

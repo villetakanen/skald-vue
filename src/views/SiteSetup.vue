@@ -1,8 +1,13 @@
 <template>
-  <v-container>
+  <v-container grid-list-md>
     <v-layout>
-      <v-flex xs12 md12 xl12>
-        <h1 class="font-weight-light">{{$t("ss-title")}} {{site.name}}</h1>
+      <v-flex>
+        <h1 class="font-weight-light">{{$t("ss-title")}} {{name}}</h1>
+      </v-flex>
+    </v-layout>
+    <v-layout wrap>
+      <v-flex xs12 md6>
+        <CardSiteRestrictions/>
       </v-flex>
     </v-layout>
     <v-layout flex>
@@ -53,20 +58,25 @@
 </template>
 <script>
 import Markdown from '../components/Markdown'
+import CardSiteRestrictions from '../components/sitesettings/CardSiteRestrictions'
 
 export default {
   props: ['siteid'],
   components: {
-    Markdown
+    Markdown,
+    CardSiteRestrictions
   },
   computed: {
+    name () {
+      if (this.$store.state.binder.site === null) return ''
+      return this.$store.state.binder.site.name
+    },
     site () {
-      if (typeof this.$store.state.sites.list[this.siteid] === 'undefined') return { name: '' }
-      return this.$store.state.sites.list[this.siteid]
+      return this.$store.state.binder.site
     },
     owners () {
       // console.log('owners', this.$store.state.sites.owners)
-      return this.$store.state.sites.owners
+      return this.$store.state.binder.site.owners
     },
     currentUser () {
       return this.$store.state.profile.uid
@@ -87,8 +97,10 @@ export default {
     }
   },
   created: function () {
-    if (typeof this.$store.state.sites.current === 'undefined') this.$store.commit('sites/setCurrentSite', this.id)
-    return this.$store.dispatch('sites/getOwners', this.siteid)
+    // if (typeof this.$store.state.sites.current === 'undefined') this.$store.commit('sites/setCurrentSite', this.id)
+    // return this.$store.dispatch('sites/getOwners', this.siteid)
+    // console.log('a:', this.siteid, this.$route.params)
+    this.$store.dispatch('binder/getFullSite', { siteid: this.siteid })
   },
   data: () => ({
     examplePage: { content: '# H1 header \n\n Some text, [wiki:skald/welcome] wikilink, and a \n\n## H2 Stats under H2 \n\n[stats: Strenght(10/0) Dexterity(12/+1) Stamina(14/+2) Wisdom(6/-3) Intelligence(21/+5) Charisma(12/+1)]' }

@@ -97,6 +97,29 @@ const actions = {
       })
     })
   },
+
+  /**
+   * Get a site from the firestore, with metadata subcollections.
+   * @param {Vuex} context Vuex context
+   * @param {json} siteid for { siteid }
+   */
+  getFullSite (context, { siteid }) {
+    console.log('binder/getFullSite', siteid)
+    // Sanity
+    if (!exists(siteid)) {
+      context.commit('error', 'Binder can not get sige data for undefined site', { root: true })
+      return
+    }
+
+    const db = firebase.firestore()
+    db.collection('sites').doc(siteid).get().then((doc) => {
+      if (doc.exists) {
+        context.commit('patchSites', { id: siteid, data: doc.data() })
+        context.commit('setSite', siteid)
+      }
+    })
+  },
+
   createPage (context, { pageid, name, content, siteid,
     creator, creatorNick }) {
     console.log(pageid, name, content, siteid, creator, creatorNick)
