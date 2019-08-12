@@ -9,19 +9,10 @@
       <v-flex xs12 md6>
         <CardSiteRestrictions/>
       </v-flex>
-    </v-layout>
-    <v-layout flex>
       <v-flex xs12 md6>
-        <p>{{$t("siteowners")}}</p>
-        <div>
-          <v-chip v-for="(owner, index) in owners" v-bind:key="index"
-            :outlined="index === currentUser"
-            :close="!(index === currentUser)">{{owner.nick}}
-          </v-chip>
-        </div>
+        <CardSiteMembers/>
       </v-flex>
     </v-layout>
-    <br/>
     <v-layout>
       <v-flex xs12 md3>
         <v-card>
@@ -59,12 +50,14 @@
 <script>
 import Markdown from '../components/Markdown'
 import CardSiteRestrictions from '../components/sitesettings/CardSiteRestrictions'
+import CardSiteMembers from '../components/sitesettings/CardSiteMembers'
 
 export default {
   props: ['siteid'],
   components: {
     Markdown,
-    CardSiteRestrictions
+    CardSiteRestrictions,
+    CardSiteMembers
   },
   computed: {
     name () {
@@ -73,13 +66,6 @@ export default {
     },
     site () {
       return this.$store.state.binder.site
-    },
-    owners () {
-      // console.log('owners', this.$store.state.sites.owners)
-      return this.$store.state.binder.site.owners
-    },
-    currentUser () {
-      return this.$store.state.profile.uid
     },
     themes () {
       return ['Skald', 'DD5', 'Modern']

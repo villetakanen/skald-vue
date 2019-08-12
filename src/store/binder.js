@@ -19,9 +19,14 @@ const mutations = {
     Vue.set(state.pages, id, data)
     // console.log('p:', state.pages[id])
   },
+  patchOwner (state, { id, data }) {
+    data.link = id
+    Vue.set(state.site.owners, id, data)
+    console.log('o:', state.site.owners[id])
+  },
   setSite (state, id) {
     if (!exists(state.sites[id])) {
-      state.commit('error', 'Binder could not find site id from sites cache', { root: true })
+      console.log('failed to set site', state, id)
       return
     }
     Vue.set(state, 'site', state.sites[id])
@@ -112,11 +117,21 @@ const actions = {
     }
 
     const db = firebase.firestore()
-    db.collection('sites').doc(siteid).get().then((doc) => {
+    const siteRef = db.collection('sites').doc(siteid)
+    siteRef.get().then((doc) => {
       if (doc.exists) {
         context.commit('patchSites', { id: siteid, data: doc.data() })
-        context.commit('setSite', siteid)
       }
+    })
+
+    context.commit('setSite', siteid)
+
+    context.state.site.owners = {}
+
+    siteRef.collection('owners').get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        context.commit('patchOwner', { id: doc.id, data: doc.data() })
+      })
     })
   },
 
