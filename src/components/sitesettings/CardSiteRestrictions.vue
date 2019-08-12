@@ -19,3 +19,17 @@
     </v-card-text>
   </v-card>
 </template>
+<script>
+export default {
+  computed: {
+    memberCanSee: {
+      get () {
+        return false
+      },
+      set (b) {
+
+      }
+    }
+  }
+}
+</script>
