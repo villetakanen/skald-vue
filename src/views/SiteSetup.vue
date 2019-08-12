@@ -6,10 +6,13 @@
       </v-flex>
     </v-layout>
     <v-layout wrap>
-      <v-flex xs12 md6>
+      <v-flex xs12 md4>
         <CardSiteRestrictions/>
       </v-flex>
-      <v-flex xs12 md6>
+      <v-flex xs12 md4>
+        <CardSiteOwners/>
+      </v-flex>
+      <v-flex xs12 md4>
         <CardSiteMembers/>
       </v-flex>
     </v-layout>
@@ -51,13 +54,15 @@
 import Markdown from '../components/Markdown'
 import CardSiteRestrictions from '../components/sitesettings/CardSiteRestrictions'
 import CardSiteMembers from '../components/sitesettings/CardSiteMembers'
+import CardSiteOwners from '../components/sitesettings/CardSiteOwners'
 
 export default {
   props: ['siteid'],
   components: {
     Markdown,
     CardSiteRestrictions,
-    CardSiteMembers
+    CardSiteMembers,
+    CardSiteOwners
   },
   computed: {
     name () {
