@@ -7,7 +7,7 @@
           item-key="name"
           dense>
           <template v-slot:item.name="{ item }">
-            <router-link :to="item.link" style="text-decoration: none">{{ item.name }}</router-link>
+            <router-link :to="'/v/'+item.link" style="text-decoration: none">{{ item.name }}</router-link>
           </template>
         </v-data-table>
       </v-flex>
