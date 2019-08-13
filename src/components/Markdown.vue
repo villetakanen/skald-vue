@@ -62,7 +62,8 @@ function stats (c) {
 export default {
   props: [
     'page',
-    'theme'],
+    'theme',
+    'siteid'],
   computed: {
     selectedTheme () {
       if (this.theme === 'DD5') return 'ddfive'
@@ -74,27 +75,14 @@ export default {
 
       mdt = mdt.split('\\n').join('\n')
 
-      mdt = wikilinks(mdt, this.page.site)
-      mdt = metalinks(mdt, this.page.site)
-
-      /* / add wikilinks
-      mdt = mdt.split(' ').map(
-        function (line) {
-          if (line.startsWith('wiki:')) {
-            const link = line.substring(5)
-            const linktext = link.split('.').join('/')
-            return '[' + linktext + '](/#/page/' + link + ')'
-          }
-          return line
-        }
-      ).join(' ') */
-      const siteName = this.page.site
+      mdt = wikilinks(mdt, this.siteid)
+      mdt = metalinks(mdt, this.siteid)
 
       var re = new RegExp('([\\[(]wiki:)(.+?)([\\])])', 'g')
       var mdt2 = mdt.replace(re, function (match, p1, p2, p3, offset, string) {
         // console.log(p2)
         var pageName = p2.trim()
-        if (!pageName.includes('.')) pageName = siteName + '.' + pageName
+        if (!pageName.includes('.')) pageName = this.siteid + '.' + pageName
         return '[' + p2.trim() + '](/#/page/' + pageName + ')'
       })
 

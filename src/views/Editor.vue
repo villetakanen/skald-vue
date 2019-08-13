@@ -37,8 +37,9 @@
                     <v-card v-show="editorPreview">
                       <v-card-title>{{pageName}}</v-card-title>
                       <v-card-text>
-                    <Markdown
-                      :page="{ content: pageContent }"
+                    <WikiPage
+                      :page="pageContent"
+                      :siteid="this.siteid"
                       theme="Skald"/>
                       </v-card-text>
                     </v-card>
@@ -65,7 +66,8 @@
 </template>
 
 <script>
-import Markdown from '../components/Markdown'
+// import Markdown from '../components/Markdown'
+import WikiPage from '../components/WikiPage'
 
 export default {
   props: ['siteid', 'pageid'],
@@ -84,6 +86,9 @@ export default {
     this.$store.dispatch('binder/openPage', { siteid: this.siteid, pageid: this.pageid })
   },
   computed: {
+    theme () {
+      return this.$store.state.binder.site.theme
+    },
     editorPreview: {
       get () {
         return this.$store.state.creator.editorPreview
@@ -131,7 +136,8 @@ export default {
     }
   },
   components: {
-    Markdown
+    // Markdown,
+    WikiPage
   }
 }
 </script>

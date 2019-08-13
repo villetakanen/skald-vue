@@ -1,6 +1,6 @@
 <template>
   <v-container
-    fluid
+    fluid grid-list-md
     >
     <v-layout
       v-if="loading"
@@ -12,19 +12,21 @@
       </v-flex>
     </v-layout>
     <template v-if="!loading">
-      <v-layout>
+      <v-layout wrap>
         <Breadcrumbs/>
       </v-layout>
       <v-layout wrap class="reader">
         <v-flex xs12 md8>
-          <Markdown
-            v-bind:page="page"
-            :theme="selectedTheme"/>
+          <WikiPage
+            :page='page'
+            :theme='theme'
+            :siteid='siteid'/>
         </v-flex>
         <v-flex xs12 md4>
-          <Markdown
-            v-bind:page="sidebar"
-            :theme="selectedTheme"/>
+          <WikiPage
+            :page='sidebar'
+            :theme='theme'
+            :siteid='siteid'/>
         </v-flex>
       </v-layout>
       <v-layout>
@@ -49,9 +51,10 @@
 </template>
 <script>
 import Breadcrumbs from '../components/Breadcrumbs'
-import Markdown from '../components/Markdown'
+// import Markdown from '../components/Markdown'
 import Spinner from '../components/Spinner'
 import CardPageInfo from '../components/CardPageInfo'
+import WikiPage from '../components/WikiPage'
 
 export default {
   props: ['pageid', 'siteid'],
@@ -98,11 +101,12 @@ export default {
       return '/e/' + this.siteid + '/' + page
     },
     page () {
-      return this.$store.state.page
+      if (this.$store.state.binder.page === null) return ''
+      return this.$store.state.binder.page.content
     },
     sidebar () {
-      if (typeof this.$store.state.binder.pages['sidebar'] === 'undefined') return { content: '' }
-      return this.$store.state.binder.pages['sidebar']
+      if (typeof this.$store.state.binder.pages['sidebar'] === 'undefined') return ''
+      return this.$store.state.binder.pages['sidebar'].content
     },
     loading () {
       return this.$store.state.page.content === ''
@@ -113,18 +117,17 @@ export default {
       }
       return this.$store.state.user.displayName
     },
-    selectedTheme () {
-      var theme = this.$store.state.theme
-      // console.log('reader got theme', this.$store.state.theme)
-      if (typeof theme === 'undefined') return 'Skald'
-      return theme
+    theme () {
+      if (this.$store.state.binder.site === null) return 'skald'
+      return this.$store.state.binder.site.theme
     }
   },
   components: {
-    Markdown,
+    // Markdown,
     Breadcrumbs,
     Spinner,
-    CardPageInfo
+    CardPageInfo,
+    WikiPage
   }
 }
 </script>
