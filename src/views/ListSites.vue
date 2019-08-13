@@ -11,9 +11,12 @@
           </template>
         </v-data-table>
       </v-flex>
+      <CreateSiteButton/>
   </v-container>
 </template>
 <script>
+import CreateSiteButton from '../components/CreateSiteButton'
+
 export default {
   computed: {
     sites () {
@@ -45,6 +48,9 @@ export default {
         value: 'theme'
       }
     ]
-  })
+  }),
+  components: {
+    CreateSiteButton
+  }
 }
 </script>

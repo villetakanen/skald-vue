@@ -3,7 +3,7 @@
     <v-btn
       icon
       @click="dialog=!dialog"
-      ><v-icon>mdi-book-multiple-plus</v-icon>
+      ><v-icon>mdi-plus-circle</v-icon>
     </v-btn>
     <v-dialog
       v-model="dialog"
