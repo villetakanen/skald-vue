@@ -168,6 +168,38 @@ const actions = {
     siteRef.update({ lastUpdate: firebase.firestore.FieldValue.serverTimestamp() })
     pageRef.set(u)
   },
+  /**
+   * Creates the site
+   *
+   * siteid: this.newSiteid,
+   * name: this.newSiteid,
+   * content: '# ' + this.newSiteName,
+   * owner: this.$store.state.creator.uid,
+   * ownerNick: this.$store.state.creator.nick
+   *
+   * @param {*} context vuex object
+   * @param {*} param1 object
+   */
+  createSite (context, { siteid, name, owner, ownerNick }) {
+    if (!exists(siteid)) return
+    if (!exists(owner)) return
+    if (!exists(ownerNick)) return
+    console.log('binder/createSite', siteid)
+
+    const s = {
+      name: name,
+      siteid: siteid,
+      writelock: false,
+      hidden: false
+    }
+    const o = {
+      nick: ownerNick
+    }
+
+    const db = firebase.firestore()
+    db.collection('sites').doc(siteid).set(s)
+    db.collection('sites').doc(siteid).collection('owners').doc(owner).set(o)
+  },
   updatePage (context, { pageid, name, content, siteid,
     creator, creatorNick }) {
     console.log(pageid, name, content, siteid, creator, creatorNick)
