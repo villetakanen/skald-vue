@@ -45,5 +45,7 @@
     "ss-site-preview": "Preview site style",
     "ss-site-style": "Style",
     "ss-title": "Setup",
-    "ss-auth": "Site restrictions"
+    "ss-auth": "Site restrictions",
+    "ss-hide-site": "Hide from non members",
+    "ss-lock-site": "Prevent edit by non members"
 }

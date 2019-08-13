@@ -2,32 +2,40 @@
   <v-card>
     <v-card-title>{{$t("ss-auth")}}</v-card-title>
     <v-card-text>
-      <p>Owners
-        <v-btn icon><v-icon>mdi-eye</v-icon></v-btn>
-        <v-btn icon><v-icon>mdi-pencil-off-outline</v-icon></v-btn>
-        <v-btn icon><v-icon>mdi-account-arrow-left</v-icon></v-btn>
-      </p>
-      <p>Members
-        <v-btn icon><v-icon>mdi-eye</v-icon></v-btn>
-        <v-btn icon><v-icon>mdi-pencil-off-outline</v-icon></v-btn>
-        <v-btn icon><v-icon>mdi-account-arrow-left</v-icon></v-btn>
-      </p>
-      <p>Anonymous
-        <v-btn icon><v-icon>mdi-eye</v-icon></v-btn>
-        <v-btn icon><v-icon>mdi-pencil-off-outline</v-icon></v-btn>
-      </p>
+      <v-switch
+      v-model="hide"
+      :label="$t('ss-hide-site')"
+      ></v-switch>
+      <v-switch
+      v-model="lock"
+      :label="$t('ss-lock-site')"
+      ></v-switch>
     </v-card-text>
   </v-card>
 </template>
 <script>
 export default {
+  data: () => ({
+    hideV: false,
+    lockV: false
+  }),
   computed: {
-    memberCanSee: {
+    hide: {
       get () {
-        return false
+        return this.hideV
       },
-      set (b) {
-
+      set () {
+        this.$store.dispatch('siteSettings/setHide',
+          { siteid: this.$store.state.binder.site.link, hidden: this.hideV })
+      }
+    },
+    lock: {
+      get () {
+        return this.lockV
+      },
+      set () {
+        this.$store.dispatch('siteSettings/setLock',
+          { siteid: this.$store.state.binder.site.link, writelock: this.lockV })
       }
     }
   }
