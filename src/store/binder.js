@@ -85,6 +85,8 @@ const actions = {
         // console.log('patching page', doc.id, doc.data())
         context.commit('patchPage', { id: doc.id, data: doc.data() })
       })
+    }).catch(function (error) {
+      context.commit('error', error, { root: true })
     })
   },
   /**
