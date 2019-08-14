@@ -2,17 +2,24 @@
   <v-card>
     <v-card-text>
       <div :class="this.theme">
-        <div v-html="rended" class="md-rended"></div>
+        <component v-bind:is="rended"></component>
       </div>
     </v-card-text>
   </v-card>
 </template>
 <script>
+import ViewAttachment from './ViewAttachment.vue'
+import Vue from 'vue'
+Vue.component('ViewAttachment', ViewAttachment)
+
 export default {
   props: [
     'page',
     'theme',
     'siteid'],
+  components: {
+    ViewAttachment
+  },
   computed: {
     rended () {
       var page = this.page
@@ -21,9 +28,15 @@ export default {
 
       const MarkdownIt = require('markdown-it')
       const md = new MarkdownIt()
-      page = md.render(page)
+      page = md.render(page, this.siteid)
 
-      return page
+      page = attachLinks(page, this.siteid)
+
+      // page = '<template><div>' + page + '<v-icon>mdi-eye</v-icon></div></template>'
+
+      return {
+        template: '<div>' + page + '</div>'
+      }
     }
   }
 }
@@ -56,5 +69,12 @@ function toURI (link) {
     s = s.split('--').join('-')
   }
   return s
+}
+function attachLinks (page, siteid) {
+  const re = new RegExp('([\\[(]attach:)(.+?)([\\])])', 'g')
+  return page.replace(re, function (match, p1, p2, p3, offset, string) {
+    p2 = p2.trim()
+    return `<ViewAttachment path="${siteid}/${p2}"/>`
+  })
 }
 </script>
