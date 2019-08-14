@@ -13,11 +13,7 @@
       color="primary"
       >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Skald</span>
-        <span> - </span>
-        <span class="font-weight-light">{{$t("wikititle")}}</span>
-      </v-toolbar-title>
+      <v-toolbar-title class="headline text-uppercase">Skald</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <CreatePageButton/>

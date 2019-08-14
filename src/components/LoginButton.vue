@@ -10,7 +10,9 @@
     </v-btn>
     <v-btn
       v-if="nick"
-      text
+      fab
+      outlined
+      small
       to="/c/profile">
         {{nick}}
       </v-btn>
@@ -64,18 +66,6 @@
 import firebase from 'firebase'
 
 export default {
-  computed: {
-    displayname () {
-      // console.log(this.$store.state.user.name)
-      // console.log('d:', this.$store.state.user)
-      if (typeof this.$store.state.user === 'undefined' || this.$store.state.user === null) {
-        // console.log('is null')
-        return null
-      }
-      // console.log('d:' + this.$store.state.user)
-      return this.$store.state.user.displayName
-    }
-  },
   data: () => ({
     dialog: false,
     nick: null
@@ -112,11 +102,10 @@ export default {
       // console.log(mutation.type)
       switch (mutation.type) {
         case 'creator/setCreator':
-          const nick = state.creator.nick
+          var nick = state.creator.nick
 
           console.log(`Updating to ${nick}`)
-
-          this.nick = nick
+          if (nick !== null) this.nick = nick.substring(0, 1) // .substring(0, 1)
 
           break
       }
