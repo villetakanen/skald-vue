@@ -1,7 +1,7 @@
 <template>
-  <v-card>
+  <v-card :dark="dark">
     <v-card-title><span style="font-size:22px;color:grey">{{title}}</span><v-spacer></v-spacer><Breadcrumbs v-if="crumbs"/></v-card-title>
-    <v-card-text>
+    <v-card-text class="wikipage">
       <hr style="margin-bottom:10px"/>
       <div :class="this.theme">
         <component v-bind:is="rended"></component>
@@ -27,6 +27,10 @@ export default {
     Breadcrumbs
   },
   computed: {
+    dark () {
+      if (this.theme === 'Scifi') return 'dark'
+      return null
+    },
     rended () {
       var page = this.page
       page = wikiLinks(page, this.siteid)
@@ -89,3 +93,41 @@ function attachLinks (page, siteid) {
   })
 }
 </script>
+<style>
+.wikipage h1,
+.wikipage h2{
+  font-weight: 300;
+  color:#26a69a;
+  margin-bottom:4px;
+}
+.wikipage h3,
+.wikipage h4{
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.wikipage .Scifi h1{
+  color:aquamarine;
+}
+.wikipage .Scifi p{
+  color: white;
+}
+.wikipage .Silvertide h1,
+.wikipage .Silvertide h2,
+.wikipage .Silvertide h3,
+.wikipage .Silvertide h4{
+  font-family: 'Josefin Sans', Arial, sans-serif;
+  color: #005b9f;
+  padding-bottom:4px;
+  padding-top:4px;
+}
+.wikipage .Silvertide a {
+  color: #005b9f;
+  text-decoration: none;
+  background-color:rgba(0,91,159,0.1)
+}
+.wikipage .Silvertide div{
+  font-family: 'Open Sans', sans-serif;
+  color: #232323;
+}
+</style>

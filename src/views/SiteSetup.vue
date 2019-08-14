@@ -73,7 +73,8 @@ export default {
       return this.$store.state.binder.site
     },
     themes () {
-      return ['Skald', 'DD5', 'Modern']
+      return ['Skald', 'DD5', 'Modern', 'Scifi',
+        'Silvertide']
     },
     selectedTheme: {
       get () {
