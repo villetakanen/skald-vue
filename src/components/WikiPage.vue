@@ -1,6 +1,8 @@
 <template>
   <v-card>
+    <v-card-title>{{title}} <v-spacer></v-spacer><Breadcrumbs v-if="crumbs"/></v-card-title>
     <v-card-text>
+      <hr style="margin-bottom:10px"/>
       <div :class="this.theme">
         <component v-bind:is="rended"></component>
       </div>
@@ -8,6 +10,7 @@
   </v-card>
 </template>
 <script>
+import Breadcrumbs from './Breadcrumbs'
 import ViewAttachment from './ViewAttachment.vue'
 import Vue from 'vue'
 Vue.component('ViewAttachment', ViewAttachment)
@@ -16,9 +19,12 @@ export default {
   props: [
     'page',
     'theme',
-    'siteid'],
+    'siteid',
+    'title',
+    'crumbs'],
   components: {
-    ViewAttachment
+    ViewAttachment,
+    Breadcrumbs
   },
   computed: {
     rended () {

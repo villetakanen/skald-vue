@@ -1,10 +1,5 @@
 <template>
-  <div>
-    <div>
-      <router-link :to="sitelink">{{site}}</router-link> /
-      <router-link :to="pagelink">{{page}}</router-link></div>
-    <v-divider></v-divider>
-  </div>
+    <v-chip small :to="sitelink" class="s12">{{site}}</v-chip>
 </template>
 <script>
 export default {

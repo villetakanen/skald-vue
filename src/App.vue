@@ -85,3 +85,8 @@ export default {
   }
 }
 </script>
+<style soped>
+.subtitle {
+  font-size: 16px;
+}
+</style>

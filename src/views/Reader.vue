@@ -12,15 +12,15 @@
       </v-flex>
     </v-layout>
     <template v-if="!loading">
-      <v-layout wrap>
-        <Breadcrumbs/>
-      </v-layout>
       <v-layout wrap class="reader">
         <v-flex xs12 md8>
           <WikiPage
             :page='page'
             :theme='theme'
-            :siteid='siteid'/>
+            :siteid='siteid'
+            :title='title'
+            :name='name'
+            crumbs='true'/>
         </v-flex>
         <v-flex xs12 md4>
           <WikiPage
@@ -50,7 +50,7 @@
   </v-container>
 </template>
 <script>
-import Breadcrumbs from '../components/Breadcrumbs'
+// import Breadcrumbs from '../components/Breadcrumbs'
 // import Markdown from '../components/Markdown'
 import Spinner from '../components/Spinner'
 import CardPageInfo from '../components/CardPageInfo'
@@ -120,11 +120,15 @@ export default {
     theme () {
       if (this.$store.state.binder.site === null) return 'skald'
       return this.$store.state.binder.site.theme
+    },
+    title () {
+      if (this.$store.state.binder.page === null) return null
+      return this.$store.state.binder.page.name
     }
   },
   components: {
     // Markdown,
-    Breadcrumbs,
+    // Breadcrumbs,
     Spinner,
     CardPageInfo,
     WikiPage
