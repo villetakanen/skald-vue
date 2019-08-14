@@ -74,7 +74,12 @@ function attachLinks (page, siteid) {
   const re = new RegExp('([\\[(]attach:)(.+?)([\\])])', 'g')
   return page.replace(re, function (match, p1, p2, p3, offset, string) {
     p2 = p2.trim()
-    return `<ViewAttachment path="${siteid}/${p2}"/>`
+    if (p2.includes('|')) {
+      const parts = p2.split('|')
+      return `<ViewAttachment wide="margin:0 -16px" path="${siteid}/${parts[0]}"/>`
+    } else {
+      return `<ViewAttachment wide="text-align:center" path="${siteid}/${p2}"/>`
+    }
   })
 }
 </script>
