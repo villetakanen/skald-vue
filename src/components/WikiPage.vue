@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>{{title}} <v-spacer></v-spacer><Breadcrumbs v-if="crumbs"/></v-card-title>
+    <v-card-title><span style="font-size:22px;color:grey">{{title}}</span><v-spacer></v-spacer><Breadcrumbs v-if="crumbs"/></v-card-title>
     <v-card-text>
       <hr style="margin-bottom:10px"/>
       <div :class="this.theme">

@@ -26,7 +26,8 @@
           <WikiPage
             :page='sidebar'
             :theme='theme'
-            :siteid='siteid'/>
+            :siteid='siteid'
+            :title="$t('sidebar')"/>
         </v-flex>
       </v-layout>
       <v-layout>
