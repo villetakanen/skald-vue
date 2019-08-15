@@ -86,7 +86,7 @@ export default {
     socialFacebookLogin () {
       const provider = new firebase.auth.FacebookAuthProvider()
       firebase.auth().signInWithPopup(provider).then((result) => {
-        console.log('user is' + result.user)
+        // console.log('user is' + result.user)
         this.$store.commit('setActiveUser', result.user)
         this.$store.dispatch('getProfile', result.user.uid)
         // this.$router.push('/')
@@ -104,7 +104,7 @@ export default {
         case 'creator/setCreator':
           var nick = state.creator.nick
 
-          console.log(`Updating to ${nick}`)
+          // console.log(`Updating to ${nick}`)
           if (nick !== null) this.nick = nick.substring(0, 1) // .substring(0, 1)
 
           break
