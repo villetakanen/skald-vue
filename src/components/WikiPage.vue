@@ -85,11 +85,11 @@ function attachLinks (page, siteid) {
   const re = new RegExp('([\\[(]attach:)(.+?)([\\])])', 'g')
   return page.replace(re, function (match, p1, p2, p3, offset, string) {
     p2 = p2.trim()
-    if (p2.includes('|')) {
-      const parts = p2.split('|')
+    if (p2.includes(':')) {
+      const parts = p2.split(':')
       if (parts[1].trim() === 'wide') return `<ViewAttachment wide="margin:0 -16px" path="${siteid}/${parts[0]}"/>`
       if (parts[1].trim() === 'sm') return `<ViewAttachment wide="height:128px" path="${siteid}/${parts[0]}"/>`
-      if (parts[1].trim() === 'xs') return `<ViewAttachment wide="height:56px" path="${siteid}/${parts[0]}"/>`
+      if (parts[1].trim() === 'xs') return `<ViewAttachment wide="height:56px;width:56px" path="${siteid}/${parts[0]}"/>`
     }
     return `<ViewAttachment wide="text-align:center" path="${siteid}/${p2}"/>`
   })
