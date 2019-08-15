@@ -2,11 +2,12 @@
   <div>
     <v-btn
       v-if="!nick"
-      text
+      fab
+      color="secondary"
       @click="dialog=!dialog"
+      small
       >
       <v-icon>mdi-login</v-icon>
-        &nbsp;{{$t("login-button")}}
     </v-btn>
     <v-btn
       v-if="nick"

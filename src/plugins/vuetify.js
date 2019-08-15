@@ -12,11 +12,12 @@ export default new Vuetify({
       light: {
         primary: '#26a69a',
         // primary: '#00b8d4',
-        secondary: '#fbc02d'
+        secondary: '#e91e63'
+        // secondary: '#fbc02d'
       },
       dark: {
         primary: '#455a64',
-        secondary: '#fbc02d'
+        secondary: '#e91e63'
       }
     }
   }
