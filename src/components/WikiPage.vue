@@ -41,6 +41,7 @@ export default {
       page = md.render(page, this.siteid)
 
       page = attachLinks(page, this.siteid)
+      page = diceTags(page)
 
       // page = '<template><div>' + page + '<v-icon>mdi-eye</v-icon></div></template>'
 
@@ -91,6 +92,9 @@ function attachLinks (page, siteid) {
       return `<ViewAttachment wide="text-align:center" path="${siteid}/${p2}"/>`
     }
   })
+}
+function diceTags (page) {
+  return page.replace('[d6]', '<i aria-hidden="true" class="v-icon notranslate mdi mdi-dice-d6 theme--light"></i>')
 }
 </script>
 <style>
