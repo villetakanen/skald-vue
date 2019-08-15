@@ -1,5 +1,7 @@
 <template>
-  <v-card :dark="dark">
+  <v-card
+    :dark="dark"
+    :outlined="outlined">
     <v-card-title><span style="font-size:22px;color:grey">{{title}}</span><v-spacer></v-spacer><Breadcrumbs v-if="crumbs"/></v-card-title>
     <v-card-text class="wikipage">
       <hr style="margin-bottom:10px"/>
@@ -21,7 +23,8 @@ export default {
     'theme',
     'siteid',
     'title',
-    'crumbs'],
+    'crumbs',
+    'outlined'],
   components: {
     ViewAttachment,
     Breadcrumbs
@@ -126,6 +129,11 @@ function diceTags (page) {
   padding-bottom:4px;
   padding-top:4px;
 }
+.wikipage .Silvertide h1,
+.wikipage .Silvertide h2{
+  -webkit-column-span: all;
+  column-span: all;
+}
 .wikipage .Silvertide h3,
 .wikipage .Silvertide h4{
   color: #455a64;
@@ -138,5 +146,6 @@ function diceTags (page) {
 .wikipage .Silvertide div{
   font-family: 'Open Sans', sans-serif;
   color: #232323;
+  columns: 2;
 }
 </style>

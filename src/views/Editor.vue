@@ -28,8 +28,9 @@
                       v-model="pageName"
                       filled></v-text-field>
                     <v-textarea
-                      auto-grow
-                      filled
+                      rows="10"
+                      outlined
+                      style="font-family: 'Source Code Pro', monospace;"
                       v-model="pageContent"></v-textarea>
                   </v-form>
                 </v-flex>

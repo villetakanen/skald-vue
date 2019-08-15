@@ -15,6 +15,7 @@
       <v-layout wrap class="reader">
         <v-flex xs12 md8>
           <WikiPage
+            outlined="outlined"
             :page='page'
             :theme='theme'
             :siteid='siteid'
@@ -24,6 +25,7 @@
         </v-flex>
         <v-flex xs12 md4>
           <WikiPage
+            outlined="outlined"
             :page='sidebar'
             :theme='theme'
             :siteid='siteid'

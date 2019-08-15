@@ -9,6 +9,7 @@
     </v-navigation-drawer>
     <v-app-bar
       app
+      elevation="1"
       :clipped-left="$vuetify.breakpoint.lgAndUp"
       >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
