@@ -11,7 +11,7 @@
     <v-btn
       v-if="nick"
       fab
-      outlined
+      color="primary"
       small
       to="/c/profile">
         {{nick}}

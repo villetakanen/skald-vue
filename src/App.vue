@@ -10,13 +10,13 @@
     <v-app-bar
       app
       :clipped-left="$vuetify.breakpoint.lgAndUp"
-      color="primary"
       >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="headline text-uppercase">Skald</v-toolbar-title>
       <v-spacer></v-spacer>
 
-      <CreatePageButton/>
+      <CreatePageButton class="mx-2"/>
+
       <LoginButton/>
 
     </v-app-bar>

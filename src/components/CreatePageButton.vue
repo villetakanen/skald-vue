@@ -1,8 +1,10 @@
 <template>
   <div>
     <v-btn
-      icon
+      fab
+      small
       @click="dialog=!dialog"
+      color="primary"
       ><v-icon>mdi-plus-circle</v-icon>
     </v-btn>
     <v-dialog
