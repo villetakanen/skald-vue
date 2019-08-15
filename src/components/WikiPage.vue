@@ -87,10 +87,11 @@ function attachLinks (page, siteid) {
     p2 = p2.trim()
     if (p2.includes('|')) {
       const parts = p2.split('|')
-      return `<ViewAttachment wide="margin:0 -16px" path="${siteid}/${parts[0]}"/>`
-    } else {
-      return `<ViewAttachment wide="text-align:center" path="${siteid}/${p2}"/>`
+      if (parts[1].trim() === 'wide') return `<ViewAttachment wide="margin:0 -16px" path="${siteid}/${parts[0]}"/>`
+      if (parts[1].trim() === 'sm') return `<ViewAttachment wide="height:128px" path="${siteid}/${parts[0]}"/>`
+      if (parts[1].trim() === 'xs') return `<ViewAttachment wide="height:56px" path="${siteid}/${parts[0]}"/>`
     }
+    return `<ViewAttachment wide="text-align:center" path="${siteid}/${p2}"/>`
   })
 }
 function diceTags (page) {
