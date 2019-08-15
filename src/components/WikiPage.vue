@@ -125,6 +125,10 @@ function diceTags (page) {
   padding-bottom:4px;
   padding-top:4px;
 }
+.wikipage .Silvertide h3,
+.wikipage .Silvertide h4{
+  color: #455a64;
+}
 .wikipage .Silvertide a {
   color: #005b9f;
   text-decoration: none;
