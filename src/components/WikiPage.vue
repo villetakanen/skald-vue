@@ -146,6 +146,10 @@ function diceTags (page) {
 .wikipage .Silvertide div{
   font-family: 'Open Sans', sans-serif;
   color: #232323;
-  columns: 2;
+}
+@media only screen and (min-width: 1024px) {
+  .wikipage .Silvertide div{
+    columns: 2;
+  }
 }
 </style>
