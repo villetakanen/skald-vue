@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     dark () {
-      if (this.theme === 'Scifi') return 'dark'
+      // if (this.theme === 'Scifi') return 'dark'
       return null
     },
     rended () {
@@ -106,7 +106,8 @@ function diceTags (page) {
 .wikipage h2{
   font-weight: 300;
   color:#26a69a;
-  margin-bottom:4px;
+  margin-bottom: 8px;
+  margin-top: 8px;
 }
 .wikipage h3,
 .wikipage h4{
@@ -114,12 +115,29 @@ function diceTags (page) {
   text-transform: uppercase;
   margin-bottom: 4px;
 }
+.wikipage ol,
+.wikipage ul {
+  border-left: 3px solid #F0F0F0;
+  margin-left: 0;
+  padding-left: 29px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.wikipage ol,
+.wikipage ul {
+-webkit-column-break-inside: avoid;
+          page-break-inside: avoid;
+               break-inside: avoid;
+}
+/*
 .wikipage .Scifi h1{
   color:aquamarine;
 }
 .wikipage .Scifi p{
   color: white;
-}
+} */
 .wikipage .Silvertide h1,
 .wikipage .Silvertide h2,
 .wikipage .Silvertide h3,
@@ -148,8 +166,13 @@ function diceTags (page) {
   color: #232323;
 }
 @media only screen and (min-width: 1024px) {
-  .wikipage .Silvertide div{
+  .wikipage .Silvertide div,
+  .wikipage .Scifi div{
     columns: 2;
+  }
+  .wikipage .Scifi h1,
+  .wikipage .Scifi h2 {
+    column-span: all;
   }
 }
 </style>
