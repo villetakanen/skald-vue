@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-btn
+      v-if="isAuthz"
       fab
       small
       @click="dialog=!dialog"
@@ -27,6 +28,11 @@ export default {
   methods: {
     close () {
       this.dialog = false
+    }
+  },
+  computed: {
+    isAuthz () {
+      return this.$store.getters.isAuthz
     }
   }
 }

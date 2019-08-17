@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn
-      v-if="!nick"
+      v-if="!isAuthz"
       fab
       color="secondary"
       @click="dialog=!dialog"
@@ -10,7 +10,7 @@
       <v-icon>mdi-login</v-icon>
     </v-btn>
     <v-btn
-      v-if="nick"
+      v-if="isAuthz"
       fab
       color="primary"
       small
@@ -71,6 +71,11 @@ export default {
     dialog: false,
     nick: null
   }),
+  computed: {
+    isAuthz () {
+      return this.$store.getters.isAuthz
+    }
+  },
   methods: {
     socialGoogleLogin () {
       const provider = new firebase.auth.GoogleAuthProvider()

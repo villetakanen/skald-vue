@@ -14,6 +14,7 @@ const mutations = {
     Vue.set(state, 'editorPreview', data.editorPreview)
   },
   setUid (state, data) {
+    console.log('creator/setUid', data)
     Vue.set(state, 'uid', data)
   },
   setEditorPreview (state, data) {
@@ -71,9 +72,10 @@ const actions = {
     context.commit('setEditorPreview', value)
   },
   logout (context) {
-    Vue.set(context, 'nick', null)
-    Vue.set(context, 'locale', null)
-    Vue.set(context, 'uid', null)
+    console.log('creator/logout')
+    Vue.set(context.state, 'nick', null)
+    Vue.set(context.state, 'locale', null)
+    Vue.set(context.state, 'uid', null)
   }
 }
 function exists (a) {

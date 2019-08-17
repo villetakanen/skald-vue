@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-btn
+      v-if="isAuthz"
       icon
       @click="dialog=!dialog">
       <v-icon>mdi-plus-circle</v-icon>
@@ -26,6 +27,11 @@ export default {
   },
   components: {
     CreateSiteCard
+  },
+  computed: {
+    isAuthz () {
+      return this.$store.getters.isAuthz
+    }
   }
 }
 </script>

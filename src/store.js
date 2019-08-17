@@ -9,6 +9,16 @@ import users from './store/users'
 
 Vue.use(Vuex)
 
+const getters = {
+  isAuthz: state => {
+    return state.creator.uid !== null
+  },
+  locale: state => {
+    if (state.creator.locale === null) return 'en'
+    return state.creator.locale
+  }
+}
+
 export default new Vuex.Store({
   modules: {
     sites,
@@ -17,6 +27,7 @@ export default new Vuex.Store({
     creator,
     users
   },
+  getters,
   state: {
     user: {},
     profile: { locale: 'en' },

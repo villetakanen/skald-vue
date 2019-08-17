@@ -1,27 +1,30 @@
 <template>
   <v-container
-    fluid grid-list-md
-    >
+    fluid
+    grid-list-md>
+
     <v-layout
-      v-if="loading"
       column
-      align-center justify-center row fill-height
-      >
+      align-center
+      v-if="loading">
       <v-flex>
         <Spinner :text="$t('contentLoading')"/>
       </v-flex>
     </v-layout>
+
     <template v-if="!loading">
-      <v-layout wrap class="reader">
+      <v-layout wrap>
         <v-flex xs12 md8>
           <v-card
             outlined>
             <v-toolbar
-              elevation="1">
+              dense
+              flat
+              style="border-bottom:solid 1px #efefef;">
                 <v-toolbar-title>{{title}}</v-toolbar-title>
                 <v-btn
+                  v-if="isAuthz"
                   color="secondary"
-                  dark
                   small
                   absolute
                   bottom
@@ -34,23 +37,23 @@
             </v-toolbar>
             <v-card-text>
             <WikiPage
-            outlined="outlined"
             :page='page'
             :theme='theme'
-            :siteid='siteid'
-            :title='title'
-            :name='name'
-            crumbs='true'/>
+            :siteid='siteid'/>
             </v-card-text>
             </v-card>
         </v-flex>
         <v-flex xs12 md4>
           <WikiPage
-            outlined="outlined"
             :page='sidebar'
             :theme='theme'
-            :siteid='siteid'
-            :title="$t('sidebar')"/>
+            :siteid='siteid'/>
+            <div v-if="isAuthz" style="text-align:right" class="mx-4">
+          <v-btn
+            :to="`/e/${siteid}/sidebar`"
+            text
+            color="primary">{{$t('editSidebar')}}</v-btn>
+            </div>
         </v-flex>
       </v-layout>
       <v-layout>
@@ -74,22 +77,14 @@
   </v-container>
 </template>
 <script>
-// import Breadcrumbs from '../components/Breadcrumbs'
-// import Markdown from '../components/Markdown'
 import Spinner from '../components/Spinner'
 import CardPageInfo from '../components/CardPageInfo'
 import WikiPage from '../components/WikiPage'
-
-// <v-card
-//    :dark="dark"
-//    :outlined="outlined">
-//    <v-card-title><span style="font-size:22px;color:grey">{{title}}</span><v-spacer></v-spacer><Breadcrumbs v-if="crumbs"/></v-card-title>
 
 export default {
   props: ['pageid', 'siteid'],
   created () {
     this.updatePage(this.siteid, this.pageid)
-    this.$store.dispatch('binder/openPage', { siteid: this.siteid, pageid: this.pageid })
     this.$store.dispatch('binder/getPages', { siteid: this.siteid })
   },
   methods: {
@@ -102,29 +97,23 @@ export default {
       this.$vuetify.goTo(0)
     },
     updatePage (siteid, pageid) {
-      if (typeof this.pageid === 'undefined') {
-        this.pageid = this.siteid
-        // console.log('Pageid defaulted to', this.pageid)
+      // console.log('updatePage', siteid, pageid)
+      if (siteid === null ||
+      typeof siteid === 'undefined') {
+        siteid = 'skald'
       }
-      // console.log('Reader switching to', siteid, pageid)
-      if (typeof pageid === 'undefined') {
+      if (pageid === null ||
+      typeof pageid === 'undefined') {
         pageid = siteid
-        // console.log('Pageid defaulted to', pageid)
       }
-      this.$store.dispatch('page/getPage', { siteid: siteid, pageid: pageid })
-      // --
-      /* var id = 'skald.welcome'
-      if (pageid !== null &&
-        typeof pageid !== 'undefined') id = pageid
-      var theme = 'Skald'
-      if (typeof this.$store.state.sites.list[this.siteid] !== 'undefined') theme = this.$store.state.sites.list[this.siteid].theme
-      this.$store.commit('setSite', { s: this.siteid, t: theme }) */
+      // console.log('getting', siteid, pageid)
+      this.$store.dispatch('binder/openPage', { siteid: siteid, pageid: pageid })
     }
   },
   watch: {
     '$route' (to, from) {
       this.updatePage(this.siteid, this.pageid)
-      this.$store.dispatch('binder/openPage', { siteid: this.siteid, pageid: this.pageid })
+      // this.$store.dispatch('binder/openPage', { siteid: this.siteid, pageid: this.pageid })
       this.$store.dispatch('binder/getPages', { siteid: this.siteid })
     }
   },
@@ -149,13 +138,11 @@ export default {
       return this.$store.state.binder.pages['sidebar'].content
     },
     loading () {
-      return this.$store.state.page.content === ''
+      return this.$store.state.binder.page === null
     },
-    logged () {
-      if (typeof this.$store.state.user === 'undefined' || this.$store.state.user === null) {
-        return null
-      }
-      return this.$store.state.user.displayName
+    isAuthz () {
+      // console.log('isAuthz', this.$store.getters.isAuthz)
+      return this.$store.getters.isAuthz
     },
     theme () {
       if (this.$store.state.binder.site === null) return 'skald'
@@ -167,25 +154,9 @@ export default {
     }
   },
   components: {
-    // Markdown,
-    // Breadcrumbs,
     Spinner,
     CardPageInfo,
     WikiPage
   }
 }
 </script>
-<style>
-.loader_image{
-  opacity: 0.23;
-  -webkit-animation: rotation 7s infinite linear; /**/
-}
-@-webkit-keyframes rotation {
-  from {
-    -webkit-transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(359deg);
-  }
-}
-</style>

@@ -45,6 +45,7 @@ const actions = {
    * @param {*} param1 { siteid, pageid }
    */
   openPage (context, { siteid, pageid }) {
+    console.log('binder/openPage', siteid, pageid)
     // Sanity check
     if (!exists(pageid) ||
       !exists(siteid)) {
