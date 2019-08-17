@@ -14,7 +14,26 @@
     <template v-if="!loading">
       <v-layout wrap class="reader">
         <v-flex xs12 md8>
-          <WikiPage
+          <v-card
+            outlined>
+            <v-toolbar
+              elevation="1">
+                <v-toolbar-title>{{title}}</v-toolbar-title>
+                <v-btn
+                  color="secondary"
+                  dark
+                  small
+                  absolute
+                  bottom
+                  right
+                  fab
+                  v-bind:to="editlink"
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+            </v-toolbar>
+            <v-card-text>
+            <WikiPage
             outlined="outlined"
             :page='page'
             :theme='theme'
@@ -22,6 +41,8 @@
             :title='title'
             :name='name'
             crumbs='true'/>
+            </v-card-text>
+            </v-card>
         </v-flex>
         <v-flex xs12 md4>
           <WikiPage
@@ -38,16 +59,16 @@
         </v-flex>
       </v-layout>
       <v-btn
-        v-if="logged"
-        bottom
-        color="secondary"
-        dark
-        fab
-        fixed
-        right
-        v-bind:to="editlink"
-        >
-        <v-icon>mdi-pencil</v-icon>
+            v-scroll="onScroll"
+            v-show="fab"
+            fab
+            dark
+            fixed
+            bottom
+            right
+            color="primary"
+            @click="toTop"
+          ><v-icon>mdi-arrow-up</v-icon>
       </v-btn>
     </template>
   </v-container>
@@ -59,6 +80,11 @@ import Spinner from '../components/Spinner'
 import CardPageInfo from '../components/CardPageInfo'
 import WikiPage from '../components/WikiPage'
 
+// <v-card
+//    :dark="dark"
+//    :outlined="outlined">
+//    <v-card-title><span style="font-size:22px;color:grey">{{title}}</span><v-spacer></v-spacer><Breadcrumbs v-if="crumbs"/></v-card-title>
+
 export default {
   props: ['pageid', 'siteid'],
   created () {
@@ -67,6 +93,14 @@ export default {
     this.$store.dispatch('binder/getPages', { siteid: this.siteid })
   },
   methods: {
+    onScroll (e) {
+      if (typeof window === 'undefined') return
+      const top = window.pageYOffset || e.target.scrollTop || 0
+      this.fab = top > 20
+    },
+    toTop () {
+      this.$vuetify.goTo(0)
+    },
     updatePage (siteid, pageid) {
       if (typeof this.pageid === 'undefined') {
         this.pageid = this.siteid
@@ -94,6 +128,9 @@ export default {
       this.$store.dispatch('binder/getPages', { siteid: this.siteid })
     }
   },
+  data: () => ({
+    fab: false
+  }),
   computed: {
     editlink () {
       var page = this.pageid

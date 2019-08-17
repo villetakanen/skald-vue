@@ -1,15 +1,9 @@
 <template>
-  <v-card
-    :dark="dark"
-    :outlined="outlined">
-    <v-card-title><span style="font-size:22px;color:grey">{{title}}</span><v-spacer></v-spacer><Breadcrumbs v-if="crumbs"/></v-card-title>
-    <v-card-text class="wikipage">
-      <hr style="margin-bottom:10px"/>
-      <div :class="this.theme">
-        <component v-bind:is="rended"></component>
-      </div>
-    </v-card-text>
-  </v-card>
+  <div class="wikipage">
+    <div :class="this.theme">
+      <component v-bind:is="rended"></component>
+    </div>
+  </div>
 </template>
 <script>
 import Breadcrumbs from './Breadcrumbs'
