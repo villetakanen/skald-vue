@@ -1,6 +1,8 @@
 <template>
     <div class="spinner">
-        <img class="spinner_image" src="../assets/spiral-7.svg"/>
+         <img class="monster" src="../assets/noun_Monster_693509.svg"/>
+         <img class="monster" src="../assets/noun_Monster_57335.svg"/>
+         <img class="monster" src="../assets/noun_Cat_37446.svg"/>
         <div class="stext">{{text}}</div>
     </div>
 </template>
@@ -14,7 +16,7 @@ export default {
 div.spinner{
     text-align: center;
     height: 128px;
-    width: 128px;
+    width: 384px;
     position: relative;
     text-align: center;
 }
@@ -39,5 +41,10 @@ div.stext {
   font-size: 32px;
   text-transform: uppercase;
   font-weight: 300;
+}
+img.monster{
+  max-height: 128px;
+  max-width: 128px;
+  opacity: 0.23;
 }
 </style>

@@ -30,3 +30,6 @@ firestore.indexes.json
 firestore.rules
 .firebaserc
 hosting.*
+
+# Images from noun project under different license
+noun_*
