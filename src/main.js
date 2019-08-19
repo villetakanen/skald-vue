@@ -2,34 +2,26 @@ import Vue from 'vue'
 import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
-import firestore from './firestore.js'
-import firebase from 'firebase'
+// import firestore from './firestore.js'
+import firebase from 'firebase/app'
 import store from './store'
 import router from './router'
+import skaldfire from './plugins/skaldfire'
 
 Vue.config.productionTip = false
+
+// Firestore is initiated here!
+Vue.use(skaldfire)
 
 new Vue({
   vuetify,
   i18n,
-  firestore,
+  skaldfire,
   created: function () {
-    // console.log('m', process.env.VUE_APP_SKALD_VERSION)
+    // We push version to the vuex, as some components want to display it
     store.commit('version', process.env.VUE_APP_SKALD_VERSION)
 
-    // Firebase APP init
-    var config = {
-      apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
-      authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
-      databaseURL: process.env.VUE_APP_FIREBASE_DATASE_URL,
-      projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
-      storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
-      messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGE_SENDER_ID,
-      appId: process.env.VUE_APP_FIREBASE_APP_ID
-    }
-    firestore.init(config)
-
-    // get current site catalog to Vuex store
+    // Fetch current site catalog to Vuex store from Firebase or Firebase cache
     store.dispatch('binder/getSites')
 
     // parse site name from router to vuex, for any components outside router views
@@ -44,8 +36,6 @@ new Vue({
     // get signed in profile, and update Vuex state accordingly
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        // store.commit('setActiveUser', user)
-        // store.dispatch('getProfile', user.uid)
         store.dispatch('creator/signIn', user)
         if (store.state.profile.locale !== null &&
           typeof store.state.profile.locale !== 'undefined') {

@@ -1,4 +1,5 @@
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 import Vue from 'vue'
 
 const state = {
@@ -15,7 +16,7 @@ const mutations = {
     Vue.set(state.sites, id, data)
     if (id === current) {
       Vue.set(state, 'site', data)
-      console.log('patchSites', id, data, current)
+      // console.log('patchSites', id, data, current)
     }
   },
   patchPage (state, { id, data }) {
@@ -45,7 +46,7 @@ const actions = {
    * @param {*} param1 { siteid, pageid }
    */
   openPage (context, { siteid, pageid }) {
-    console.log('binder/openPage', siteid, pageid)
+    // console.log('binder/openPage', siteid, pageid)
     // Sanity check
     if (!exists(pageid) ||
       !exists(siteid)) {
@@ -69,7 +70,7 @@ const actions = {
     })
   },
   getPages (context, { siteid }) {
-    console.log('binder/getPages', siteid)
+    // console.log('binder/getPages', siteid)
     // Sanity
     if (!exists(siteid)) {
       context.commit('error', 'Binder can not get pages for undefined site', { root: true })
@@ -87,7 +88,7 @@ const actions = {
         context.commit('patchPage', { id: doc.id, data: doc.data() })
       })
     }).catch(function (error) {
-      console.log(error.code)
+      // console.log(error.code)
       if (error.code === 'permission-denied') context.commit('error', '403', { root: true })
       else context.commit('error', error, { root: true })
     })
@@ -98,7 +99,7 @@ const actions = {
    * @param {Vuex} context Vuex context
    */
   getSites (context) {
-    console.log('binder/getSites')
+    // console.log('binder/getSites')
 
     const db = firebase.firestore()
     db.collection('sites').get().then((querySnapshot) => {
@@ -117,7 +118,7 @@ const actions = {
    * @param {json} siteid for { siteid }
    */
   getFullSite (context, { siteid }) {
-    console.log('binder/getFullSite', siteid)
+    // console.log('binder/getFullSite', siteid)
     // Sanity
     if (!exists(siteid)) {
       context.commit('error', 'Binder can not get sige data for undefined site', { root: true })
@@ -142,7 +143,7 @@ const actions = {
             m.uid = mem.id
             site.members[mem.id] = m
           })
-          console.log('got', site)
+          // console.log('got', site)
           context.commit('patchSites', { id: siteid, data: site, current: siteid })
         })
       })
@@ -150,14 +151,14 @@ const actions = {
   },
   createPage (context, { pageid, name, content, siteid,
     creator, creatorNick }) {
-    console.log(pageid, name, content, siteid, creator, creatorNick)
+    // console.log(pageid, name, content, siteid, creator, creatorNick)
     // Sanity
     if (!exists(pageid)) return
     if (!exists(siteid)) return
     if (!exists(creator)) return
     if (!exists(creatorNick)) return
 
-    console.log('updating firestore for', siteid, pageid)
+    // console.log('updating firestore for', siteid, pageid)
 
     var u = {
       name: name,
@@ -187,7 +188,7 @@ const actions = {
     if (!exists(siteid)) return
     if (!exists(owner)) return
     if (!exists(ownerNick)) return
-    console.log('binder/createSite', siteid)
+    // console.log('binder/createSite', siteid)
 
     const s = {
       name: name,
@@ -205,14 +206,14 @@ const actions = {
   },
   updatePage (context, { pageid, name, content, siteid,
     creator, creatorNick }) {
-    console.log(pageid, name, content, siteid, creator, creatorNick)
+    // console.log(pageid, name, content, siteid, creator, creatorNick)
     // Sanity
     if (!exists(pageid)) return
     if (!exists(siteid)) return
     if (!exists(creator)) return
     if (!exists(creatorNick)) return
 
-    console.log('updating firestore for', siteid, pageid)
+    // console.log('updating firestore for', siteid, pageid)
 
     var u = {
       name: name,

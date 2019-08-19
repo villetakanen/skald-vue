@@ -1,4 +1,5 @@
-import * as firebase from 'firebase'
+/* import firebase from 'firebase/app'
+import firestore from 'firebase/firestore'
 
 function init (config) {
   firebase.initializeApp(config)
@@ -40,7 +41,7 @@ function getPage (name) {
         // console.log(doc.data())
         context.commit('updateBook', doc.data())
       })
-    }) */
+    }) * /
 
   return r
 }
@@ -50,3 +51,4 @@ const firestore = {
   getPage
 }
 export default firestore
+*/

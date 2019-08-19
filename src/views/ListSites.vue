@@ -22,7 +22,7 @@ export default {
     sites () {
       var r = []
       for (var i in this.$store.state.binder.sites) {
-        console.log(this.$store.state.binder.sites[i])
+        // console.log(this.$store.state.binder.sites[i])
         var vis = 'open'
         if (this.$store.state.binder.sites[i].hidden) vis = 'closed'
         r.push({ link: i,
@@ -30,7 +30,7 @@ export default {
           theme: this.$store.state.binder.sites[i].theme,
           hidden: vis })
       }
-      console.log('s:', this.$store.state.binder.sites, r)
+      // console.log('s:', this.$store.state.binder.sites, r)
       return r
     }
   },

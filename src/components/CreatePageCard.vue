@@ -63,13 +63,7 @@ export default {
       set (e) {
         this.newPageName = e
 
-        if (this.name === null) return null
-        var re = new RegExp('[\\W]', 'g')
-        var s = e.replace(re, '-')
-        while (s.includes('--')) {
-          s = s.split('--').join('-')
-        }
-        this.newPageid = s
+        this.newPageid = this.$skaldURI(e)
       }
     }
   },

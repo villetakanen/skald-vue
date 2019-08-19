@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-import Vue from 'vue'
+// import Vue from 'vue'
 
 /**
  * The page default values are
@@ -12,15 +12,15 @@ import Vue from 'vue'
  * lastCreator: '...'
  */
 const state = {
-  content: '',
+  /* content: '',
   site: 'skald',
   name: '',
   id: 'skald.404',
   lastCreator: '...',
-  history: {}
+  history: {} */
 }
 const mutations = {
-  setPage (state, { key, page }) {
+  /* setPage (state, { key, page }) {
     // console.log('setting page to ', key, page)
     Vue.set(state, 'content', page.content)
     state.name = page.name
@@ -34,7 +34,7 @@ const mutations = {
   setContent (state, c) {
     // console.log('wait!', c)
     Vue.set(state, 'content', c)
-  }
+  } */
 }
 const actions = {
   /**
