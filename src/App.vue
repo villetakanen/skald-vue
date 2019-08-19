@@ -30,9 +30,7 @@
       v-model="edialog"
       max-width="800"
       >
-      <v-card dark>
-        <v-card-text>{{error}}</v-card-text>
-      </v-card>
+      <Error/>
     </v-dialog>
   </v-app>
 </template>
@@ -42,13 +40,15 @@ import LoginButton from './components/LoginButton.vue'
 // import CreatePageButton from './components/CreatePageButton'
 import CreatePageButton from './components/CreatePageButton'
 import SkaldNavigationDrawer from './components/SkaldNavigationDrawer'
+import Error from './components/dialog/Error'
 
 export default {
   name: 'App',
   components: {
     LoginButton,
     CreatePageButton,
-    SkaldNavigationDrawer
+    SkaldNavigationDrawer,
+    Error
   },
   computed: {
     sites () {
@@ -56,9 +56,6 @@ export default {
     },
     site () {
       return this.$store.state.binder.site
-    },
-    error () {
-      return this.$store.state.error
     }
   },
   data: () => ({

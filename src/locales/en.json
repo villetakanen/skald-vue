@@ -1,4 +1,6 @@
 {
+    "accessDeniedToSite": "It seems you are trying to reach closed on unexisting wiki site. Please contact the owners of the site, or create the site to open this gate.",
+    "accessDeniedToSiteTitle": "403: Gate closed",
     "attachments": "Attachments",
     "wikititle": "A wiki for RPG materials",
     "releaseInfo": "Latest Release",

@@ -87,7 +87,9 @@ const actions = {
         context.commit('patchPage', { id: doc.id, data: doc.data() })
       })
     }).catch(function (error) {
-      context.commit('error', error, { root: true })
+      console.log(error.code)
+      if (error.code === 'permission-denied') context.commit('error', '403', { root: true })
+      else context.commit('error', error, { root: true })
     })
   },
   /**

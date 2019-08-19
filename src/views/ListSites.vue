@@ -22,9 +22,13 @@ export default {
     sites () {
       var r = []
       for (var i in this.$store.state.binder.sites) {
+        console.log(this.$store.state.binder.sites[i])
+        var vis = 'open'
+        if (this.$store.state.binder.sites[i].hidden) vis = 'closed'
         r.push({ link: i,
           name: this.$store.state.binder.sites[i].name,
-          theme: this.$store.state.binder.sites[i].theme })
+          theme: this.$store.state.binder.sites[i].theme,
+          hidden: vis })
       }
       console.log('s:', this.$store.state.binder.sites, r)
       return r
@@ -46,6 +50,12 @@ export default {
         align: 'left',
         sortable: true,
         value: 'theme'
+      },
+      {
+        text: 'Hidden',
+        align: 'left',
+        sortable: true,
+        value: 'hidden'
       }
     ]
   }),
