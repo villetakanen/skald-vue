@@ -6,15 +6,21 @@
             <v-toolbar dark>
               <v-toolbar-title>{{$t('cp-profile-title')}}</v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-btn color="primary" @click="updateProfile">{{$t("save")}}</v-btn>
+              <v-btn
+                :disabled="!profileValid"
+                color="primary"
+                @click="updateProfile">{{$t("save")}}</v-btn>
             </v-toolbar>
             <v-card-text>
-              <v-form @submit.prevent="savePage">
+              <v-form
+                v-model="profileValid"
+                @submit.prevent="savePage">
               <v-text-field
                 label="Nickname"
                 filled
                 v-bind:placeholder="displayname"
                 v-model="nick"
+                :rules="[v => !(taken.includes(v)) || 'Nick in use']"
                 ></v-text-field>
               <v-select
                 :items="langs"
@@ -68,6 +74,11 @@
 import firebase from 'firebase'
 export default {
   computed: {
+    taken () {
+      // const n = this.$store.getters['users/nicks'](this.$store.state.creator.nick)
+
+      return this.$store.getters['users/nicks'](this.$store.state.creator.nick)
+    },
     displayname () {
       return this.$store.state.creator.displayname
     },
@@ -100,11 +111,13 @@ export default {
   created () {
     this.nick = this.$store.state.creator.nick
     this.locale = this.$store.state.creator.locale
+    this.$store.dispatch('users/getAll')
     // console.log(this.nick)
     /* this.updatePage(this.siteid, this.pageid)
     this.$store.dispatch('binder/openPage', { siteid: this.siteid, pageid: this.pageid }) */
   },
   data: () => ({
+    profileValid: true,
     langs: ['fi', 'en'],
     nick: '',
     locale: 'en' // ,

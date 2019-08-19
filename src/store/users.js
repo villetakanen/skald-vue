@@ -12,6 +12,17 @@ const getters = {
       console.log(typeof owns, user.owns)
       return !user.owns.includes(siteid)
     }) // !== null)// Object.prototype.hasOwnProperty.call(owns, siteid))
+  },
+  /**
+   * get all nicks, omits current if given
+   */
+  nicks: (state) => (current) => {
+    // console.log('getters/nick', state.all)
+    var n = []
+    for (var i in state.all) {
+      if (state.all[i].nick !== current) n.push(state.all[i].nick)
+    }
+    return n
   }
 }
 const actions = {
