@@ -99,7 +99,7 @@ function diceTags (page) {
 .wikipage h1,
 .wikipage h2{
   font-weight: 300;
-  color:#26a69a;
+  color:#006db3; /* 26a69a;*/
   margin-bottom: 8px;
   margin-top: 8px;
 }
