@@ -31,6 +31,7 @@
                   right
                   fab
                   v-bind:to="editlink"
+                  elevation="0"
                 >
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
@@ -69,6 +70,7 @@
             fixed
             bottom
             right
+            elevation="0"
             color="primary"
             @click="toTop"
           ><v-icon>mdi-arrow-up</v-icon>

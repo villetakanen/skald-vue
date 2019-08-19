@@ -59,6 +59,7 @@
             fixed
             bottom
             right
+            elevation="0"
             color="primary"
             @click="toTop"
           ><v-icon>mdi-arrow-up</v-icon>

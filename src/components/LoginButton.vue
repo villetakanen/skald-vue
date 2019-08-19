@@ -3,6 +3,7 @@
     <v-btn
       v-if="!isAuthz"
       fab
+      elevation="0"
       color="secondary"
       @click="dialog=!dialog"
       small
@@ -14,6 +15,7 @@
       fab
       color="primary"
       small
+      elevation="0"
       to="/c/profile">
         {{nick}}
       </v-btn>

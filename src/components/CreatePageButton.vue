@@ -4,9 +4,10 @@
       v-if="isAuthz"
       fab
       small
+      elevation="0"
       @click="dialog=!dialog"
       color="primary"
-      ><v-icon>mdi-plus-circle</v-icon>
+      ><v-icon>mdi-plus</v-icon>
     </v-btn>
     <v-dialog
       v-model="dialog"
