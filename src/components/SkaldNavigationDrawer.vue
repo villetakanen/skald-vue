@@ -31,7 +31,7 @@
       <v-list-item-action><v-icon>mdi-dice-d6</v-icon></v-list-item-action>
       <v-list-item-title>{{$t("skaldHomeLink")}}</v-list-item-title>
     </v-list-item>
-    <v-list-item v-if="isAuthz" :to="'/u/profile'">
+    <v-list-item v-if="isAuthz" :to="'/c/profile'">
       <v-list-item-action><v-icon>mdi-dice-d4</v-icon></v-list-item-action>
       <v-list-item-title>{{$t("profileLink")}}</v-list-item-title>
     </v-list-item>

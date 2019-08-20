@@ -76,7 +76,7 @@ function toURI (link) {
   while (s.includes('--')) {
     s = s.split('--').join('-')
   }
-  return s
+  return s.toLowerCase()
 }
 function attachLinks (page, siteid) {
   const re = new RegExp('([\\[(]attach:)(.+?)([\\])])', 'g')
