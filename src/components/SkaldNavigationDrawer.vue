@@ -15,7 +15,7 @@
       <v-list-item-action><v-icon>mdi-dice-d10</v-icon></v-list-item-action>
       <v-list-item-title>{{$t("listattachments")}}</v-list-item-title>
     </v-list-item>
-    <v-list-item :to="'/c/site/' + siteId">
+    <v-list-item v-if="isAuthz" :to="'/c/site/' + siteId">
       <v-list-item-action><v-icon>mdi-dice-d8</v-icon></v-list-item-action>
       <v-list-item-title>{{$t("sitesettings")}}</v-list-item-title>
     </v-list-item>
@@ -31,9 +31,13 @@
       <v-list-item-action><v-icon>mdi-dice-d6</v-icon></v-list-item-action>
       <v-list-item-title>{{$t("skaldHomeLink")}}</v-list-item-title>
     </v-list-item>
-    <v-list-item v-if="this.$store.state.creator.uid" :to="'/c/profile'">
+    <v-list-item v-if="isAuthz" :to="'/u/profile'">
       <v-list-item-action><v-icon>mdi-dice-d4</v-icon></v-list-item-action>
       <v-list-item-title>{{$t("profileLink")}}</v-list-item-title>
+    </v-list-item>
+    <v-list-item v-if="isAuthz" :to="'/v/u/'+personalSlug">
+      <v-list-item-action><v-icon>mdi-dice-d4</v-icon></v-list-item-action>
+      <v-list-item-title>{{$t("personalLink")}}</v-list-item-title>
     </v-list-item>
 
     <v-divider></v-divider>
@@ -68,6 +72,12 @@ export default {
     },
     version () {
       return this.$store.state.version
+    },
+    isAuthz () {
+      return this.$store.getters.isAuthz
+    },
+    personalSlug () {
+      return this.$store.state.creator.nick
     }
   }
 }
