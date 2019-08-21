@@ -5,6 +5,18 @@
     <img class="monster" src="../assets/noun_Cat_37446.svg"/>
   </div>
 </template>
+<script>
+export default {
+  created () {
+    this.$store.dispatch('pagelog/init')
+  },
+  computed: {
+    latestChanges () {
+      return this.$store.state.pagelog.latest
+    }
+  }
+}
+</script>
 <style scoped>
 img.monster{
   max-height: 128px;

@@ -6,6 +6,7 @@ import page from './store/page'
 import binder from './store/binder'
 import creator from './store/creator'
 import users from './store/users'
+import pagelog from './store/pagelog'
 
 Vue.use(Vuex)
 
@@ -25,7 +26,8 @@ export default new Vuex.Store({
     page,
     binder,
     creator,
-    users
+    users,
+    pagelog
   },
   getters,
   state: {
@@ -46,15 +48,6 @@ export default new Vuex.Store({
         Vue.set(state, 'theme', data.theme)
       }
     },
-    /* updatePage (state, n) {
-      console.log('update page', n)
-      if (n && n.content) {
-        Vue.set(state, 'page', n)
-      }
-    }, * /
-    setContent (state, n) {
-      Vue.set(state.page, 'Content', n)
-    }, */
     setNick (state, n) {
       Vue.set(state.profile, 'nick', n)
       // console.log('nickname set to ' + state.profile.nick)
