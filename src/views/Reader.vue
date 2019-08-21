@@ -57,9 +57,12 @@
             </div>
         </v-flex>
       </v-layout>
-      <v-layout>
-        <v-flex>
+      <v-layout wrap>
+        <v-flex xs12 md6>
           <CardPageInfo/>
+        </v-flex>
+        <v-flex xs12 md6>
+          <CardLastChanges/>
         </v-flex>
       </v-layout>
       <v-btn
@@ -82,11 +85,13 @@
 import Spinner from '../components/Spinner'
 import CardPageInfo from '../components/CardPageInfo'
 import WikiPage from '../components/WikiPage'
+import CardLastChanges from '../components/CardLastChanges'
 
 export default {
   props: ['pageid', 'siteid'],
   created () {
     this.updatePage(this.siteid, this.pageid)
+    this.$store.dispatch('pagelog/init')
     this.$store.dispatch('binder/getPages', { siteid: this.siteid })
   },
   methods: {
@@ -117,6 +122,7 @@ export default {
       this.updatePage(this.siteid, this.pageid)
       // this.$store.dispatch('binder/openPage', { siteid: this.siteid, pageid: this.pageid })
       this.$store.dispatch('binder/getPages', { siteid: this.siteid })
+      this.$store.dispatch('pagelog/init')
     }
   },
   data: () => ({
@@ -158,7 +164,8 @@ export default {
   components: {
     Spinner,
     CardPageInfo,
-    WikiPage
+    WikiPage,
+    CardLastChanges
   }
 }
 </script>

@@ -216,6 +216,8 @@ const actions = {
     // console.log('updating firestore for', siteid, pageid)
 
     var u = {
+      creator: creator,
+      creatorNick: creatorNick,
       name: name,
       content: content,
       lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
@@ -225,7 +227,13 @@ const actions = {
     var siteRef = db.collection('sites').doc(siteid)
     var pageRef = siteRef.collection('pages').doc(pageid)
     siteRef.update({ lastUpdate: firebase.firestore.FieldValue.serverTimestamp() })
-    pageRef.update(u)
+    pageRef.update(u).then((e) => {
+      context.dispatch('pagelog/stamp', {
+        creator: u.creatorNick,
+        action: 'update',
+        pageid: pageid,
+        siteid: siteid }, { root: true })
+    })
   }
 }
 
