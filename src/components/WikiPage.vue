@@ -16,9 +16,7 @@ export default {
     'page',
     'theme',
     'siteid',
-    'title',
-    'crumbs',
-    'outlined'],
+    'title'],
   components: {
     ViewAttachment,
     Breadcrumbs

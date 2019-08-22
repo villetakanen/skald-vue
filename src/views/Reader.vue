@@ -15,34 +15,12 @@
     <template v-if="!loading">
       <v-layout wrap>
         <v-flex xs12 md8>
-          <v-card
-            outlined>
-            <v-toolbar
-              dense
-              flat
-              style="border-bottom:solid 1px #efefef;">
-                <v-toolbar-title>{{title}}</v-toolbar-title>
-                <v-btn
-                  v-if="isAuthz"
-                  color="secondary"
-                  small
-                  absolute
-                  bottom
-                  right
-                  fab
-                  v-bind:to="editlink"
-                  elevation="0"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-            </v-toolbar>
-            <v-card-text>
-            <WikiPage
-            :page='page'
+          <CardReader
+            :content='page'
             :theme='theme'
-            :siteid='siteid'/>
-            </v-card-text>
-            </v-card>
+            :siteid='siteid'
+            :pageid='pageid'
+            :title="title"/>
         </v-flex>
         <v-flex xs12 md4>
           <WikiPage
@@ -86,6 +64,7 @@ import Spinner from '../components/Spinner'
 import CardPageInfo from '../components/CardPageInfo'
 import WikiPage from '../components/WikiPage'
 import CardLastChanges from '../components/CardLastChanges'
+import CardReader from '../components/CardReader'
 
 export default {
   props: ['pageid', 'siteid'],
@@ -149,7 +128,6 @@ export default {
       return this.$store.state.binder.page === null
     },
     isAuthz () {
-      // console.log('isAuthz', this.$store.getters.isAuthz)
       return this.$store.getters.isAuthz
     },
     theme () {
@@ -165,7 +143,8 @@ export default {
     Spinner,
     CardPageInfo,
     WikiPage,
-    CardLastChanges
+    CardLastChanges,
+    CardReader
   }
 }
 </script>
