@@ -45,6 +45,14 @@ export default {
   computed: {
     isAuthz () {
       return this.$store.getters.isAuthz
+    },
+    editlink () {
+      var page = this.pageid
+      if (typeof page === 'undefined') {
+        page = this.siteid
+        // console.log('Pageid defaulted to', page)
+      }
+      return '/e/' + this.siteid + '/' + page
     }
   },
   components: {

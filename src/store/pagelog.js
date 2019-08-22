@@ -3,11 +3,12 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 const state = {
-  latest: []
+  latest: [],
+  userLog: {}
 }
 const mutations = {
   patchLog (context, { data }) {
-    console.log('patchLog', data)
+    // console.log('patchLog', data)
     var l = context.latest
     var r = [data]
     for (var i in l) {
@@ -16,6 +17,18 @@ const mutations = {
     }
     // if (!l.includes(data)) l.push(data)
     Vue.set(state, 'latest', r)
+  },
+  patchUserLog (context, { nick, data }) {
+    console.log('patchUserLog', nick, data)
+    var l = context.userLog[nick]
+    if (typeof l === 'undefined') l = []
+    var r = [data]
+    for (var i in l) {
+      if (!(l[i].pageid === data.pageid && l[i].pageid === data.pageid)) r.push(l[i])
+      if (i > 9) break
+    }
+    // if (!l.includes(data)) l.push(data)
+    Vue.set(state.userLog, nick, r)
   }
 }
 const actions = {
@@ -26,6 +39,18 @@ const actions = {
     db.collection('pagelog').orderBy('timestamp').limit(10).get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         context.commit('patchLog', { data: doc.data() })
+      })
+    }).catch(function (error) {
+      context.commit('error', error, { root: true })
+    })
+  },
+  loadUserLog (context, { nick }) {
+    console.log('pagelog/loadUserLog')
+    const db = firebase.firestore()
+
+    db.collection('pagelog').where('nick', '==', nick).orderBy('timestamp').limit(10).get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        context.commit('patchUserLog', { nick: nick, data: doc.data() })
       })
     }).catch(function (error) {
       context.commit('error', error, { root: true })

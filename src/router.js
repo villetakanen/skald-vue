@@ -8,6 +8,7 @@ import ListSites from './views/ListSites.vue'
 import ListPages from './views/ListPages.vue'
 import ListAttachments from './views/ListAttachments'
 import Portal from './views/Portal'
+import Bio from './views/Bio'
 
 Vue.use(Router)
 
@@ -22,6 +23,7 @@ export default new Router({
     { path: '/l/pages/:siteid', component: ListPages, props: true },
     { path: '/v/:siteid', component: Reader, props: true },
     { path: '/v/:siteid/:pageid', component: Reader, props: true },
+    { path: '/b/:nick', component: Bio, props: true },
     { path: '/meta/portal', component: Portal, props: false }
   ]
 })
