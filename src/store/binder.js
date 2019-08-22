@@ -66,6 +66,8 @@ const actions = {
     db.collection('sites').doc(siteid).collection('pages').doc(pageid).get().then((doc) => {
       if (doc.exists) {
         context.commit('setPage', { pageid: pageid, data: doc.data() })
+      } else {
+        context.commit('error', '404', { root: true })
       }
     })
   },
