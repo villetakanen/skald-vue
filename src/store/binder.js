@@ -67,7 +67,7 @@ const actions = {
       if (doc.exists) {
         context.commit('setPage', { pageid: pageid, data: doc.data() })
       } else {
-        context.commit('error', '404', { root: true })
+        context.commit('httpStatusCode', '404', { root: true })
       }
     })
   },
@@ -153,7 +153,7 @@ const actions = {
   },
   createPage (context, { pageid, name, content, siteid,
     creator, creatorNick }) {
-    // console.log(pageid, name, content, siteid, creator, creatorNick)
+    console.log('binder/createPage', pageid, name, content, siteid, creator, creatorNick)
     // Sanity
     if (!exists(pageid)) return
     if (!exists(siteid)) return
@@ -163,6 +163,8 @@ const actions = {
     // console.log('updating firestore for', siteid, pageid)
 
     var u = {
+      creator: creator,
+      creatorNick: creatorNick,
       name: name,
       content: content,
       lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
@@ -172,7 +174,18 @@ const actions = {
     var siteRef = db.collection('sites').doc(siteid)
     var pageRef = siteRef.collection('pages').doc(pageid)
     siteRef.update({ lastUpdate: firebase.firestore.FieldValue.serverTimestamp() })
-    pageRef.set(u)
+
+    // Ask Firebase to create the page
+    pageRef.set(u).then((e) => {
+      // BFF: stamp pagelog
+      context.dispatch('pagelog/stamp', {
+        creator: u.creatorNick,
+        action: 'create',
+        pageid: pageid,
+        siteid: siteid }, { root: true })
+      // Binder state management: open created page as the current page
+      context.dispatch('openPage', { siteid: siteid, pageid: pageid })
+    })
   },
   /**
    * Creates the site

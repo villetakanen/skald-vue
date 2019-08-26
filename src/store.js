@@ -19,7 +19,15 @@ const getters = {
     return state.creator.locale
   }
 }
-
+const state = {
+  user: {},
+  profile: { locale: 'en' },
+  siteid: 'skald',
+  theme: 'Skald',
+  error: null,
+  httpStatusCode: null,
+  version: 'env key missing'
+}
 export default new Vuex.Store({
   modules: {
     sites,
@@ -30,17 +38,13 @@ export default new Vuex.Store({
     pagelog
   },
   getters,
-  state: {
-    user: {},
-    profile: { locale: 'en' },
-    siteid: 'skald',
-    theme: 'Skald',
-    error: null,
-    version: 'env key missing'
-  },
+  state,
   mutations: {
     error (state, error) {
       Vue.set(state, 'error', error)
+    },
+    httpStatusCode (state, code) {
+      Vue.set(state, 'httpStatusCode', code)
     },
     refreshTheme (state, { key, data }) {
       if (state.siteid === key) {

@@ -57,6 +57,15 @@
           ><v-icon>mdi-arrow-up</v-icon>
       </v-btn>
     </template>
+    <v-dialog
+      v-model="notfound"
+      max-width="800"
+      >
+      <PageNotFound
+        :pageid="pageid"
+        :siteid="siteid"
+        v-on:closeDialog="closePNFDialog"/>
+    </v-dialog>
   </v-container>
 </template>
 <script>
@@ -65,6 +74,7 @@ import CardPageInfo from '../components/CardPageInfo'
 import WikiPage from '../components/WikiPage'
 import CardLastChanges from '../components/CardLastChanges'
 import CardReader from '../components/CardReader'
+import PageNotFound from '../components/dialog/PageNotFound'
 
 export default {
   props: ['pageid', 'siteid'],
@@ -94,6 +104,9 @@ export default {
       }
       // console.log('getting', siteid, pageid)
       this.$store.dispatch('binder/openPage', { siteid: siteid, pageid: pageid })
+    },
+    closePNFDialog () {
+      this.notfound = false
     }
   },
   watch: {
@@ -105,7 +118,8 @@ export default {
     }
   },
   data: () => ({
-    fab: false
+    fab: false,
+    notfound: false
   }),
   computed: {
     editlink () {
@@ -144,7 +158,19 @@ export default {
     CardPageInfo,
     WikiPage,
     CardLastChanges,
-    CardReader
+    CardReader,
+    PageNotFound
+  },
+  mounted () {
+    this.$store.subscribe((mutation, state) => {
+      // console.log(mutation.type)
+      switch (mutation.type) {
+        case 'httpStatusCode':
+          this.notfound = true
+          console.log('httpStatusCode dialog should show')
+          break
+      }
+    })
   }
 }
 </script>

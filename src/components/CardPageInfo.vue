@@ -9,6 +9,7 @@ export default {
   computed: {
     lastEditDate () {
       if (this.$store.state.binder.page === null) return '-'
+      if (this.$store.state.binder.page.lastUpdate === null) return '-'
       var t = new Date(1970, 0, 1) // Epoch
       t.setSeconds(this.$store.state.binder.page.lastUpdate.seconds)
       return t.toISOString()
