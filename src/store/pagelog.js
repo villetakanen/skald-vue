@@ -7,6 +7,9 @@ const state = {
   userLog: {}
 }
 const mutations = {
+  reset (context) {
+    Vue.set(state, 'latest', [])
+  },
   patchLog (context, { data }) {
     // console.log('patchLog', data)
     var l = context.latest
@@ -15,17 +18,18 @@ const mutations = {
       if (!(l[i].pageid === data.pageid && l[i].pageid === data.pageid)) r.push(l[i])
       if (i > 9) break
     }
+    // console.log('patchLog', r)
     // if (!l.includes(data)) l.push(data)
     Vue.set(state, 'latest', r)
   },
   patchUserLog (context, { nick, data }) {
-    console.log('patchUserLog', nick, data)
+    // console.log('patchUserLog', nick, data)
     var l = context.userLog[nick]
     if (typeof l === 'undefined') l = []
     var r = [data]
     for (var i in l) {
       if (!(l[i].pageid === data.pageid && l[i].pageid === data.pageid)) r.push(l[i])
-      if (i > 9) break
+      if (i > 8) break
     }
     // if (!l.includes(data)) l.push(data)
     Vue.set(state.userLog, nick, r)
@@ -34,9 +38,12 @@ const mutations = {
 const actions = {
   init (context) {
     console.log('pagelog/init')
+
+    context.commit('reset')
+
     const db = firebase.firestore()
 
-    db.collection('pagelog').orderBy('timestamp').limit(10).get().then((querySnapshot) => {
+    db.collection('pagelog').orderBy('timestamp', 'desc').limit(20).get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         context.commit('patchLog', { data: doc.data() })
       })
