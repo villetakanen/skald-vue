@@ -46,10 +46,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn text>
-                <v-icon>mdi-delete</v-icon>
-                delete my profile
-              </v-btn>
+              <ButtonDeleteProfile/>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -78,8 +75,13 @@
   </v-container>
 </template>
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import ButtonDeleteProfile from '../components/profile/ButtonDeleteProfile'
+
 export default {
+  components: {
+    ButtonDeleteProfile
+  },
   computed: {
     taken () {
       // const n = this.$store.getters['users/nicks'](this.$store.state.creator.nick)
