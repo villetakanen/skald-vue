@@ -15,7 +15,7 @@
 export default {
   computed: {
     latestChanges () {
-      console.log('latestChanges', this.$store.state.pagelog.latest)
+      // console.log('latestChanges', this.$store.state.pagelog.latest)
       return this.$store.state.pagelog.latest
     }
   }

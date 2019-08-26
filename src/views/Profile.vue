@@ -44,6 +44,13 @@
               email: {{user.email}} <br/>
               uid: {{user.uid}} <br/>
             </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn text>
+                <v-icon>mdi-delete</v-icon>
+                delete my profile
+              </v-btn>
+            </v-card-actions>
           </v-card>
         </v-flex>
     </v-layout>
