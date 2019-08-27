@@ -9,7 +9,8 @@ const state = {
   site: null,
   // Here is the sites vuex cache
   sites: {},
-  pages: { a: { a: 'b' } }
+  pages: { a: { a: 'b' } },
+  baseSite: null
 }
 const mutations = {
   patchSites (state, { id, data, current }) {

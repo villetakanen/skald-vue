@@ -24,6 +24,9 @@ new Vue({
     // Fetch current site catalog to Vuex store from Firebase or Firebase cache
     store.dispatch('binder/getSites')
 
+    // Fetch all base site pages to Vuex store
+    store.dispatch('basesite/init')
+
     // parse site name from router to vuex, for any components outside router views
     // or the case we enter with a direct url to route with site or page id
     if (this.$router.currentRoute.params.siteid !== null &&

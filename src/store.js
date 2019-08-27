@@ -7,7 +7,7 @@ import binder from './store/binder'
 import creator from './store/creator'
 import users from './store/users'
 import pagelog from './store/pagelog'
-
+import basesite from './store/basesite'
 Vue.use(Vuex)
 
 const getters = {
@@ -35,7 +35,8 @@ export default new Vuex.Store({
     binder,
     creator,
     users,
-    pagelog
+    pagelog,
+    basesite
   },
   getters,
   state,
