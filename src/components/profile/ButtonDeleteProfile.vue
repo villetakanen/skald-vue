@@ -19,7 +19,6 @@
             <v-btn outlined>Cancel</v-btn>
           </v-card-actions>
         </v-card>
-        
       </v-dialog>
     </v-btn>
 </template>
