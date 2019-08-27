@@ -11,9 +11,9 @@ const mutations = {
   }
 }
 const getters = {
-  page (pageid) {
-    if (typeof state.pages[pageid] === 'undefined') return null
-    return state.pages[pageid]
+  page: (context) => (pageid) => {
+    if (typeof context.pages[pageid] === 'undefined') return null
+    return context.pages[pageid]
   }
 }
 const actions = {

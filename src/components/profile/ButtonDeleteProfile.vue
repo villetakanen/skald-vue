@@ -13,7 +13,13 @@
             theme='skald'
             siteid='skald'/>
           </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn text>Delete</v-btn>
+            <v-btn outlined>Cancel</v-btn>
+          </v-card-actions>
         </v-card>
+        
       </v-dialog>
     </v-btn>
 </template>
@@ -29,8 +35,10 @@ export default {
   }),
   computed: {
     warning () {
-      if (this.$store.state.binder.page === null) return ''
-      return this.$store.state.binder.page.content
+      if (this.$store.getters['basesite/page']('forget-me') === null) return ''
+      return this.$store.getters['basesite/page']('forget-me').content
+      // if (this.$store.state.binder.page === null) return ''
+      // return this.$store.state.binder.page.content
     }
   }
 }
