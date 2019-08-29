@@ -77,6 +77,36 @@ const actions = {
     Vue.set(context.state, 'nick', null)
     Vue.set(context.state, 'locale', null)
     Vue.set(context.state, 'uid', null)
+  },
+  /**
+   * Deletes the current user profile, and logs out the user
+   * @param {*} context Vuex context with context.state.uid of the profile to be erased
+   */
+  deleteProfile (context) {
+    console.log('creator/deleteProfile', context.state.uid, context.state.nick)
+
+    // First lets remove profile data from firebase users
+    const db = firebase.firestore()
+    const userRef = db.collection('profiles').doc(context.state.uid)
+
+    console.log('got', userRef, 'deleting...')
+
+    userRef.delete().then(() => {
+      console.log('Profile successfully deleted!')
+      const user = firebase.auth().currentUser
+      user.delete().then(() => {
+        // User deleted.
+      }).catch((error) => {
+        // An error happened.
+        console.error('Error removing Profile: ', error)
+        context.commit('error', error, { root: true })
+      })
+    }).catch((error) => {
+      console.error('Error removing Profile: ', error)
+      context.commit('error', error, { root: true })
+    })
+
+    // Then we'll ask the firebase app to remove the account!
   }
 }
 function exists (a) {

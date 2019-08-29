@@ -30,5 +30,16 @@
     "loginPs": "Luomme sinulle profiilin automaattisesti ensimmäisellä kirjautumisella. Huomaathan että alustan rajoituksista johtuen, voit kirjautua vain yhtä palvelua käyttäen.",
     "loginSignWithGoogle": "Google- kirjautuminen",
     "loginSignWithFacebook": "Facebook- kirjautuminen",
-    "logout": "Logout" 
+    "logout": "Logout",
+    "listattachments": "Liitteet",
+    "skaldHomeLink": "Skald",
+    "profileLink": "Tili",
+    "personalLink": "Oma sivu",
+    "editSidebar": "Muokkaa",
+    "page-info": "Sivun tiedot",
+    "page-infoLastEdit": "Viimeiset muutokset",
+    "cp-editor-settings": "Editorin asetukset",
+    "cp-editor-preview-off": "Esikatselu piilossa",
+    "deleteprofiletitle": "Poista tili",
+    "iunderstandcheck": "Ymmärrän, ja haluan poistaa tilini"
 }

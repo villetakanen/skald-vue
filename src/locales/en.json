@@ -8,6 +8,8 @@
     "contentLoading": "Loading...",
     "create" : "Create", 
     "cancel": "Cancel",
+    "deleteprofiletitle": "Delete account?",
+    "iunderstandcheck": "I understand, and want to delete my account",
     "indexpage": "Home",
     "library": "Library",
     "listpages": "Pages",
