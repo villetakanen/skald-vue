@@ -32,6 +32,13 @@
       >
       <Error/>
     </v-dialog>
+    <v-dialog
+      v-model="forceCreateDialog"
+      max-width="800"
+      persistent
+      >
+      <CreateProfile/>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -41,6 +48,7 @@ import LoginButton from './components/LoginButton.vue'
 import CreatePageButton from './components/CreatePageButton'
 import SkaldNavigationDrawer from './components/SkaldNavigationDrawer'
 import Error from './components/dialog/Error'
+import CreateProfile from './components/dialog/CreateProfile'
 
 export default {
   name: 'App',
@@ -48,7 +56,8 @@ export default {
     LoginButton,
     CreatePageButton,
     SkaldNavigationDrawer,
-    Error
+    Error,
+    CreateProfile
   },
   computed: {
     sites () {
@@ -56,11 +65,19 @@ export default {
     },
     site () {
       return this.$store.state.binder.site
+    },
+    forceCreateDialog: {
+      get () {
+        return this.createDialog && this.$route.path !== '/c/profile'
+      },
+      set () {
+      }
     }
   },
   data: () => ({
     drawer: null,
-    edialog: false
+    edialog: false,
+    createDialog: false
   }),
   mounted () {
     this.$store.subscribe((mutation, state) => {
@@ -74,6 +91,12 @@ export default {
           this.$i18n.locale = locale
 
           break
+
+        case 'creator/profileExists':
+          console.log('creator/profileExists', this.$store.getters['creator/needsProfile']())
+          this.createDialog = this.$store.getters['creator/needsProfile']()
+          break
+
         case 'error':
           this.edialog = true
 

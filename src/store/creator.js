@@ -6,7 +6,14 @@ const state = {
   nick: null,
   locale: null,
   uid: null,
-  editorPreview: true
+  displayName: null,
+  editorPreview: true,
+  needsProfile: false
+}
+const getters = {
+  needsProfile: (context) => () => {
+    return state.needsProfile // !(this.uid === null && this.nick === null)
+  }
 }
 const mutations = {
   setCreator (state, data) {
@@ -14,28 +21,53 @@ const mutations = {
     Vue.set(state, 'locale', data.locale)
     Vue.set(state, 'editorPreview', data.editorPreview)
   },
-  setUid (state, data) {
-    console.log('creator/setUid', data)
+  setUID (state, data) {
+    console.log('creator/setUID', data)
     Vue.set(state, 'uid', data)
   },
   setEditorPreview (state, data) {
     Vue.set(state, 'editorPreview', data)
+  },
+  profileExists (state, exists) {
+    Vue.set(state, 'needsProfile', !exists)
+  },
+  setDisplayName (state, name) {
+    console.log('setDisplayName', name)
+    Vue.set(state, 'displayName', name)
   }
 }
 const actions = {
+
+  /**
+   * Signs in a user with OAUTH
+   * @param {*} context vuex context
+   * @param {*} user OAUTH user json
+   */
   signIn (context, user) {
     console.log('creator/signIn', user.uid)
 
+    // Log in the user
+    context.commit('setUID', user.uid)
+    context.commit('setDisplayName', user.displayName)
+
+    // Just in case, reset the creator fielfs
     context.commit('setCreator', { nick: null, locale: null })
 
+    // Get user profile, if it does not exist, flag it to
+    // this store-module as `needsProfile: true`
     const db = firebase.firestore()
     db.collection('profiles').doc(user.uid).get().then((doc) => {
-      // console.log(doc.data())
-      context.commit('setCreator', doc.data())
-      context.commit('setUid', user.uid)
-      // console.log(context.nick, context.locale)
+      if (doc.exists) {
+        context.commit('setCreator', doc.data())
+        context.commit('profileExists', true)
+        console.log('set a profile')
+      } else {
+        context.commit('profileExists', false)
+        console.log('did not set a profile')
+      }
     })
   },
+
   update (context, { uid, nick, locale }) {
     console.log('creator/update', nick, locale)
 
@@ -114,6 +146,7 @@ function exists (a) {
 }
 export default {
   actions,
+  getters,
   mutations,
   namespaced: true,
   state
