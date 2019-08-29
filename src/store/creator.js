@@ -73,8 +73,8 @@ const actions = {
 
     if (!exists(uid)) return
 
-    if (!(exists(nick) &&
-      exists(locale))) return
+    /* if (!(exists(nick) &&
+      exists(locale))) return */
 
     var u = {}
     if (exists(nick)) u.nick = nick
@@ -82,7 +82,11 @@ const actions = {
 
     const db = firebase.firestore()
     var userRef = db.collection('profiles').doc(uid)
-    userRef.update(u)
+    userRef.update(u).catch((exception) => {
+      userRef.set(u).then(
+        context.commit('profileExists', true)
+      )
+    })
 
     context.commit('setCreator', u)
   },
