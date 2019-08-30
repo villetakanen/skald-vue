@@ -7,6 +7,7 @@ import firebase from 'firebase/app'
 import store from './store'
 import router from './router'
 import skaldfire from './plugins/skaldfire'
+import './registerServiceWorker'
 
 Vue.config.productionTip = false
 
