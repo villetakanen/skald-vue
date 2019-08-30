@@ -34,12 +34,7 @@
             color="primary">{{$t('editSidebar')}}</v-btn>
             </div>
         </v-flex>
-      </v-layout>
-      <v-layout wrap>
-        <v-flex xs12 md6>
-          <CardPageInfo/>
-        </v-flex>
-        <v-flex xs12 md6>
+        <v-flex xs12 md4>
           <CardLastChanges/>
         </v-flex>
       </v-layout>
@@ -70,7 +65,6 @@
 </template>
 <script>
 import Spinner from '../components/Spinner'
-import CardPageInfo from '../components/CardPageInfo'
 import WikiPage from '../components/WikiPage'
 import CardLastChanges from '../components/CardLastChanges'
 import CardReader from '../components/CardReader'
@@ -155,7 +149,6 @@ export default {
   },
   components: {
     Spinner,
-    CardPageInfo,
     WikiPage,
     CardLastChanges,
     CardReader,

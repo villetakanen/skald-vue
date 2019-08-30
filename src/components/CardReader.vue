@@ -28,6 +28,7 @@
         :theme="theme"
         :siteid="siteid"
         :title="title"/>
+      <p style="margin: 0; color: silver; font-style: italic">{{$t("page-infoLastEdit")}} {{lastEditDate}}</p>
     </v-card-text>
   </v-card>
 </template>
@@ -53,6 +54,12 @@ export default {
         // console.log('Pageid defaulted to', page)
       }
       return '/e/' + this.siteid + '/' + page
+    },
+    lastEditDate () {
+      const t = this.$store.getters['binder/lastChange']()
+      if (t === null) return '-'
+      const s = t.toISOString().split('T')
+      return s[0] + ' ' + s[1].substring(0, 8)
     }
   },
   components: {

@@ -12,6 +12,28 @@ const state = {
   pages: { a: { a: 'b' } },
   baseSite: null
 }
+
+const getters = {
+  /**
+   * Returns the lastUpdate timestamp for the selected page
+   */
+  lastChange: (context) => () => {
+    // No page is open! return null
+    if (context.page === null) return null
+
+    // Just in case some pages predate the lastUpdate field
+    if (context.page.lastUpdate === null) {
+      context.commit('error', 'We have a legacy page without lastUpdate, please save the page once to fix this.', { root: true })
+      return null
+    }
+
+    // Create a date from firestore timestamp
+    var lastChangeDate = new Date(1970, 0, 1) // Epoch
+    lastChangeDate.setSeconds(context.page.lastUpdate.seconds)
+    return lastChangeDate
+  }
+}
+
 const mutations = {
   patchSites (state, { id, data, current }) {
     Vue.set(state.sites, id, data)
@@ -259,6 +281,7 @@ function exists (a) {
 
 export default {
   actions,
+  getters,
   mutations,
   namespaced: true,
   state
