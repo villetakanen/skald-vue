@@ -28,7 +28,7 @@ const mutations = {
     else {
       var filtered = context.all.filter((value, index, arr) => {
         if ((value.siteid + '.' + value.pageid) === (data.siteid + '.' + data.pageid)) {
-          console.log('found, replacing', value.pageid)
+          // console.log('found, replacing', value.pageid)
           return false
         }
         return true

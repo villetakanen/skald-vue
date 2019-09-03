@@ -1,6 +1,6 @@
 <template>
   <v-container fluid grid-list-md>
-    <v-layout>
+    <v-layout wrap>
       <v-flex xs12 md6>
           <v-card>
             <v-toolbar dark>
@@ -50,8 +50,6 @@
             </v-card-actions>
           </v-card>
         </v-flex>
-    </v-layout>
-      <v-layout>
         <v-flex xs12 md4>
           <v-card>
             <v-card-title>{{$t("cp-editor-settings")}}</v-card-title>
