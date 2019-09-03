@@ -10,10 +10,37 @@ const state = {
   // Here is the sites vuex cache
   sites: {},
   pages: { a: { a: 'b' } },
-  baseSite: null
+  baseSite: null,
+  content: null,
+  title: null,
+  sidebar: null
 }
 
 const getters = {
+  /**
+   * Returns content for this page
+   */
+  content: (context) => () => {
+    if (context.content === null) return '-'
+    return context.content
+  },
+
+  /**
+   * Returns title for this page
+   */
+  title: (context) => () => {
+    if (context.title === null) return 'Nomen Nix'
+    return context.title
+  },
+
+  /**
+   * Returns current site sidebar
+   */
+  sidebar: (context) => () => {
+    if (!exists(context.pages['sidebar'])) return ''
+    return context.pages['sidebar'].content
+  },
+
   /**
    * Returns the lastUpdate timestamp for the selected page
    */
@@ -47,11 +74,6 @@ const mutations = {
     Vue.set(state.pages, id, data)
     // console.log('p:', state.pages[id])
   },
-  /* patchOwner (state, { id, data }) {
-    data.link = id
-    Vue.set(state.site.owners, id, data)
-    console.log('o:', state.site.owners[id])
-  }, */
   setSite (state, id) {
     if (!exists(state.sites[id])) return
     Vue.set(state, 'site', state.sites[id])
@@ -60,37 +82,69 @@ const mutations = {
   setPage (state, { pageid, data }) {
     data.id = pageid
     Vue.set(state, 'page', data)
+  },
+  setContent (context, data) {
+    Vue.set(context, 'content', data)
   }
 }
 const actions = {
   /**
-   * Takes in site id and page id, and refreshes the cache and page data accordingly
+   * Takes in site id and page id, and refreshes page data
    * @param {*} context Vuex context
    * @param {*} param1 { siteid, pageid }
    */
   openPage (context, { siteid, pageid }) {
-    // console.log('binder/openPage', siteid, pageid)
-    // Sanity check
-    if (!exists(pageid) ||
-      !exists(siteid)) {
-      context.commit('error', 'Binder can not open page without page and site id', { root: true })
-      return
+    console.log('binder/openPage', siteid, pageid)
+
+    // if we do not have a siteid, we'll use the base-site's site id
+    if (!exists(siteid)) {
+      console.log('forcing siteid "skald"')
+      siteid = 'skald'
     }
+
+    // if we do not have a pageid, we'll use siteid as the page id.
+    if (!exists(pageid)) {
+      pageid = siteid
+      console.log('defaulted to pageid ', pageid)
+    }
+
+    // empty the page content cache
+    context.commit('setContent', null)
+
+    // TODO: these need to be refactored
     Vue.set(context, 'site', null)
     Vue.set(context, 'page', null)
 
+    // get the firestore
     const db = firebase.firestore()
-    db.collection('sites').doc(siteid).get().then((doc) => {
+    const siteRef = db.collection('sites').doc(siteid)
+    siteRef.get().then((doc) => {
       if (doc.exists) {
         context.commit('patchSites', { id: siteid, data: doc.data() })
         context.commit('setSite', siteid)
+        const pageRef = siteRef.collection('pages').doc(pageid)
+        pageRef.get().then((doc) => {
+          if (doc.exists) {
+            context.commit('setContent', doc.data().content)
+          } else {
+            context.commit('httpStatusCode', '404', { root: true })
+          }
+        })
+        const sidebarRef = siteRef.collection('pages').doc('sidebar')
+        sidebarRef.get().then((doc) => {
+          if (doc.exists) {
+            context.commit('setSidebar', doc.data().content)
+          }
+        })
+      } else {
+        context.commit('httpStatusCode', '403', { root: true })
       }
     })
+
+    // TODO: this needs to be moved to the future above, when the setPage is refactored
     db.collection('sites').doc(siteid).collection('pages').doc(pageid).get().then((doc) => {
       if (doc.exists) {
         context.commit('setPage', { pageid: pageid, data: doc.data() })
-      } else {
-        context.commit('httpStatusCode', '404', { root: true })
       }
     })
   },
@@ -271,6 +325,8 @@ const actions = {
         action: 'update',
         pageid: pageid,
         siteid: siteid }, { root: true })
+      // Binder state management: open created page as the current page
+      context.dispatch('openPage', { siteid: siteid, pageid: pageid })
     })
   }
 }

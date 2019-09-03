@@ -74,8 +74,10 @@ export default {
   props: ['pageid', 'siteid'],
   created () {
     this.updatePage(this.siteid, this.pageid)
-    this.$store.dispatch('pagelog/init')
-    this.$store.dispatch('binder/getPages', { siteid: this.siteid })
+    // TODO: we need to do all these in the updatePage, or better yet, vuex
+    // this.$store.dispatch('pagelog/init')
+    // TODO: we need to do all these in the updatePage, or better yet, vuex
+    // this.$store.dispatch('binder/getPages', { siteid: this.siteid })
   },
   methods: {
     onScroll (e) {
@@ -87,15 +89,16 @@ export default {
       this.$vuetify.goTo(0)
     },
     updatePage (siteid, pageid) {
+      // TODO: we need to do all these in the updatePage, or better yet, vuex
       // console.log('updatePage', siteid, pageid)
-      if (siteid === null ||
-      typeof siteid === 'undefined') {
-        siteid = 'skald'
-      }
-      if (pageid === null ||
-      typeof pageid === 'undefined') {
-        pageid = siteid
-      }
+      // if (siteid === null ||
+      // typeof siteid === 'undefined') {
+      //   siteid = 'skald'
+      // }
+      // if (pageid === null ||
+      // typeof pageid === 'undefined') {
+      //   pageid = siteid
+      // }
       // console.log('getting', siteid, pageid)
       this.$store.dispatch('binder/openPage', { siteid: siteid, pageid: pageid })
     },
@@ -106,9 +109,6 @@ export default {
   watch: {
     '$route' (to, from) {
       this.updatePage(this.siteid, this.pageid)
-      // this.$store.dispatch('binder/openPage', { siteid: this.siteid, pageid: this.pageid })
-      this.$store.dispatch('binder/getPages', { siteid: this.siteid })
-      this.$store.dispatch('pagelog/init')
     }
   },
   data: () => ({
@@ -125,12 +125,10 @@ export default {
       return '/e/' + this.siteid + '/' + page
     },
     page () {
-      if (this.$store.state.binder.page === null) return ''
-      return this.$store.state.binder.page.content
+      return this.$store.getters['binder/content']()
     },
     sidebar () {
-      if (typeof this.$store.state.binder.pages['sidebar'] === 'undefined') return ''
-      return this.$store.state.binder.pages['sidebar'].content
+      return this.$store.getters['binder/sidebar']()
     },
     loading () {
       return this.$store.state.binder.page === null
