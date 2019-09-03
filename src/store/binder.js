@@ -37,8 +37,8 @@ const getters = {
    * Returns current site sidebar
    */
   sidebar: (context) => () => {
-    if (!exists(context.pages['sidebar'])) return ''
-    return context.pages['sidebar'].content
+    if (context.sidebar === null) return '-'
+    return context.sidebar
   },
 
   /**
@@ -50,7 +50,7 @@ const getters = {
 
     // Just in case some pages predate the lastUpdate field
     if (context.page.lastUpdate === null) {
-      context.commit('error', 'We have a legacy page without lastUpdate, please save the page once to fix this.', { root: true })
+      // context.commit('error', 'We have a legacy page without lastUpdate, please save the page once to fix this.', { root: true })
       return null
     }
 
@@ -85,6 +85,10 @@ const mutations = {
   },
   setContent (context, data) {
     Vue.set(context, 'content', data)
+  },
+  setSidebar (context, data) {
+    if (context.sidebar === data) return
+    Vue.set(context, 'sidebar', data)
   }
 }
 const actions = {
