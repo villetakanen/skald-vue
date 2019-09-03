@@ -4,13 +4,39 @@ import 'firebase/firestore'
 
 const state = {
   latest: [],
-  userLog: {}
+  userLog: {},
+  all: []
+}
+const getters = {
+  /**
+   * Returns pagelog (filtered with user if needed)
+   */
+  latest: (context) => (count) => {
+    const latestArray = context.all // .reverse()
+    if (count === null) count = 10
+    if (count > context.all.length) count = context.all.length
+    return latestArray.slice(0, count)
+  }
 }
 const mutations = {
   reset (context) {
     Vue.set(state, 'latest', [])
   },
   patchLog (context, { data }) {
+    // Add to all if not found
+    if (context.all.length === 0) context.all.push(data)
+    else {
+      var found = false
+      for (const i in context.all) {
+        if (context.all[i].siteid + '.' + context.all[i].pageid === data.siteid + '.' + data.pageid) {
+          found = true
+          context.all[i] = data
+        }
+      }
+      if (!found) context.all.push(data)
+    }
+    // console.log('context.all:', context.all)
+
     // console.log('patchLog', data)
     var l = context.latest
     var r = [data]
@@ -95,6 +121,7 @@ function exists (a) {
 
 export default {
   actions,
+  getters,
   mutations,
   state,
   namespaced: true,
