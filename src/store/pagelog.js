@@ -72,7 +72,8 @@ const actions = {
 
     const db = firebase.firestore()
 
-    db.collection('pagelog').orderBy('timestamp', 'asc').limit(20).get().then((querySnapshot) => {
+    db.collection('pagelog').orderBy('timestamp', 'asc').get().then((querySnapshot) => {
+      // .limit(20)ß
       querySnapshot.forEach((doc) => {
         context.commit('patchLog', { data: doc.data() })
       })
