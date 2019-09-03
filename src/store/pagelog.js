@@ -82,7 +82,7 @@ const actions = {
     }
 
     const db = firebase.firestore()
-    var logRef = db.collection('pagelog').doc()
+    var logRef = db.collection('pagelog').doc(siteid + '.' + pageid)
     logRef.set(log).then((a) => {
       console.log('log set', a)
       context.commit('patchLog', { data: log })
