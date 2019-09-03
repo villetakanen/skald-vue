@@ -31,6 +31,9 @@ new Vue({
     // Subscribe to pagelog changes
     this.$store.dispatch('pagelog/init')
 
+    // Subscribe to site listing
+    this.$store.dispatch('sites/init')
+
     // parse site name from router to vuex, for any components outside router views
     // or the case we enter with a direct url to route with site or page id
     if (this.$router.currentRoute.params.siteid !== null &&

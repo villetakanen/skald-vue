@@ -1,11 +1,22 @@
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 import Vue from 'vue'
 
 const state = {
+  list: {}
   // current: null,
   // theme: null,
   // list: {},
   // owners: {}
+}
+const getters = {
+  /**
+   * Returns pagelog (filtered with user if needed)
+   */
+  list: (context) => () => {
+    return context.list
+  }
+
 }
 
 const mutations = {
@@ -44,15 +55,16 @@ const actions = {
    * Updates store.Sites metadata from firebase snapshot
    * @param {*} contex Vuex context
    */
-  /* getSites (context) {
+  init (context) {
     const db = firebase.firestore()
-    db.collection('sites').get().then((querySnapshot) => {
+    db.collection('sites').onSnapshot((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         // console.log('getSites() is adding to sites :', doc.id, doc.data())
         context.commit('patchSite', { key: doc.id, data: doc.data() })
       })
     })
   },
+  /*
   getOwners (context, id) {
     context.state.owners = {}
     const db = firebase.firestore()
@@ -100,6 +112,7 @@ const actions = {
 
 export default {
   actions,
+  getters,
   mutations,
   namespaced: true,
   state

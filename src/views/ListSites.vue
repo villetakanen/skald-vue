@@ -1,5 +1,8 @@
 <template>
-  <v-container>
+  <v-container
+    fluid
+    grid-list-md>
+    <!-- v-layout>
       <v-flex>
         <v-data-table
           :items="sites"
@@ -11,7 +14,25 @@
           </template>
         </v-data-table>
       </v-flex>
-      <CreateSiteButton/>
+    </v-layout-->
+    <v-layout wrap>
+      <v-flex xs12>
+        <CreateSiteButton/>
+      </v-flex>
+      <template v-for="(site, index) in list">
+        <v-flex xs12 md3 v-bind:key="index">
+          <v-card>
+            <v-card-title><router-link :to="`/v/${index}`">{{site.siteid}}.</router-link></v-card-title>
+            <v-card-text>
+              <p><router-link :to="`/v/${index}`">{{index}}</router-link></p>
+              <p>theme: {{site.theme}}<br/>
+              locked: {{site.writelock}}<br/>
+              hidden: {{site.hidden}}</p>
+              </v-card-text>
+          </v-card>
+        </v-flex>
+    </template>
+    </v-layout>
   </v-container>
 </template>
 <script>
@@ -32,6 +53,9 @@ export default {
       }
       // console.log('s:', this.$store.state.binder.sites, r)
       return r
+    },
+    list () {
+      return this.$store.getters['sites/list']()
     }
   },
   created () {
