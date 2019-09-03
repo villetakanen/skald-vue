@@ -38,7 +38,7 @@ const mutations = {
       filtered = filtered.reverse()
       Vue.set(context, 'all', filtered)
     }
-    console.log('context.all', context.all)
+    // console.log('context.all', context.all)
 
     // console.log('patchLog', data)
     var l = context.latest
