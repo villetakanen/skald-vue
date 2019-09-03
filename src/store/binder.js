@@ -13,7 +13,8 @@ const state = {
   baseSite: null,
   content: null,
   title: null,
-  sidebar: null
+  sidebar: null,
+  siteid: null
 }
 
 const getters = {
@@ -37,8 +38,16 @@ const getters = {
    * Returns current site sidebar
    */
   sidebar: (context) => () => {
-    if (context.sidebar === null) return '-'
+    if (context.sidebar === null) return ''
     return context.sidebar
+  },
+
+  /**
+   * Returns current site id
+   */
+  siteid: (context) => () => {
+    if (context.siteid === null) return 'skald'
+    return context.sideid
   },
 
   /**
@@ -89,6 +98,10 @@ const mutations = {
   setSidebar (context, data) {
     if (context.sidebar === data) return
     Vue.set(context, 'sidebar', data)
+  },
+  setSiteid (context, data) {
+    if (context.siteid === data) return
+    Vue.set(context, 'siteid', data)
   }
 }
 const actions = {
@@ -98,7 +111,7 @@ const actions = {
    * @param {*} param1 { siteid, pageid }
    */
   openPage (context, { siteid, pageid }) {
-    console.log('binder/openPage', siteid, pageid)
+    // console.log('binder/openPage', siteid, pageid)
 
     // if we do not have a siteid, we'll use the base-site's site id
     if (!exists(siteid)) {
@@ -109,11 +122,11 @@ const actions = {
     // if we do not have a pageid, we'll use siteid as the page id.
     if (!exists(pageid)) {
       pageid = siteid
-      console.log('defaulted to pageid ', pageid)
+      // console.log('defaulted to pageid ', pageid)
     }
 
     // empty the page content cache
-    context.commit('setContent', null)
+    // context.commit('setContent', null)
 
     // TODO: these need to be refactored
     Vue.set(context, 'site', null)
@@ -126,6 +139,7 @@ const actions = {
       if (doc.exists) {
         context.commit('patchSites', { id: siteid, data: doc.data() })
         context.commit('setSite', siteid)
+        context.commit('setSiteid', siteid)
         const pageRef = siteRef.collection('pages').doc(pageid)
         pageRef.get().then((doc) => {
           if (doc.exists) {
@@ -138,6 +152,8 @@ const actions = {
         sidebarRef.get().then((doc) => {
           if (doc.exists) {
             context.commit('setSidebar', doc.data().content)
+          } else {
+            context.commit('setSidebar', null)
           }
         })
       } else {
