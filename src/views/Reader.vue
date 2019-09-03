@@ -34,7 +34,7 @@
             color="primary">{{$t('editSidebar')}}</v-btn>
             </div>
         </v-flex>
-        <v-flex xs12 md4>
+        <v-flex xs12>
           <CardLastChanges/>
         </v-flex>
       </v-layout>

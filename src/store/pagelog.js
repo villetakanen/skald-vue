@@ -12,7 +12,7 @@ const getters = {
    * Returns pagelog (filtered with user if needed)
    */
   latest: (context) => (count) => {
-    const latestArray = context.all // .reverse()
+    const latestArray = context.all// .reverse()
     if (count === null) count = 10
     if (count > context.all.length) count = context.all.length
     return latestArray.slice(0, count)
@@ -26,16 +26,19 @@ const mutations = {
     // Add to all if not found
     if (context.all.length === 0) context.all.push(data)
     else {
-      var found = false
-      for (const i in context.all) {
-        if (context.all[i].siteid + '.' + context.all[i].pageid === data.siteid + '.' + data.pageid) {
-          found = true
-          context.all[i] = data
+      var filtered = context.all.filter((value, index, arr) => {
+        if ((value.siteid + '.' + value.pageid) === (data.siteid + '.' + data.pageid)) {
+          console.log('found, replacing', value.pageid)
+          return false
         }
-      }
-      if (!found) context.all.push(data)
+        return true
+      })
+      filtered = filtered.reverse()
+      filtered.push(data)
+      filtered = filtered.reverse()
+      Vue.set(context, 'all', filtered)
     }
-    // console.log('context.all:', context.all)
+    console.log('context.all', context.all)
 
     // console.log('patchLog', data)
     var l = context.latest
@@ -69,7 +72,7 @@ const actions = {
 
     const db = firebase.firestore()
 
-    db.collection('pagelog').orderBy('timestamp', 'desc').limit(20).get().then((querySnapshot) => {
+    db.collection('pagelog').orderBy('timestamp', 'asc').limit(20).get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         context.commit('patchLog', { data: doc.data() })
       })
@@ -110,8 +113,7 @@ const actions = {
     const db = firebase.firestore()
     var logRef = db.collection('pagelog').doc(siteid + '.' + pageid)
     logRef.set(log).then((a) => {
-      console.log('log set', a)
-      context.commit('patchLog', { data: log })
+      context.dispatch('init')
     })
   }
 }
