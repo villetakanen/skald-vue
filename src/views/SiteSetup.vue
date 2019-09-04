@@ -74,7 +74,7 @@ export default {
     },
     themes () {
       return ['Skald', 'DD5', 'Modern', 'Scifi',
-        'Silvertide']
+        'Silvertide', 'Quick']
     },
     selectedTheme: {
       get () {

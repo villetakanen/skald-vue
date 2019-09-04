@@ -1,8 +1,8 @@
 <template>
   <div :style="wide">
     <img style="max-width:100%; max-height:100%" v-if="!loading" :src="url"/>
-    <p v-if="loading"><i>{{message}}</i>
-      &nbsp;<v-btn @click="dialog=!dialog" color="primary" text>upload it</v-btn>
+    <p v-if="loading && !view"><i>{{message}}</i>
+      &nbsp;<v-btn v-if="!view" @click="dialog=!dialog" color="primary" text>upload it</v-btn>
     </p>
     <v-dialog
       v-model="dialog"
@@ -21,7 +21,8 @@ import CardFileUpload from './CardFileUpload'
 export default {
   props: [
     'wide',
-    'path'
+    'path',
+    'view'
   ],
   components: {
     CardFileUpload
