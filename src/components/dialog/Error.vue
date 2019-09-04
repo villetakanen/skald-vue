@@ -5,7 +5,7 @@
         <v-container>
           <v-layout wrap>
             <v-flex xs12 md2>
-              <img style="max-height:128px;max-width:128px;float:left" src="../../assets/noun_w_manyeyes.svg"/>
+              <img alt="m" style="max-height:128px;max-width:128px;float:left" src="../../assets/noun_w_manyeyes.svg"/>
             </v-flex>
             <v-flex xs12 md10>
         <h1 style="font-weight:300;margin-bottom:8px">{{$t('accessDeniedToSiteTitle')}}</h1>

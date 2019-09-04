@@ -39,7 +39,7 @@
               <v-btn color="primary" @click="logout">{{$t("logout")}}</v-btn>
             </v-toolbar>
             <v-card-text>
-              <img v-bind:src="user.photoURL" style="height:64px;width:64px"/><br/>
+              <img alt="avatar" v-bind:src="user.photoURL" style="height:64px;width:64px"/><br/>
               displayName: {{user.displayName}} <br/>
               email: {{user.email}} <br/>
               uid: {{user.uid}} <br/>

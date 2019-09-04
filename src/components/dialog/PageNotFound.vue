@@ -4,12 +4,12 @@
         <v-container>
           <v-layout wrap>
             <v-flex xs12 md2>
-              <img style="max-height:128px;max-width:128px" src="../../assets/noun_Monster_693509.svg"/>
+              <img alt="i" style="max-height:128px;max-width:128px" src="../../assets/noun_Monster_693509.svg"/>
             </v-flex>
             <v-flex xs12 md10>
               <h1 style="font-weight:300;margin-bottom:8px">{{$t('pageNotFound')}}</h1>
               <p>{{$t('pnf-createPageUp')}}<br/>
-              <b style="color:primary">{{siteid}}/{{pageid}}</b><br/>
+              <strong style="color:primary">{{siteid}}/{{pageid}}</strong><br/>
               {{$t('pnf-createPageDown')}}</p>
             </v-flex>
           </v-layout>

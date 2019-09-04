@@ -34,7 +34,7 @@
               large
               color="primary"
               @click="socialGoogleLogin">
-              <img style="width:28px" src="../assets/google-logo.svg"/>
+              <img alt="google logo" style="width:28px" src="../assets/google-logo.svg"/>
               <span style="padding-left:11px">{{$t("loginSignWithGoogle")}}</span>
             </v-btn>
 

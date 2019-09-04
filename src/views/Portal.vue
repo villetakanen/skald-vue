@@ -1,9 +1,6 @@
 <template>
   <div>
     <CardReader siteid='skald' pageid='skald' title='Demo' content='# header!'/>
-    <img class="monster" src="../assets/noun_Monster_693509.svg"/>
-    <img class="monster" src="../assets/noun_Monster_57335.svg"/>
-    <img class="monster" src="../assets/noun_Cat_37446.svg"/>
 
     <template v-for="(page, index) in latestChanges">
       <p v-bind:key="index">{{page.pageid}}</p>

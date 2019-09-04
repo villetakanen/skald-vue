@@ -3,7 +3,7 @@
     <v-card-title>Upload attachment</v-card-title>
     <v-card-text>
       <v-file-input ref="file" v-model="file2"></v-file-input>
-      <img id="demoimg" height="200"/>
+      <img id="demoimg" alt="demo" height="200"/>
     </v-card-text>
     <v-card-actions>
       <v-btn color="primary" outlined @click="upload">Upload</v-btn>

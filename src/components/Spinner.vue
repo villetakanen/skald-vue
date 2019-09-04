@@ -1,8 +1,8 @@
 <template>
     <div class="spinner">
-         <img class="monster" src="../assets/noun_Monster_693509.svg"/>
-         <img class="monster" src="../assets/noun_Monster_57335.svg"/>
-         <img class="monster" src="../assets/noun_Cat_37446.svg"/>
+         <img alt="i" class="monster" src="../assets/noun_Monster_693509.svg"/>
+         <img alt="a" class="monster" src="../assets/noun_Monster_57335.svg"/>
+         <img alt="m" class="monster" src="../assets/noun_Cat_37446.svg"/>
         <div class="stext">{{text}}</div>
     </div>
 </template>
