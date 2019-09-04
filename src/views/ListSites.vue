@@ -106,4 +106,9 @@ div.Quick.v-card .v-card__title a {
   text-decoration: none;
   color: black;
 }
+div.Hood.v-card,
+div.DD5.v-card {
+  background-image: url('../assets/37540659.png');
+  background-repeat: repeat;
+}
 </style>
