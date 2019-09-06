@@ -6,6 +6,9 @@ const pwaArgs = {
   msTileColor: manifestJSON.background_color
 }
 module.exports = {
+  css: {
+    modules: true
+  },
   pluginOptions: {
     i18n: {
       locale: 'en',

@@ -106,6 +106,11 @@ export default {
   }
 }
 </script>
+<style lang="sass">
+@import './styles/hood.css'
+@import './styles/quick.css'
+
+</style>
 <style soped>
 .subtitle {
   font-size: 16px;

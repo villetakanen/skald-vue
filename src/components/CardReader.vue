@@ -1,10 +1,11 @@
 <template>
   <v-card
-    outlined>
+    outlined
+    :class="theme">
     <v-toolbar
       dense
       flat
-      style="border-bottom:solid 1px #efefef;">
+      >
 
       <v-toolbar-title>{{title}}</v-toolbar-title>
 
@@ -40,7 +41,6 @@ export default {
     'pageid',
     'siteid',
     'title',
-    'theme',
     'content'
   ],
   computed: {
@@ -60,6 +60,9 @@ export default {
       if (t === null) return '-'
       const s = t.toISOString().split('T')
       return s[0] + ' ' + s[1].substring(0, 8)
+    },
+    theme () {
+      return this.$store.getters['binder/theme']()
     }
   },
   components: {

@@ -21,14 +21,14 @@
       </v-flex>
       <template v-for="(site, index) in list">
         <v-flex xs6 md3 v-bind:key="index">
-          <v-card :class="site.theme">
-            <v-card-title><router-link :to="`/v/${index}`">{{site.siteid}}.</router-link></v-card-title>
+          <v-card :class="site.theme" rounded>
+            <v-card-title><router-link :to="`/v/${index}`">{{site.name}}</router-link></v-card-title>
             <v-card-text>
               <p><router-link :to="`/v/${index}`">{{index}}</router-link></p>
-              <ViewAttachment :path="`/${index}/logo.png`" view="true"/>
+              <router-link :to="`/v/${index}`"><ViewAttachment :path="`/${index}/logo.png`" view="true"/></router-link>
               <p>theme: {{site.theme}}<br/>
-              locked: {{site.writelock}}<br/>
-              hidden: {{site.hidden}}</p>
+              <v-icon v-if="site.writelock">mdi-pencil-lock</v-icon>
+              <v-icon v-if="site.hidden">mdi-eye-off</v-icon></p>
               </v-card-text>
           </v-card>
         </v-flex>
@@ -98,17 +98,7 @@ div.Scifi.v-card .v-card__text {
   background-color: #424242;
   color: #aef
 }
-div.Quick.v-card h1,
-div.Quick.v-card .v-card__title,
-div.Quick.v-card .v-card__title a {
-  font-family: Lato, Arial, Helvetica, sans-serif;
-  text-transform: uppercase;
+div.v-card a {
   text-decoration: none;
-  color: black;
-}
-div.Hood.v-card,
-div.DD5.v-card {
-  background-image: url('../assets/37540659.png');
-  background-repeat: repeat;
 }
 </style>

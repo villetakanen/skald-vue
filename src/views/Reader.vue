@@ -17,7 +17,6 @@
         <v-flex xs12 md8>
           <CardReader
             :content='page'
-            :theme='theme'
             :siteid='siteid'
             :pageid='pageid'
             :title="title"/>

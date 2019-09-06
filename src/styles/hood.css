@@ -1,0 +1,9 @@
+div.Hood.v-card,
+div.DD5.v-card {
+  background-image: url('../assets/37540659.png');
+  background-repeat: repeat;
+}
+div.Hood header.v-sheet{
+  background: none;
+  border-bottom: solid 1px darkgreen;
+}

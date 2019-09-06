@@ -14,7 +14,8 @@ const state = {
   content: null,
   title: null,
   sidebar: null,
-  siteid: null
+  siteid: null,
+  theme: null
 }
 
 const getters = {
@@ -48,6 +49,14 @@ const getters = {
   siteid: (context) => () => {
     if (context.siteid === null) return 'skald'
     return context.sideid
+  },
+
+  /**
+   * Returns current theme
+   */
+  theme: (context) => () => {
+    if (context.theme === null) return 'skald'
+    return context.theme
   },
 
   /**
@@ -102,6 +111,10 @@ const mutations = {
   setSiteid (context, data) {
     if (context.siteid === data) return
     Vue.set(context, 'siteid', data)
+  },
+  setTheme (context, data) {
+    if (!exists(data)) Vue.set(context, 'theme', null)
+    else Vue.set(context, 'theme', data)
   }
 }
 const actions = {
@@ -140,6 +153,7 @@ const actions = {
         context.commit('patchSites', { id: siteid, data: doc.data() })
         context.commit('setSite', siteid)
         context.commit('setSiteid', siteid)
+        context.commit('setTheme', doc.data().theme)
         const pageRef = siteRef.collection('pages').doc(pageid)
         pageRef.get().then((doc) => {
           if (doc.exists) {

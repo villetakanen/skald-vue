@@ -1,0 +1,12 @@
+div.Quick.v-card h1,
+div.Quick.v-card .v-card__title,
+div.Quick.v-card .v-card__title a {
+  font-family: Lato, Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: black;
+}
+div.Quick header.v-sheet{
+    background: none;
+    border-bottom: solid 1px black;
+  }
